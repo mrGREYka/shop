@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Signup;
 
 class SiteController extends Controller
 {
@@ -54,75 +55,77 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
+    
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect( ['/site/login'] );
+        } else {
+            return $this->render('index');
+        }    
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
+    
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        if ( Yii::$app->user->isGuest ) {
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+            $model = new LoginForm();
+            if ( $model->load( Yii::$app->request->post( ) ) && $model->login( ) ) {
+                return $this->redirect( ['/'] ) ;
+            }
 
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+            $model->password = '';
+            return $this->render('login', [
+                'model' => $model,
+            ]);
+            
+        } else {
+            
+            return $this->redirect( ['/'] ) ;        
+
+        }
     }
 
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
+    
     public function actionLogout()
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect( ['/site/login'] ) ;
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
+    public function actionSignup( )
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
+        if ( Yii::$app->user->isGuest ) {
 
-            return $this->refresh();
+            $model = new Signup();
+            
+            if (isset( $_POST[ 'Signup' ] )) {
+                $model->attributes = Yii::$app->request->post( 'Signup' );
+
+                if ( $model->validate( ) && $model->signup( ) )  {
+
+                    Yii::$app->session->setFlash('signup');
+                    $model->contact();
+                    return $this->redirect( [ '/site/login' ] );
+                }
+
+            }
+
+            return $this->render('signup', [ 'model' => $model ] );
+
+        } else {
+            return $this->redirect( ['/'] ) ;
+        }    
+    }
+
+    public function actionDownload($filename)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect( ['/site/login'] ) ;
+        } else {
+            return \Yii::$app->response->sendFile( "c:\\path\\$filename" );
         }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 }
