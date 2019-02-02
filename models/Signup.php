@@ -40,9 +40,9 @@ class Signup extends Model
     {
         Yii::$app->mailer->compose()
             ->setTo($this->email)
-            ->setFrom( 'sergey@shop' )
+            ->setFrom( 'robot@tyulyakov.ru' )
             ->setSubject('Подтверждение регистрации shop.tyulyakov.ru')
-            ->setHTMLBody('Добрый день! Вы зарегистрированы. Пожалуйста не отвечайте на это письмо.' )
+            ->setHTMLBody('<p>Добрый день! Вы зарегистрированы. Пожалуйста не отвечайте на это письмо.</p>' )
             ->send();
             
     }
