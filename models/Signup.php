@@ -38,12 +38,21 @@ class Signup extends Model
 
     public function contact()
     {
+        $adminEmail = Yii::$app->params['adminEmail'];
+
         Yii::$app->mailer->compose()
             ->setTo($this->email)
             ->setFrom( 'robot@tyulyakov.ru' )
             ->setSubject('Подтверждение регистрации shop.tyulyakov.ru')
             ->setHTMLBody('<p>Добрый день! Вы зарегистрированы. Пожалуйста не отвечайте на это письмо.</p>' )
-            ->send();
+            ->send() ;
+
+        Yii::$app->mailer->compose()
+            ->setTo($adminEmail)
+            ->setFrom( 'robot@tyulyakov.ru' )
+            ->setSubject('Новая регистрация shop.tyulyakov.ru')
+            ->setHTMLBody('<p>Добрый день! Зарегистрирован новый пользователь!</p>' )
+            ->send() ;    
             
     }
 }

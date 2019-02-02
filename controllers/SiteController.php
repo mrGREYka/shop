@@ -125,7 +125,8 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect( ['/site/login'] ) ;
         } else {
-            return \Yii::$app->response->sendFile( "c:\\path\\$filename" );
+            $storagePath = Yii::getAlias('@app/files');
+            return \Yii::$app->response->sendFile( "$storagePath/$filename", $filename );
         }
     }
 }

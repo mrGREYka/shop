@@ -17,5 +17,14 @@ $this->title = 'My Yii Application';
             
         </div>
 
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Квартал 2</h2>
+
+                <p><a class="btn btn-default" href="/site/download?filename=work.xlsx">Скачать файл &raquo;</a></p>
+            </div>
+            
+        </div>
+
     </div>
 </div>
