@@ -107,7 +107,10 @@ class SiteController extends Controller
                 if ( $model->validate( ) && $model->signup( ) )  {
 
                     Yii::$app->session->setFlash('signup');
-                    $model->contact();
+
+                    $htmlBody = $this->renderPartial( 'emailToNewUser', [ 'model' => $model, ] );
+
+                    $model->contact($htmlBody );
                     return $this->redirect( [ '/site/login' ] );
                 }
 

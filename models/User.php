@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
@@ -65,4 +66,17 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === $password;
     }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->accessToken = hash('sha256',$this->email.Yii::$app->params['salt']);
+                $this->authKey= hash('sha256',$this->username.Yii::$app->params['salt']);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
