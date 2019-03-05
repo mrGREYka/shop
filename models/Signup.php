@@ -35,6 +35,7 @@ class Signup extends Model
     public $apartment_number;
 
     public $consent;
+    public $consent2;
 
     public $verifyCode;
 
@@ -87,6 +88,7 @@ class Signup extends Model
             ['apartment_number', 'string', ],
 
             ['consent', 'validateConsent' ],
+            ['consent2', 'validateConsent2' ],
 
 
             ['verifyCode', 'captcha', 'message' => 'Код с картинки введен не верно!' ],
@@ -152,6 +154,12 @@ class Signup extends Model
 
     public function validateConsent( $attribute, $params ){
 	    if ($this->consent != 1) {
+            $this->addError( $attribute, 'Необходимо подтверждение!' );
+        }
+    }
+
+    public function validateConsent2( $attribute, $params ){
+        if ($this->consent2 != 1) {
             $this->addError( $attribute, 'Необходимо подтверждение!' );
         }
     }

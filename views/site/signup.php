@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
+
 $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 
-    <h5>Данные создаваемой учетной записи</h5>
+    <h4>Данные создаваемой учетной записи</h4>
     <div class="row">
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
             <?= $form->field($model, 'username' )->textInput([ 'placeholder' => 'логин', 'autofocus' => true]) ?>
@@ -49,17 +50,18 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <h5>Данные участка</h5>
+    <h4>Данные участка (если участков несколько, укажите через запятую)</h4>
     <div class="row">
         <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
             <?= $form->field($model, 'fild_number')->textInput( [ 'placeholder' => 'номер участка' ] ) ?>
         </div>
-        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
-            <?= $form->field($model, 'fild_number_cad')->textInput( [ 'placeholder' => 'кадастровый номер участка' ] ) ?>
+        <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+            <?= $form->field($model, 'fild_number_cad', ['template' => '<div class="input-group"><span class="input-group-addon"><span>50:16:0103043:</span></span>{input}</div>{error}'])->textInput(['placeholder' => 'кадастровый номер участка']) ?>
         </div>
     </div>
 
-    <h5>ФИО</h5>
+
+    <h4>ФИО</h4>
     <div class="row">
         <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
             <?= $form->field($model, 'name_f' )->textInput( [ 'placeholder' => 'фамилия' ] ) ?>
@@ -76,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <h5>Паспортные данные</h5>
+    <h4>Паспортные данные</h4>
     <div class="row">
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
             <?= $form->field($model, 'pass_series')->textInput([ 'placeholder' => 'серия' ]) ?>
@@ -91,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <h5>Адрес</h5>
+    <h4>Адрес</h4>
     <div class="row">
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
             <?= $form->field($model, 'post_code')->textInput([ 'placeholder' => 'индекс' ]) ?>
@@ -148,6 +150,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>С Уставом и нормативными документами ДНП «Воскресенская-Слобода 2» ознакомлен(а), установленные ими правила обязуюсь соблюдать.</p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <?= $form->field($model, 'consent')->checkBox( [ 0, 1 , 'label' => 'подтверждаю все вышесказанное' ]) ?>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <p>Согласно Федеральному закону от 27.07.2006г № 152-ФЗ «О персональных данных» даю своё согласие ДНП «Воскресенская-Слобода 2» на обработку, а именно совершение действий, предусмотренных п.3 ст. 3, в том числе с использованием средств автоматизации, моих персональных данных указанных в настоящем Заявлении, любыми не запрещенными законодательством способами, в целях, определенных Уставом ДНП «Воскресенская-Слобода 2» и другими локальными нормативными актами ДНП «Воскресенская–Слобода 2». Настоящее согласие действует со дня его подписания до дня отзыва в письменной форме.</p>
@@ -156,7 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <?= $form->field($model, 'consent')->checkBox( [ 0, 1 , 'label' => 'подтверждаю все вышесказанное' ]) ?>
+            <?= $form->field($model, 'consent2')->checkBox( [ 0, 1 , 'label' => 'согласен' ]) ?>
         </div>
     </div>
 
@@ -164,7 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-    <h5>Каптча</h5>
+    <h4>Каптча (внесите код с картинки)</h4>
     <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                 'template' => '<div class="row"><div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">{input}</div><div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">{image}</div></div>',
                 'options' => [ 'placeholder' => 'текст с картинки', 'class' => 'form-control' ],
