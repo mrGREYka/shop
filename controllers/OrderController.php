@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use app\models\order;
+use app\models\Order;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
