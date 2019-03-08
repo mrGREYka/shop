@@ -39,6 +39,7 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
+                ['label' => 'Заказы', 'url' => ['/order']],
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
@@ -46,7 +47,8 @@ AppAsset::register($this);
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
+                . '</li>',
+
             
             ],
         ]);
@@ -54,7 +56,8 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Регистрация', 'url' => ['/site/signup']],            
+                ['label' => 'Вход', 'url' => ['/site/login']],
+                ['label' => 'Регистрация', 'url' => ['/site/signup']],
             ],
         ]);    
 

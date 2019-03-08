@@ -25,6 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'enableSession' => false,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -35,7 +36,11 @@ $config = [
             //'enableStrictParsing' => true, // строгое соответствие правил
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'order'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiorder',
+                    'only' => [ 'create' ],
+                ],
             ],
         ],
 
