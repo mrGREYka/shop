@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\order;
+use app\models\Order;
 
 /**
  * orderSerch represents the model behind the search form of `app\models\order`.
@@ -44,7 +44,7 @@ class orderSerch extends order
      */
     public function search($params)
     {
-        $query = order::find()->orderBy([ 'created' => SORT_DESC ]);
+        $query = Order::find()->orderBy([ 'created' => SORT_DESC ]);
 
         // add conditions that should always apply here
 
