@@ -44,6 +44,20 @@ class Order extends \yii\db\ActiveRecord
             'created' => 'Дата создания',
             'email' => 'Почта клиента',
             'username' => 'Имя клиента',
+            'phone'  => 'телефон',
+            'address' => 'адрес',
+            'dost' => 'адрес',
+            'datefinish' => 'дата завершения',
+            'timefinish' => 'время завершения',
+            'comment' => 'комментарий',
+            'message' => 'сообщение',
+            'promocode' => 'промокод',
+            'product_id' => 'продукт',
+            'type_id' => 'тип продукта',
+            'taste_id' => 'вкус',
+            'count' => 'количество',
+            'sum' => 'сумма',
+            'has_box' => 'является набором',
         ];
     }
 }

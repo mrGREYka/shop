@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use app\models\Order;
+use app\models\orderSerch;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -50,11 +51,12 @@ class OrderController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect( ['/site/login'] );
         } else {
-            $dataProvider = new ActiveDataProvider([
-                'query' => order::find(),
-            ]);
+
+            $searchModel = new orderSerch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('index', [
+                'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
         }
