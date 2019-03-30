@@ -28,8 +28,25 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['number'], 'integer'],
-            [['email', 'username'], 'string', 'max' => 100],
+            [['number',
+                'dost',
+                'product_id',
+                'type_id',
+                'taste_id',
+                'count',
+                'sum',
+                'has_box'], 'integer'],
+            [['email',
+                'username',
+                'phone',
+                'address',
+                'datefinish',
+                'timefinish',
+                'comment',
+                'message',
+                'promocode',
+                'uri',
+                'url'], 'string', 'max' => 100],
         ];
     }
 
@@ -46,7 +63,7 @@ class Order extends \yii\db\ActiveRecord
             'username' => 'Имя клиента',
             'phone'  => 'телефон',
             'address' => 'адрес',
-            'dost' => 'адрес',
+            'dost' => 'доставка',
             'datefinish' => 'дата завершения',
             'timefinish' => 'время завершения',
             'comment' => 'комментарий',
