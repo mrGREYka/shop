@@ -45,8 +45,11 @@ class Order extends \yii\db\ActiveRecord
                 'comment',
                 'message',
                 'promocode',
+                'product_name',
+                'type_name',
+                'taste_name',
                 'uri',
-                'url'], 'string', 'max' => 100],
+                'url'], 'string', 'max' => 150],
         ];
     }
 
@@ -69,9 +72,12 @@ class Order extends \yii\db\ActiveRecord
             'comment' => 'комментарий',
             'message' => 'сообщение',
             'promocode' => 'промокод',
-            'product_id' => 'продукт',
-            'type_id' => 'тип продукта',
-            'taste_id' => 'вкус',
+            'product_id' => 'ID продукта',
+            'type_id' => 'ID типа продукта',
+            'taste_id' => 'ID вкуса',
+            'product_name' => 'Продукт',
+            'type_name' => 'Тип продукта',
+            'taste_name' => 'Вкус продукта',
             'count' => 'количество',
             'sum' => 'сумма',
             'has_box' => 'является набором',
