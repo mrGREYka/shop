@@ -93,6 +93,7 @@ class OrderController extends Controller
             $model = new order();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $body = file_get_contents("https://sms.ru/sms/send?api_id=97088CD0-2518-83A5-A2D0-8121DA5F515A&to=79263426912&msg=".urlencode("Новый заказ!")."&json=1");
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
