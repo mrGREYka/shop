@@ -93,7 +93,15 @@ class OrderController extends Controller
             $model = new order();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $body = file_get_contents("https://sms.ru/sms/send?api_id=97088CD0-2518-83A5-A2D0-8121DA5F515A&to=79263426912&msg=".urlencode("Новый заказ!")."&json=1");
+
+                $sms_api_key    = '97088CD0-2518-83A5-A2D0-8121DA5F515A';
+                $sms_phone      = '79263426912';
+                //$sms_message    = urlencode('Новый заказ № '.$model->number.' от '.$model->created.'!' );
+                $sms_message    = urlencode('Inchoco.ru: новый заказ № '.$model->number.'!' );
+
+                $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
+                $body           = file_get_contents( $sms_url );
+
                 return $this->redirect(['view', 'id' => $model->id]);
             }
 
