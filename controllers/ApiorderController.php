@@ -2,14 +2,12 @@
 
 namespace app\controllers;
 
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 use yii\filters\auth\HttpBasicAuth;
+use Yii;
 
-class ApiorderController extends ActiveController
+class ApiorderController extends Controller
 {
-    public $modelClass = 'app\models\Order';
-
-
 
     public function behaviors()
     {
@@ -18,5 +16,23 @@ class ApiorderController extends ActiveController
             'class' => HttpBasicAuth::className(),
         ];
         return $behaviors;
+    }
+
+    public function actionNew()
+    {
+       $model = new \app\models\Order();
+
+
+        $model->attributes = Yii::$app->request->post();
+
+        if ( $model->save( ) ) {
+
+            $model->sentSms();
+
+            return $model;
+
+        }
+
+        return false;
     }
 }

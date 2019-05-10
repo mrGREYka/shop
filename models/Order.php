@@ -83,4 +83,13 @@ class Order extends \yii\db\ActiveRecord
             'has_box' => 'является набором',
         ];
     }
+
+    public function sentSms()
+    {
+        $sms_api_key    = '97088CD0-2518-83A5-A2D0-8121DA5F515A';
+        $sms_phone      = '79263426912';
+        $sms_message    = urlencode('Inchoco.ru: новый заказ № '.$this->number.'!' );
+        $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
+        $body           = file_get_contents( $sms_url );
+    }
 }

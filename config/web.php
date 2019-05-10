@@ -39,7 +39,9 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'apiorder',
-                    'only' => [ 'create' ],
+                    'extraPatterns' => [
+                        'POST /' => 'new',
+                    ],
                 ],
             ],
         ],
