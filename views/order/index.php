@@ -29,6 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             'username',
+            'sum',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

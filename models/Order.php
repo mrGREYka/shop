@@ -87,8 +87,14 @@ class Order extends \yii\db\ActiveRecord
     public function sentSms()
     {
         $sms_api_key    = '97088CD0-2518-83A5-A2D0-8121DA5F515A';
-        $sms_phone      = '79263426912';
-        $sms_message    = urlencode('Inchoco.ru: новый заказ № '.$this->number.'!' );
+        $sms_phone      = $this->phone;
+
+        $sms_phone = str_replace("+", "", $sms_phone );
+        $sms_phone = str_replace("(", "", $sms_phone );
+        $sms_phone = str_replace("(", "", $sms_phone );
+        $sms_phone = str_replace("-", "", $sms_phone );
+
+        $sms_message    = urlencode('Ваш заказ №'.$this->number.' на сумму '.$this->sum.' принят. Ожидайте ответ на E-mail.' );
         $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
         $body           = file_get_contents( $sms_url );
     }
