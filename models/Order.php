@@ -86,7 +86,7 @@ class Order extends \yii\db\ActiveRecord
 
     public function sentSms()
     {
-        $sms_api_key    = '97088CD0-2518-83A5-A2D0-8121DA5F515A';
+        $sms_api_key    = '0D285306-FD12-F190-3ED1-3966142C80EB';
         $sms_phone      = $this->phone;
 
         $sms_phone = str_replace("+", "", $sms_phone );
