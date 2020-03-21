@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\partner;
+use app\models\Partner;
 
 /**
  * partnerSerch represents the model behind the search form of `app\models\partner`.
  */
-class partnerSerch extends partner
+class partnerSerch extends Partner
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class partnerSerch extends partner
      */
     public function search($params)
     {
-        $query = partner::find();
+        $query = Partner::find();
 
         // add conditions that should always apply here
 
