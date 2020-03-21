@@ -10,7 +10,7 @@ use app\models\Partner;
 /**
  * partnerSerch represents the model behind the search form of `app\models\partner`.
  */
-class partnerSerch extends Partner
+class PartnerSerch extends Partner
 {
     /**
      * {@inheritdoc}

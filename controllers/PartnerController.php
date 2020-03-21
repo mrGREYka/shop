@@ -4,8 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use app\models\partner;
-use app\models\partnerSerch;
+use app\models\Partner;
+use app\models\PartnerSerch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -50,7 +50,7 @@ class PartnerController extends Controller
         if ( Yii::$app->user->isGuest ) {
             return $this->redirect( ['/site/login'] );
         } else {
-            $searchModel = new partnerSerch();
+            $searchModel = new PartnerSerch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('index', [
@@ -88,7 +88,7 @@ class PartnerController extends Controller
             return $this->redirect( ['/site/login'] );
         } else {
 
-            $model = new partner();
+            $model = new Partner();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -151,7 +151,7 @@ class PartnerController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = partner::findOne($id)) !== null) {
+        if (($model = Partner::findOne($id)) !== null) {
             return $model;
         }
 
