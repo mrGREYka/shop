@@ -14,13 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'number')->textInput() ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [
-        'mask' => '+7(999)999-9999',
-    ]) ?>
-
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'partner_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\Partner::find( )->all( ), 'id', 'name' ),[ 'prompt'=>'Не указан...', ] ) ?>
 
     <?= $form->field($model, 'sum')->textInput() ?>
 

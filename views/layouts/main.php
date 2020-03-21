@@ -39,6 +39,7 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
+                ['label' => 'Партнеры', 'url' => ['/partner']],
                 ['label' => 'Заказы', 'url' => ['/order']],
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

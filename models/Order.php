@@ -28,9 +28,11 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['partner_id'], 'required'],
             [['number',
                 'dost',
                 'product_id',
+                'partner_id',
                 'type_id',
                 'taste_id',
                 'count',
@@ -62,6 +64,7 @@ class Order extends \yii\db\ActiveRecord
             'id' => 'Номер БД',
             'number' => 'Номер',
             'created' => 'Дата создания',
+            'partner_id' => 'Партнер',
             'email' => 'Почта клиента',
             'username' => 'Имя клиента',
             'phone'  => 'телефон',
@@ -84,18 +87,32 @@ class Order extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getPartner( )
+    {
+        return $this->hasOne( Partner::className( ), [ 'id' => 'partner_id' ] );
+    }
+
     public function sentSms()
     {
         $sms_api_key    = '0D285306-FD12-F190-3ED1-3966142C80EB';
-        $sms_phone      = $this->phone;
+
+// используем данную логику, т-к старая архитектура пока используется
+        if ( empty( $this->partner ) ) {
+// если указан партнер в заказе, берем телефон из партнера
+            $sms_phone = $this->phone;
+        } else {
+// если партнер не указан в заказе, берем телефон из заказа
+            $sms_phone = $this->partner->phone;
+        }
 
         $sms_phone = str_replace("+", "", $sms_phone );
         $sms_phone = str_replace("(", "", $sms_phone );
-        $sms_phone = str_replace("(", "", $sms_phone );
+        $sms_phone = str_replace(")", "", $sms_phone );
         $sms_phone = str_replace("-", "", $sms_phone );
 
-        $sms_message    = urlencode('Ваш заказ №'.$this->number.' на сумму '.$this->sum.' принят. Ожидайте ответ на E-mail.' );
+        $sms_message    = urlencode('Ваш заказ №'.$this->number.' на сумму '.$this->sum.'₽ принят. Ожидайте ответ на E-mail.' );
         $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
+
         $body           = file_get_contents( $sms_url );
     }
 }

@@ -13,9 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Создать заказ', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p><?= Html::a('Создать заказ', ['create'], ['class' => 'btn btn-success']) ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,9 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'created',
             'number',
-            'email:email',
-            'phone',
-            'username',
+
+            [
+                'attribute' => 'partner_id',
+                'value' => function($data) {
+                    return $data->partner->name;
+
+                }
+            ],
             'sum',
 
             ['class' => 'yii\grid\ActionColumn'],

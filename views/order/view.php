@@ -31,6 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'created',
             'number',
+            'partner_id',
+            [
+                'attribute' => 'partner_id',
+                'value' => $model->partner->name,
+            ],
             'email:email',
             'username',
             'phone',
