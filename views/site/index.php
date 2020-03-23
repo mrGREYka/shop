@@ -10,6 +10,10 @@ $this->title = 'My Yii Application';
 
         <div class="row">
             <div class="col-lg-4">
+                <h2>Менеджеры</h2>
+                <p><a class="btn btn-default" href="/user">Перейти &raquo;</a></p>
+            </div>
+            <div class="col-lg-4">
                 <h2>Партнеры</h2>
                 <p><a class="btn btn-default" href="/partner">Перейти &raquo;</a></p>
             </div>

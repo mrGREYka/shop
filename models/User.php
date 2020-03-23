@@ -7,7 +7,43 @@ use yii\db\ActiveRecord;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-    
+
+    public static function tableName()
+    {
+        return 'user';
+    }
+
+    public function rules()
+    {
+        return [
+            [['username', 'password'], 'required'],
+            [['status'], 'integer'],
+            [['email',
+                'username',
+                'name_f',
+                'name_i',
+                'name_o',
+                'email',
+                'phone',
+                'password',
+                ], 'string', 'max' => 50],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username ' => 'Логин',
+            'name_f ' => 'Фамилия',
+            'name_i ' => 'Имя',
+            'name_o ' => 'Отчество',
+            'email ' => 'Почта',
+            'phone ' => 'Телефон',
+            'password ' => 'Пароль',
+            'status' => 'Доступ',
+        ];
+    }
+
     public static function findIdentity($id)
     {
         return self::findOne($id);
@@ -48,6 +84,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return $this->authKey;
     }
 
+    public function getOrder( )
+    {
+        return $this->hasMany( Order::className( ), [ 'user_id' => 'id' ] );
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -65,6 +106,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    public function validateStatus()
+    {
+        return $this->status === 1;
     }
 
     public function beforeSave($insert)

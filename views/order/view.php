@@ -31,10 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'created',
             'number',
-            'partner_id',
             [
                 'attribute' => 'partner_id',
                 'value' => $model->partner->name,
+            ],
+            [
+                'attribute' => 'user_id',
+                'value' => $model->user->username,
             ],
             'email:email',
             'username',

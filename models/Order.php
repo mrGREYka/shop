@@ -33,6 +33,7 @@ class Order extends \yii\db\ActiveRecord
                 'dost',
                 'product_id',
                 'partner_id',
+                'user_id',
                 'type_id',
                 'taste_id',
                 'count',
@@ -65,6 +66,7 @@ class Order extends \yii\db\ActiveRecord
             'number' => 'Номер',
             'created' => 'Дата создания',
             'partner_id' => 'Партнер',
+            'user_id' => 'Менеджер',
             'email' => 'Почта клиента',
             'username' => 'Имя клиента',
             'phone'  => 'телефон',
@@ -90,6 +92,11 @@ class Order extends \yii\db\ActiveRecord
     public function getPartner( )
     {
         return $this->hasOne( Partner::className( ), [ 'id' => 'partner_id' ] );
+    }
+
+    public function getUser( )
+    {
+        return $this->hasOne( User::className( ), [ 'id' => 'user_id' ] );
     }
 
     public function sentSms()

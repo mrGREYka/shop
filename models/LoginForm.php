@@ -32,6 +32,8 @@ class LoginForm extends Model
             ['rememberMe', 'boolean', ],
             // password is validated by validatePassword()
             ['password', 'validatePassword', 'message' => 'Неправильный пароль!',],
+            // username is validated by validatePassword()
+            ['username', 'validateStatus', 'message' => 'Пользователь не прошел модерацию!',],
         ];
     }
 
@@ -49,6 +51,17 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Имя пользователя или пароль заданы неверно!');
+            }
+        }
+    }
+
+    public function validateStatus($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+
+            if (!$user || !$user->validateStatus()) {
+                $this->addError($attribute, 'Имя пользователя задано не верно или пользователь не прошел модерацию!');
             }
         }
     }
