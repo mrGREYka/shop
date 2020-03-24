@@ -4,16 +4,16 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use app\models\Partner;
-use app\models\PartnerSerch;
+use app\models\GroupProduct;
+use app\models\GroupProductSerch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PartnerController implements the CRUD actions for partner model.
+ * GroupProductController implements the CRUD actions for GroupProduct model.
  */
-class PartnerController extends Controller
+class GroupproductController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -42,12 +42,12 @@ class PartnerController extends Controller
     }
 
     /**
-     * Lists all partner models.
+     * Lists all GroupProduct models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PartnerSerch();
+        $searchModel = new GroupProductSerch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -57,7 +57,7 @@ class PartnerController extends Controller
     }
 
     /**
-     * Displays a single partner model.
+     * Displays a single GroupProduct model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -70,13 +70,13 @@ class PartnerController extends Controller
     }
 
     /**
-     * Creates a new partner model.
+     * Creates a new GroupProduct model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Partner();
+        $model = new GroupProduct();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -88,7 +88,7 @@ class PartnerController extends Controller
     }
 
     /**
-     * Updates an existing partner model.
+     * Updates an existing GroupProduct model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -108,7 +108,7 @@ class PartnerController extends Controller
     }
 
     /**
-     * Deletes an existing partner model.
+     * Deletes an existing GroupProduct model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -122,15 +122,15 @@ class PartnerController extends Controller
     }
 
     /**
-     * Finds the partner model based on its primary key value.
+     * Finds the GroupProduct model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return partner the loaded model
+     * @return GroupProduct the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Partner::findOne($id)) !== null) {
+        if (($model = GroupProduct::findOne($id)) !== null) {
             return $model;
         }
 

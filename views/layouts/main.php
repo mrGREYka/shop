@@ -41,7 +41,12 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Менеджеры', 'url' => ['/user']],
                 ['label' => 'Партнеры', 'url' => ['/partner']],
-                ['label' => 'Заказы', 'url' => ['/order']],
+                ['label' => 'Продажи', 'url' => ['/#'], 'items' => [
+                    ['label' => 'Заказы', 'url' => ['/order']],
+                    ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
+                    ['label' => 'Товары', 'url' => ['/product']]
+                ],
+                ],
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
