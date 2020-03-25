@@ -23,10 +23,10 @@ class ProductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete'],
+                'only' => ['index','view','create','update','delete','productsofgroup'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','productsofgroup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -128,6 +128,23 @@ class ProductController extends Controller
      * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+    public function actionProductsofgroup($id){
+
+        $rows = Product::find()->where(['group_product_id' => $id])->all();
+
+        if(count($rows)>0){
+            echo "<option>Выбор товара...</option>";
+            foreach($rows as $row){
+                echo "<option value='$row->id'>$row->title</option>";
+            }
+        }
+        else{
+            echo "<option>Отсутствуют товары по группе</option>";
+        }
+
+    }
+
     protected function findModel($id)
     {
         if (($model = Product::findOne($id)) !== null) {

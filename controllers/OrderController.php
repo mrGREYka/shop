@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use app\models\Order;
 use app\models\OrderSerch;
+use app\models\ItemOrder;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -24,10 +25,10 @@ class OrderController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['index','view','create','update','delete'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -48,18 +49,13 @@ class OrderController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect( ['/site/login'] );
-        } else {
+        $searchModel = new OrderSerch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            $searchModel = new OrderSerch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -70,14 +66,8 @@ class OrderController extends Controller
      */
     public function actionView($id)
     {
-        if ( Yii::$app->user->isGuest ) {
-            return $this->redirect( ['/site/login'] );
-        } else {
+        return $this->render('view', [ 'model' => $this->findModel($id), ]);
 
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
     }
 
     /**
@@ -87,22 +77,19 @@ class OrderController extends Controller
      */
     public function actionCreate()
     {
-        if ( Yii::$app->user->isGuest ) {
-            return $this->redirect( ['/site/login'] );
-        } else {
-            $model = new order();
+        $model = new order();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                $model->sentSms();
+            // $model->sentSms(); // не используем, т-к при записи заказа у него еще не будет позиций товароы
 
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -114,19 +101,17 @@ class OrderController extends Controller
      */
     public function actionUpdate($id)
     {
-        if ( Yii::$app->user->isGuest ) {
-            return $this->redirect( ['/site/login'] );
-        } else {
-            $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        $model = $this->findModel($id);
 
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -138,13 +123,28 @@ class OrderController extends Controller
      */
     public function actionDelete($id)
     {
-        if ( Yii::$app->user->isGuest ) {
-            return $this->redirect( ['/site/login'] );
-        } else {
-            $this->findModel($id)->delete();
 
-            return $this->redirect(['index']);
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+
+    }
+
+
+    public function actionCreateitem($id)
+    {
+        $model_item             = new ItemOrder();
+        $model_item->order_id   = $id;
+
+        if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
+
+             return $this->redirect(['view', 'id' => $id]);
         }
+
+        return $this->render('itemcreate', [
+            'model' => $model_item,
+        ]);
+
     }
 
     /**

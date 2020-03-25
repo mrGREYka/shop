@@ -99,6 +99,11 @@ class Order extends \yii\db\ActiveRecord
         return $this->hasOne( User::className( ), [ 'id' => 'user_id' ] );
     }
 
+    public function getItemsorder( )
+    {
+        return $this->hasMany( ItemOrder::className( ), [ 'order_id' => 'id' ] );
+    }
+
     public function sentSms()
     {
         $sms_api_key    = '0D285306-FD12-F190-3ED1-3966142C80EB';

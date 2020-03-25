@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+
+
     </p>
 
     <?= DetailView::widget([
@@ -39,28 +41,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'user_id',
                 'value' => $model->user->username,
             ],
-            'email:email',
-            'username',
-            'phone',
-            'address',
-            'dost',
-            'datefinish',
-            'timefinish',
-            'comment',
-            'message',
-            'promocode',
-            'product_id',
-            'product_name',
-            'type_id',
-            'type_name',
-            'taste_id',
-            'taste_name',
-            'count',
             'sum',
-            'uri',
-            'url',
-            'has_box',
         ],
     ]) ?>
+
+    <?php $itemsorder = $model->itemsorder; ?>
+
+    <h2>Позиции заказа</h2>
+    <p><?= Html::a('Добавить товар', ['createitem', 'id' => $model->id], ['class' => 'btn btn-success']) ?></p>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Группа товаров</th>
+            <th>Товар</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Сумма</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach($itemsorder as $itemorder): ?>
+            <tr>
+                <td></td>
+                <td><?= $itemorder->groupProduct->title ?></td>
+                <td><?= $itemorder->product->title ?></td>
+                <td><?= $itemorder->count ?></td>
+                <td><?= $itemorder->price ?></td>
+                <td><?= $itemorder->sum ?></td>
+
+            </tr>
+        <?php endforeach?>
+
+        </tbody>
+    </table>
 
 </div>

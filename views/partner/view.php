@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $orders = $model->order; ?>
 
     <h2>Заказы партнера</h2>
-    <p><a class="btn btn-success" href="/order/create">Создать заказ</a></p>
+    <p><?= Html::a('Создать заказ', ['/order/create'], ['class' => 'btn btn-success']) ?></p>
+
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
