@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use app\models\ItemOrder;
+use app\controllers\AppController;
+
 use Yii;
 
 /**
@@ -64,28 +67,28 @@ class Order extends \yii\db\ActiveRecord
         return [
             'id' => 'Номер БД',
             'number' => 'Номер',
-            'created' => 'Дата создания',
+            'created' => 'Дата',
             'partner_id' => 'Партнер',
             'user_id' => 'Менеджер',
             'email' => 'Почта клиента',
             'username' => 'Имя клиента',
-            'phone'  => 'телефон',
-            'address' => 'адрес',
-            'dost' => 'доставка',
-            'datefinish' => 'дата завершения',
-            'timefinish' => 'время завершения',
-            'comment' => 'комментарий',
-            'message' => 'сообщение',
-            'promocode' => 'промокод',
+            'phone'  => 'Телефон',
+            'address' => 'Адрес',
+            'dost' => 'Доставка',
+            'datefinish' => 'Дата завершения',
+            'timefinish' => 'Время завершения',
+            'comment' => 'Комментарий',
+            'message' => 'Сообщение',
+            'promocode' => 'Промокод',
             'product_id' => 'ID продукта',
             'type_id' => 'ID типа продукта',
             'taste_id' => 'ID вкуса',
             'product_name' => 'Продукт',
             'type_name' => 'Тип продукта',
             'taste_name' => 'Вкус продукта',
-            'count' => 'количество',
-            'sum' => 'сумма',
-            'has_box' => 'является набором',
+            'count' => 'Количество',
+            'sum' => 'Сумма',
+            'has_box' => 'Является набором',
         ];
     }
 
@@ -102,6 +105,20 @@ class Order extends \yii\db\ActiveRecord
     public function getItemsorder( )
     {
         return $this->hasMany( ItemOrder::className( ), [ 'order_id' => 'id' ] );
+    }
+
+    public function countSum( )
+    {
+
+        $items = ItemOrder::findAll(['order_id' => $this->id]);
+        $total = 0;
+
+        foreach( $items as $itemorder ):
+            $total = $total + $itemorder->sum;
+        endforeach;
+
+        return $total;
+
     }
 
     public function sentSms()

@@ -12,61 +12,67 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="partner-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="row">
+        <div class="col-lg-3 col-xs-12 col-sm-6">
 
-    <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены, что хотите удалить этого партнера?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            <h4><?= Html::encode($this->title) ?></h4>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'email:email',
-            'phone',
-            [
-                'attribute' => 'type',
-                'value' => function($model){ return $model->type == 0 ? '<span class="text-success">Физ. лицо</span>' : '<span class=".text-warning">Юл.лицо</span>'; },
-                'format' => 'html',
-            ],
-        ],
-    ]) ?>
+            <p>
+                <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
+                <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+                    'class' => 'btn-sm btn-danger',
+                    'data' => [
+                        'confirm' => 'Вы уверены, что хотите удалить этого партнера?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
 
-    <?php $orders = $model->order; ?>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'name',
+                    'email:email',
+                    'phone',
+                    [
+                        'attribute' => 'type',
+                        'value' => function($model){ return $model->type == 0 ? '<span class="text-success">Физ. лицо</span>' : '<span class=".text-warning">Юл.лицо</span>'; },
+                        'format' => 'html',
+                    ],
+                ],
+            ]) ?>
+        </div>
 
-    <h2>Заказы партнера</h2>
-    <p><?= Html::a('Создать заказ', ['/order/create'], ['class' => 'btn btn-success']) ?></p>
+        <div class="col-lg-9 col-xs-12 col-sm-6">
 
-    <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Номер БД</th>
-            <th>Номер</th>
-            <th>Сумма</th>
-        </tr>
-        </thead>
-        <tbody>
+            <?php $orders = $model->order; ?>
 
-        <?php foreach($orders as $order): ?>
-            <tr>
-                <td></td>
-                <td><?= $order->id ?></td>
-                <td><?= $order->number ?></td>
-                <td><?= $order->sum ?></td>
-            </tr>
-        <?php endforeach?>
+            <h4>Заказы партнера</h4>
+            <p><?= Html::a('Создать заказ', ['/order/create'], ['class' => 'btn-sm btn-success']) ?></p>
 
-        </tbody>
-    </table>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Номер БД</th>
+                    <th>Номер</th>
+                    <th>Сумма</th>
+                </tr>
+                </thead>
+                <tbody>
 
+                <?php foreach($orders as $order): ?>
+                    <tr>
+                        <td></td>
+                        <td><?= $order->id ?></td>
+                        <td><?= $order->number ?></td>
+                        <td><?= $order->sum ?></td>
+                    </tr>
+                <?php endforeach?>
 
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

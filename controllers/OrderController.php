@@ -20,15 +20,16 @@ class OrderController extends Controller
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete'],
+                'only' => ['index','view','create','update','delete', 'createitem', 'deleteitem'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete', 'createitem', 'deleteitem'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -130,7 +131,6 @@ class OrderController extends Controller
 
     }
 
-
     public function actionCreateitem($id)
     {
         $model_item             = new ItemOrder();
@@ -138,12 +138,30 @@ class OrderController extends Controller
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
+            $order = Order::findOne($id);
+            $order->sum = $order->countSum();
+            $order->save();
+
              return $this->redirect(['view', 'id' => $id]);
         }
 
         return $this->render('itemcreate', [
             'model' => $model_item,
         ]);
+
+    }
+
+    public function actionDeleteitem($id)
+    {
+        $model_item = ItemOrder::findOne($id);
+        $order_id   = $model_item->order_id;
+        $model_item->delete( );
+
+        $order = Order::findOne($order_id);
+        $order->sum = $order->countSum();
+        $order->save();
+
+        return $this->redirect(['view', 'id' => $order_id]);
 
     }
 
