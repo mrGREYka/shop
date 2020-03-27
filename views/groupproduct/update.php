@@ -8,11 +8,9 @@ use yii\helpers\Html;
 $this->title = 'Изменить группу товаров: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Группы товаров', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="group-product-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

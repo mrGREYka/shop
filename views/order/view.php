@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-3 col-xs-12 col-sm-6">
 
-            <p>
+            <div class="form-group">
                 <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
                 <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
                     'class' => 'btn-sm btn-danger',
@@ -28,15 +28,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
 
 
-            </p>
+            </div>
 
 
 
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'created',
-                    'number',
+                    'id',
+                    ['attribute' => 'created', 'format' => ['date', 'php:Y-m-d']],
                     [
                         'attribute' => 'user_id',
                         'value' => $model->user->username,
@@ -49,7 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $itemsorder = $model->itemsorder; ?>
 
         <div class="col-lg-9 col-xs-12 col-sm-6">
-            <p><?= Html::a('Добавить товар', ['createitem', 'id' => $model->id], ['class' => 'btn-sm btn-success']) ?></p>
+            <div class="form-group">
+                <?= Html::a('Добавить товар', ['createitem', 'id' => $model->id], ['class' => 'btn-sm btn-success']) ?>
+            </div>
 
             <table class="table table-bordered table-striped">
                 <thead>
@@ -94,10 +96,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'options' => ['class' => 'table-sm table-bordered table-striped'],
-        'attributes' => [
-                'dost',
-            'type_id',
-            'taste_id',
+        'attributes' =>
+            [ 'dost',
             'count',
             'has_box',
             'address',
@@ -107,11 +107,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'message',
             'promocode',
             'product_name',
+            'product_id',
             'type_name',
+            'type_id',
             'taste_name',
+            'taste_id',
             'uri',
-            'url',
-        ],
+            'url', ],
     ]) ?>
 
 </div>

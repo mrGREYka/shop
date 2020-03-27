@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'group_product_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\GroupProduct::find( )->orderBy("title")->all( ), 'id', 'title' ),[ 'prompt'=>'Не указан...', ] ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

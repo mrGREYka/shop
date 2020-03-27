@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use app\models\Partner;
+use app\models\ItemOrder;
+use app\models\Order;
+use app\models\Product;
 use yii\rest\Controller;
 use yii\filters\auth\HttpBasicAuth;
 use Yii;
@@ -21,7 +24,7 @@ class ApiorderController extends Controller
 
     public function actionNew()
     {
-        $model              = new \app\models\Order();
+        $model              = new Order();
         $model->attributes  = Yii::$app->request->post();
         $partner            = Partner::find()->where(['phone' => $model->phone])->one();
 
@@ -37,6 +40,19 @@ class ApiorderController extends Controller
         $model->partner_id = $partner->id;
 
         if ( $model->save( ) ) {
+
+            $itemOrder = new ItemOrder();
+
+            $product = Product::find()->where(['id' => $model->product_id])->one();
+            $itemOrder->order_id            = $model->id;
+            $itemOrder->product_id          = $product->id;
+            $itemOrder->group_product_id    = $product->group_product_id;
+            $itemOrder->count               = $model->count;
+            $itemOrder->sum                 = $model->sum;
+            $itemOrder->save();
+
+
+
             $model->sentSms();
             return $model;
         }

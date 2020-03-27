@@ -16,11 +16,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
 
-    <?= $form->field($model, 'number') ?>
-
-    <?= $form->field($model, 'email') ?>
-
-    <?= $form->field($model, 'phone') ?>
+    <?= $form->field($model, 'id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

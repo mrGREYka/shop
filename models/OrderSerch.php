@@ -20,8 +20,8 @@ class orderSerch extends order
         return [
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
-            [['number',], 'integer'],
-            [['email', 'phone','username',], 'safe'],
+            [['id','user_id'], 'integer'],
+           // [['partner_id'], 'safe'],
 
         ];
     }
@@ -61,13 +61,14 @@ class orderSerch extends order
         }
 
         // grid filtering conditions
+
         $query->andFilterWhere([
-            'number' => $this->number,
+            'user_id' => $this->user_id,
         ]);
 
-        $query->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'username', $this->username]);
+
+        $query->andFilterWhere(['like', 'id', $this->id]);
+        //$query->andFilterWhere(['like', 'partner_id', $this->partner->name]);
 
         return $dataProvider;
     }

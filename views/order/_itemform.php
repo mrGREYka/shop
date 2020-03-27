@@ -41,7 +41,7 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
     <?= $form->field($model, 'sum')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

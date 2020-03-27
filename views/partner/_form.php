@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'type')->dropDownList( [0 => 'Физ. лицо', 1 => 'Юр. лицо' ] ) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
