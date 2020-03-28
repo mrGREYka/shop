@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSerch */
@@ -29,8 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data) {
                     return $data->groupProduct->title;
 
-                }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'group_product_id', ArrayHelper::map(\app\models\GroupProduct::find()->all(), 'id', 'title'),['class'=>'form-control','prompt' => 'По всем...']),
             ],
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

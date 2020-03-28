@@ -19,6 +19,7 @@ class ProductSerch extends Product
     {
         return [
             [['title'], 'safe'],
+            [['group_product_id'], 'integer'],
         ];
     }
 

@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->user->username;
 
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'Выбрать менеджера...']),
+                'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'По всем...']),
             ],
 
 
