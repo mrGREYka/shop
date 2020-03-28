@@ -18,27 +18,40 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'group_product_id')->dropDownList(
-        $group_poduct,
-        [
-            'prompt'=>'Выбор группы товаров...',
-            'onchange'=>'
-                        $.get( "'.Url::toRoute('/product/productsofgroup').'", { id: $(this).val() } )
-                            .done(function( data ) {
-                                $( "#'.Html::getInputId($model, 'product_id').'" ).html( data );
-                            }
-                        );
-                    '
-        ]
-    ); ?>
+    <div class="row">
+        <div class="col-lg-4 col-xs-9 col-sm-6">
+            <?= $form->field($model, 'group_product_id')->dropDownList(
+                $group_poduct,
+                [
+                    'prompt'=>'Выбор группы товаров...',
+                    'onchange'=>'$.get( "'.Url::toRoute('/product/productsofgroup').'", { id: $(this).val() } )
+                                    .done(function( data ) {
+                                        $( "#'.Html::getInputId($model, 'product_id').'" ).html( data );
+                                    });'
+                ]); ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'product_id')->dropDownList(['prompt'=>'Выбор товара...']) ?>
+    <div class="row">
+        <div class="col-lg-4 col-xs-9 col-sm-6">
+            <?= $form->field($model, 'product_id')->dropDownList(['prompt'=>'Выбор товара...']) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'count')->textInput() ?>
+    <div class="row">
+        <div class="col-lg-1 col-xs-3 col-sm-2">
+            <?= $form->field($model, 'count')->textInput() ?>
+        </div>
+        <div class="col-lg-1 col-xs-3 col-sm-2">
+            <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-lg-1 col-xs-3 col-sm-3">
+            <?= $form->field($model, 'sum')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sum')->textInput(['maxlength' => true]) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>

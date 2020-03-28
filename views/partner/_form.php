@@ -12,15 +12,31 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-lg-3 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-lg-3 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [
-        'mask' => '+7(999)999-9999',
-    ]) ?>
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-6">
+            <?= $form->field($model, 'phone')->widget(\yii\widgets\MaskedInput::className(), [ 'mask' => '+7(999)999-9999', ]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'type')->dropDownList( [0 => 'Физ. лицо', 1 => 'Юр. лицо' ] ) ?>
+
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-6">
+            <?= $form->field($model, 'type')->dropDownList( [0 => 'Физ. лицо', 1 => 'Юр. лицо' ] ) ?>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>

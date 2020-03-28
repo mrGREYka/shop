@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-3 col-xs-12 col-sm-6">
 
-            <h4><?= Html::encode($this->title) ?></h4>
-
             <p>
                 <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
                 <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
@@ -48,25 +46,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $orders = $model->order; ?>
 
-            <h4>Заказы партнера</h4>
             <p><?= Html::a('Создать заказ', ['/order/create'], ['class' => 'btn-sm btn-success']) ?></p>
 
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Номер БД</th>
-                    <th>Номер</th>
+                    <th>Заказ</th>
                     <th>Сумма</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                <?php foreach($orders as $order): ?>
+                <?php
+                $pp = 0;
+                foreach($orders as $order):
+                $pp = $pp + 1 ?>
                     <tr>
-                        <td></td>
-                        <td><?= $order->id ?></td>
-                        <td><?= $order->number ?></td>
+                        <td><?= $pp ?></td>
+                        <td><?= Html::a('Заказ № '.$order->id.' от '.date("Y-m-d", strtotime( $order->created)), ['order/view', 'id' => $order->id] ) ?></td>
                         <td><?= $order->sum ?></td>
                     </tr>
                 <?php endforeach?>

@@ -42,6 +42,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => $model->user->username,
                     ],
                     'sum',
+                    [
+                        'attribute' => 'dost',
+                        'value' => function($model){
+                            if ( $model->dost == 1 ) {
+                                return 'Курьер';
+                            } else if ( $model->dost == 2 ) {
+                                return 'Самовывоз';
+                            } else if ( $model->dost == 3 ) {
+                                return 'Почта России';
+                            }
+                        },
+                        'format' => 'html',
+                    ],
                 ],
             ]) ?>
         </div>
@@ -97,9 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'options' => ['class' => 'table-sm table-bordered table-striped'],
         'attributes' =>
-            [ 'dost',
-            'count',
-            'has_box',
+            [ 'has_box',
             'address',
             'datefinish',
             'timefinish',

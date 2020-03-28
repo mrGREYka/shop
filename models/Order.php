@@ -74,7 +74,7 @@ class Order extends \yii\db\ActiveRecord
             'username' => 'Имя клиента',
             'phone'  => 'Телефон',
             'address' => 'Адрес',
-            'dost' => 'Доставка',
+            'dost' => 'Тип доставки',
             'datefinish' => 'Дата завершения',
             'timefinish' => 'Время завершения',
             'comment' => 'Комментарий',
