@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use app\helpers\StatusOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            ['attribute' => 'created', 'format' => ['date', 'php:Y-m-d']],
+            ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
             [
                 'attribute' => 'partner_id',
                 'value' => function($data) {
@@ -38,6 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'По всем...']),
+            ],
+
+            [
+                'attribute' => 'status',
+                'value' => function (app\models\Order $model) {
+                    return StatusOrderHelper::statusLabel($model->status);
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'status', StatusOrderHelper::statusList(),['class'=>'form-control','prompt' => 'По всем...']),
+                'format' => 'html',
             ],
 
 

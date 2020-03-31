@@ -5,6 +5,7 @@ namespace app\models;
 use app\models\ItemOrder;
 use app\controllers\AppController;
 
+
 use Yii;
 
 /**
@@ -17,6 +18,15 @@ use Yii;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    const STATUS_NEW                = 1;
+    const STATUS_ON_COORDINATION    = 2;
+    const STATUS_AGREED             = 3;
+    const STATUS_PRINTED            = 4;
+    const STATUS_COLLECTED          = 5;
+    const STATUS_IN_DELIVERY        = 6;
+    const STATUS_DELIVERED          = 7;
+    const STATUS_CANCEL             = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +51,8 @@ class Order extends \yii\db\ActiveRecord
                 'taste_id',
                 'count',
                 'sum',
-                'has_box'], 'integer'],
+                'has_box',
+                'status', ], 'integer'],
             [['email',
                 'username',
                 'phone',
@@ -56,6 +67,17 @@ class Order extends \yii\db\ActiveRecord
                 'taste_name',
                 'uri',
                 'url'], 'string', 'max' => 150],
+            ['status', 'default', 'value' => self::STATUS_NEW],
+            ['status', 'in', 'range' => [
+                self::STATUS_NEW,
+                self::STATUS_ON_COORDINATION,
+                self::STATUS_AGREED,
+                self::STATUS_PRINTED,
+                self::STATUS_COLLECTED,
+                self::STATUS_IN_DELIVERY,
+                self::STATUS_DELIVERED,
+                self::STATUS_CANCEL, ]
+            ],
         ];
     }
 
@@ -89,6 +111,7 @@ class Order extends \yii\db\ActiveRecord
             'count' => 'Количество',
             'sum' => 'Сумма',
             'has_box' => 'Является набором',
+            'status' => 'Статус'
         ];
     }
 

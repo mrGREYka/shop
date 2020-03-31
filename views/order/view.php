@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\helpers\StatusOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'id',
-                    ['attribute' => 'created', 'format' => ['date', 'php:Y-m-d']],
+                    ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
                     [
                         'attribute' => 'user_id',
                         'value' => $model->user->username,
@@ -54,6 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         },
                         'format' => 'html',
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'value' => function (app\models\Order $model) {
+                            return StatusOrderHelper::statusLabel($model->status);
+                        },
+                        'format' => 'raw',
                     ],
                 ],
             ]) ?>
@@ -108,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
-        'options' => ['class' => 'table-sm table-bordered table-striped'],
+        'options' => ['class' => 'table table-bordered table-striped'],
         'attributes' =>
             [ 'has_box',
             'address',

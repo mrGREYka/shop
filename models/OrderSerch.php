@@ -20,7 +20,7 @@ class orderSerch extends order
         return [
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
-            [['id','user_id'], 'integer'],
+            [['id','user_id','status'], 'integer'],
            // [['partner_id'], 'safe'],
 
         ];
@@ -64,6 +64,10 @@ class orderSerch extends order
 
         $query->andFilterWhere([
             'user_id' => $this->user_id,
+        ]);
+
+        $query->andFilterWhere([
+            'status' => $this->status,
         ]);
 
 
