@@ -22,7 +22,7 @@ class m190324_001405_moreFieldsOrder2 extends Migration
         $this->addColumn( 'order', 'type_id', $this->integer ( 10 ) );
         $this->addColumn( 'order', 'taste_id', $this->integer ( 10 ) );
         $this->addColumn( 'order', 'count', $this->integer ( 10 ) );
-        $this->addColumn( 'order', 'sum', $this->integer ( 10, 2 ) );
+        $this->addColumn( 'order', 'sum', $this->decimal( 19, 2 ) );
         $this->addColumn( 'order', 'uri', $this->string ( 150 ) );
         $this->addColumn( 'order', 'url', $this->string ( 150 ) );
         $this->addColumn( 'order', 'has_box', $this->integer ( 1 ) );

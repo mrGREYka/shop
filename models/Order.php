@@ -50,9 +50,9 @@ class Order extends \yii\db\ActiveRecord
                 'type_id',
                 'taste_id',
                 'count',
-                'sum',
                 'has_box',
                 'status', ], 'integer'],
+            [['sum'], 'number'],
             [['email',
                 'username',
                 'phone',
@@ -132,16 +132,7 @@ class Order extends \yii\db\ActiveRecord
 
     public function countSum( )
     {
-
-        $items = ItemOrder::findAll(['order_id' => $this->id]);
-        $total = 0;
-
-        foreach( $items as $itemorder ):
-            $total = $total + $itemorder->sum;
-        endforeach;
-
-        return $total;
-
+        return floatval( yii::$app->db->createCommand( "SELECT SUM([[sum]]) FROM {{item_order}} WHERE [[order_id]]=:order_id" )->bindValue( ':order_id', $this->id )->queryScalar());
     }
 
     public function sentSms()
