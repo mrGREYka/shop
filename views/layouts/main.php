@@ -44,7 +44,8 @@ AppAsset::register($this);
                 ['label' => 'Продажи', 'url' => ['/#'], 'items' => [
                     ['label' => 'Заказы', 'url' => ['/order']],
                     ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
-                    ['label' => 'Товары', 'url' => ['/product']]
+                    ['label' => 'Товары', 'url' => ['/product']],
+                    ['label' => 'Вкусы шоколада', 'url' => ['/taste']],
                 ],
                 ],
                 '<li>'

@@ -35,11 +35,12 @@ class ItemOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'group_product_id', 'product_id', 'count'], 'integer'],
+            [['order_id', 'group_product_id', 'product_id', 'taste_id', 'count'], 'integer'],
             [['price', 'sum'], 'number'],
             [['group_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProduct::className(), 'targetAttribute' => ['group_product_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
+            [['taste_id'], 'exist', 'skipOnError' => true, 'targetClass' => Taste::className(), 'targetAttribute' => ['taste_id' => 'id']],
         ];
     }
 
@@ -53,6 +54,7 @@ class ItemOrder extends \yii\db\ActiveRecord
             'order_id' => 'Заказ',
             'group_product_id' => 'Группа товаров',
             'product_id' => 'Товар',
+            'taste_id' => 'Вкус',
             'count' => 'Количество',
             'price' => 'Цена',
             'sum' => 'Сумма',
@@ -81,5 +83,10 @@ class ItemOrder extends \yii\db\ActiveRecord
     public function getProduct()
     {
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
+    }
+
+    public function getTaste()
+    {
+        return $this->hasOne(Taste::className(), ['id' => 'taste_id']);
     }
 }

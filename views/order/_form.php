@@ -24,6 +24,17 @@ use app\helpers\StatusOrderHelper;
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-6 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'comment')->textarea(['rows' => 3]) ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'message')->textarea(['rows' => 3]) ?>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-6">
             <?= $form->field($model, 'dost')->dropDownList( [1 => 'Курьер', 2 => 'Самовывоз', 3 => 'Почта России' ] ) ?>
         </div>

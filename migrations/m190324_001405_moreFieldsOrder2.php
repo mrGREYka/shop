@@ -15,8 +15,8 @@ class m190324_001405_moreFieldsOrder2 extends Migration
         $this->addColumn( 'order', 'dost', $this->integer( 1 )->after( 'address') );
         $this->addColumn( 'order', 'datefinish', $this->string ( 50 )->after( 'dost') );
         $this->addColumn( 'order', 'timefinish', $this->string ( 50 )->after( 'datefinish') );
-        $this->addColumn( 'order', 'comment', $this->string ( 200 )->after( 'timefinish') );
-        $this->addColumn( 'order', 'message', $this->string ( 200 )->after( 'comment') );
+        $this->addColumn( 'order', 'comment', $this->text()->after( 'timefinish') );
+        $this->addColumn( 'order', 'message', $this->text()->after( 'comment') );
         $this->addColumn( 'order', 'promocode', $this->string ( 200 )->after( 'message') );
         $this->addColumn( 'order', 'product_id', $this->integer ( 10 ) );
         $this->addColumn( 'order', 'type_id', $this->integer ( 10 ) );

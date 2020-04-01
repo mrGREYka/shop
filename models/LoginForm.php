@@ -16,6 +16,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $verifyCode;
 
     private $_user = false;
 
@@ -34,6 +35,7 @@ class LoginForm extends Model
             ['password', 'validatePassword', 'message' => 'Неправильный пароль!',],
             // username is validated by validatePassword()
             ['username', 'validateStatus', 'message' => 'Пользователь не прошел модерацию!',],
+            ['verifyCode', 'captcha', 'message' => 'Код с картинки введен не верно!' ],
         ];
     }
 

@@ -12,9 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
-
-    <h4>Заказ № <?= Html::encode($this->title) ?> по клиенту - <?= Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ) ?></h4>
-
+    <h3>Заказ № <?= Html::encode($this->title) ?> по клиенту - <?= Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ) ?></h3>
     <div class="row">
         <div class="col-lg-3 col-xs-12 col-sm-6">
 
@@ -80,6 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>#</th>
                     <th>Группа</th>
                     <th>Товар</th>
+                    <th>Вкус</th>
                     <th>Кол-во</th>
                     <th>Цена</th>
                     <th>Сумма</th>
@@ -89,51 +88,53 @@ $this->params['breadcrumbs'][] = $this->title;
                 </thead>
                 <tbody>
 
-                <?php foreach($itemsorder as $itemorder): ?>
-                    <tr>
-                        <td></td>
-                        <td><?= $itemorder->groupProduct->title ?></td>
-                        <td><?= $itemorder->product->title ?></td>
-                        <td><?= $itemorder->count ?></td>
-                        <td><?= $itemorder->price ?></td>
-                        <td><?= $itemorder->sum ?></td>
-                        <td><?= Html::a('Удалить', ['deleteitem', 'id' => $itemorder->id], ['class' => 'btn-sm btn-danger',
-                                'data' => [
-                                    'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
-                                    'method' => 'post',
-                                ],]) ?></td>
-
-                    </tr>
+                <?php
+                    $number_row = 0;
+                    foreach($itemsorder as $itemorder):
+                        $number_row++; ?>
+                        <tr>
+                            <td><?= $number_row ?></td>
+                            <td><?= $itemorder->groupProduct->title ?></td>
+                            <td><?= $itemorder->product->title ?></td>
+                            <td><?= $itemorder->taste->title ?></td>
+                            <td><?= $itemorder->count ?></td>
+                            <td><?= $itemorder->price ?></td>
+                            <td><?= $itemorder->sum ?></td>
+                            <td><?= Html::a('Удалить', ['deleteitem', 'id' => $itemorder->id], ['class' => 'btn-sm btn-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
+                                        'method' => 'post',
+                                    ],]) ?></td>
+                        </tr>
                 <?php endforeach?>
 
                 </tbody>
             </table>
         </div>
     </div>
-
-
+    <h4>Сообщение к заказу</h4>
+    <div class="row">
+        <div class="well">
+            <p><?= $model->message; ?></p>
+        </div>
+    </div>
+    <h4>Комментарий к заказу</h4>
+    <div class="row">
+        <div class="well">
+            <p><?= $model->comment; ?></p>
+        </div>
+    </div>
     <h4>Дополнительная информация</h4>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'options' => ['class' => 'table table-bordered table-striped'],
-        'attributes' =>
-            [ 'has_box',
-            'address',
-            'datefinish',
-            'timefinish',
-            'comment',
-            'message',
-            'promocode',
-            'product_name',
-            'product_id',
-            'type_name',
-            'type_id',
-            'taste_name',
-            'taste_id',
-            'uri',
-            'url', ],
-    ]) ?>
-
+    <div class="row">
+        <?= DetailView::widget([
+                'model' => $model,
+            'options' => ['class' => 'table table-bordered table-striped'],
+            'attributes' =>
+                [   'address',
+                    'datefinish',
+                    'timefinish',
+                    'promocode', ],
+            ]) ?>
+    </div>
 </div>
 

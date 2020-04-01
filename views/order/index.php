@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+
 
             'id',
             ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->partner->name;
 
                 },
-                //'filter' => Html::activeInput( 'partner_id', $searchModel, 'partner_id', ['class'=>'form-control'] ),
             ],
 
             [

@@ -6,6 +6,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
 
 $this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,6 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'password')->passwordInput( [ 'placeholder' => 'Ваше пароль' ] ) ?>
 
+        <h4>Каптча (внесите код с картинки)</h4>
+        <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+            'template' => '{input}{image}',
+            'options' => [ 'placeholder' => 'текст с картинки', 'class' => 'form-control' ],
+        ]) ?>
+
         <?= $form->field($model, 'rememberMe')->checkbox([
             'label' => 'запомнить меня',
             'template' => "<div class=\"col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-9\">{error}</div>",
@@ -33,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <div class="col-lg-12">
-                <?= Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Вход', ['class' => 'btn-sm btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
 

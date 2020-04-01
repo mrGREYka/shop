@@ -5,12 +5,14 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\GroupProduct;
+use app\models\Taste;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ItemOrder */
 /* @var $form yii\widgets\ActiveForm */
 
 $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(), 'id', 'title');
+$taste = ArrayHelper::map( Taste::find()->orderBy("title")->all(), 'id', 'title');
 
 ?>
 
@@ -35,6 +37,12 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
     <div class="row">
         <div class="col-lg-4 col-xs-9 col-sm-6">
             <?= $form->field($model, 'product_id')->dropDownList(['prompt'=>'Выбор товара...']) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-xs-9 col-sm-6">
+            <?= $form->field($model, 'taste_id')->dropDownList($taste, ['prompt'=>'Выбор вкуса']) ?>
         </div>
     </div>
 
