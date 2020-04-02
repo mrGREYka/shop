@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\helpers\HasBoxProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -35,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->groupProduct->title;
 
                 }
+            ],
+            [
+                'attribute' => 'has_box',
+                'value' => function (app\models\Product $data) {
+                    return HasBoxProductHelper::statusLabel($data->has_box);
+                },
+                'format' => 'html',
             ],
         ],
     ]) ?>

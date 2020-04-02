@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
+use app\helpers\HasBoxProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSerch */
@@ -30,6 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'group_product_id', ArrayHelper::map(\app\models\GroupProduct::find()->all(), 'id', 'title'),['class'=>'form-control','prompt' => 'По всем...']),
+            ],
+            [
+                'attribute' => 'has_box',
+                'value' => function (app\models\Product $data) {
+                    return HasBoxProductHelper::statusLabel($data->has_box);
+                },
+                'format' => 'html',
             ],
 
 

@@ -16,6 +16,10 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    const HAS_BOX_NO    = 0;
+    const HAS_BOX_YES   = 1;
+
+
     /**
      * {@inheritdoc}
      */
@@ -34,6 +38,12 @@ class Product extends \yii\db\ActiveRecord
             [['group_product_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['group_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProduct::className(), 'targetAttribute' => ['group_product_id' => 'id']],
+            [['has_box'],'integer'],
+            ['has_box', 'default', 'value' => self::HAS_BOX_NO ],
+            ['has_box', 'in', 'range' => [
+                self::HAS_BOX_NO,
+                self::HAS_BOX_YES,
+            ]],
         ];
     }
 
@@ -47,6 +57,7 @@ class Product extends \yii\db\ActiveRecord
             'title' => 'Наименование',
             'content' => 'Описание',
             'group_product_id' => 'Группа товаров',
+            'has_box' => 'Это набор',
         ];
     }
 

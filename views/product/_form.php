@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\helpers\HasBoxProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -27,6 +28,12 @@ use yii\widgets\ActiveForm;
     <div class="row">
         <div class="col-lg-3 col-xs-8 col-sm-6">
             <?= $form->field($model, 'group_product_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\GroupProduct::find( )->orderBy("title")->all( ), 'id', 'title' ),[ 'prompt'=>'Не указан...', ] ) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'has_box')->radioList( HasBoxProductHelper::statusList( ) ) ?>
         </div>
     </div>
 
