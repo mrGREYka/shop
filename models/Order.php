@@ -27,6 +27,12 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_DELIVERED          = 7;
     const STATUS_CANCEL             = 0;
 
+    const TIME_FINISH_10_18         = 0;
+    const TIME_FINISH_10_14         = 1;
+    const TIME_FINISH_14_18         = 2;
+    const TIME_FINISH_18_22         = 3;
+
+
     /**
      * {@inheritdoc}
      */
@@ -67,6 +73,14 @@ class Order extends \yii\db\ActiveRecord
                 'url'], 'string', 'max' => 150],
             [['comment',
                 'message'], 'string'],
+
+            ['timefinish', 'default', 'value' => self::TIME_FINISH_10_18],
+            ['timefinish', 'in', 'range' => [
+                self::TIME_FINISH_10_18,
+                self::TIME_FINISH_10_14,
+                self::TIME_FINISH_14_18,
+                self::TIME_FINISH_18_22, ]
+            ],
             ['status', 'default', 'value' => self::STATUS_NEW],
             ['status', 'in', 'range' => [
                 self::STATUS_NEW,

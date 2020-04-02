@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\helpers\StatusOrderHelper;
+use app\helpers\TimefinishOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -42,11 +43,15 @@ use app\helpers\StatusOrderHelper;
 
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-6">
-            <?= $form->field($model, 'status')->dropDownList(StatusOrderHelper::statusList()) ?>
+            <?= $form->field($model, 'timefinish')->dropDownList(TimefinishOrderHelper::getList()) ?>
         </div>
     </div>
 
-
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-6">
+            <?= $form->field($model, 'status')->dropDownList(StatusOrderHelper::statusList()) ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>

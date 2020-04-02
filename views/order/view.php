@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\helpers\StatusOrderHelper;
+use app\helpers\TimefinishOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -132,7 +133,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' =>
                 [   'address',
                     'datefinish',
-                    'timefinish',
+                    [
+                        'attribute' => 'timefinish',
+                        'value' => function (app\models\Order $model) {
+                            return TimefinishOrderHelper::getLabel($model->timefinish);
+                        },
+                        'format' => 'raw',
+                    ],
+
                     'promocode', ],
             ]) ?>
     </div>

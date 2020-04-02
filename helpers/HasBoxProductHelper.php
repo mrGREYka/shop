@@ -15,7 +15,7 @@ use app\models\Product;
 
 class HasBoxProductHelper
 {
-    public static function statusList()
+    public static function getList()
     {
         return [
             Product::HAS_BOX_YES => 'Да',
@@ -23,12 +23,12 @@ class HasBoxProductHelper
         ];
     }
 
-    public static function statusName($status)
+    public static function getName($status)
     {
-        return ArrayHelper::getValue(self::statusList(), $status);
+        return ArrayHelper::getValue(self::List(), $status);
     }
 
-    public static function statusLabel($status)
+    public static function getLabel($status)
     {
         switch ($status) {
             case Product::HAS_BOX_YES:
@@ -41,7 +41,7 @@ class HasBoxProductHelper
                 $class = 'label label-danger';
         }
 
-        return Html::tag('span', ArrayHelper::getValue(self::statusList(), $status), [
+        return Html::tag('span', ArrayHelper::getValue(self::getList(), $status), [
             'class' => $class,
         ]);
     }

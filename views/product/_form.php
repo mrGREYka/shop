@@ -33,7 +33,7 @@ use app\helpers\HasBoxProductHelper;
 
     <div class="row">
         <div class="col-lg-3 col-xs-8 col-sm-6">
-            <?= $form->field($model, 'has_box')->radioList( HasBoxProductHelper::statusList( ) ) ?>
+            <?= $form->field($model, 'has_box')->radioList( HasBoxProductHelper::getList() ) ?>
         </div>
     </div>
 

@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'has_box',
                 'value' => function (app\models\Product $data) {
-                    return HasBoxProductHelper::statusLabel($data->has_box);
+                    return HasBoxProductHelper::getLabel($data->has_box);
                 },
                 'format' => 'html',
             ],
