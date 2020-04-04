@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\helpers\StatusOrderHelper;
 use app\helpers\TimefinishOrderHelper;
+use app\helpers\DeliveryOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -30,8 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             </div>
 
-
-
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
@@ -44,16 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'sum',
                     [
                         'attribute' => 'dost',
-                        'value' => function($model){
-                            if ( $model->dost == 1 ) {
-                                return 'Курьер';
-                            } else if ( $model->dost == 2 ) {
-                                return 'Самовывоз';
-                            } else if ( $model->dost == 3 ) {
-                                return 'Почта России';
-                            }
+                        'value' => function (app\models\Order $model) {
+                            return DeliveryOrderHelper::getLabel($model->dost);
                         },
-                        'format' => 'html',
+                        'format' => 'raw',
                     ],
                     [
                         'attribute' => 'status',

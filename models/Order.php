@@ -32,6 +32,13 @@ class Order extends \yii\db\ActiveRecord
     const TIME_FINISH_14_18         = 3;
     const TIME_FINISH_18_22         = 4;
 
+    const DELIVERY_COURIER          = 1;
+    const DELIVERY_SDEK_PVZ         = 2;
+    const DELIVERY_MAIL             = 3;
+    const DELIVERY_SDEK_COURIER     = 4;
+    const DELIVERY_OFFICE           = 5;
+
+
 
     /**
      * {@inheritdoc}
@@ -92,6 +99,15 @@ class Order extends \yii\db\ActiveRecord
                 self::STATUS_DELIVERED,
                 self::STATUS_CANCEL, ]
             ],
+            ['dost', 'default', 'value' => self::DELIVERY_COURIER],
+            ['dost', 'in', 'range' => [
+                self::DELIVERY_COURIER,
+                self::DELIVERY_SDEK_PVZ,
+                self::DELIVERY_MAIL,
+                self::DELIVERY_SDEK_COURIER,
+                self::DELIVERY_OFFICE, ]
+            ],
+
         ];
     }
 

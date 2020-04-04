@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\helpers\StatusOrderHelper;
 use app\helpers\TimefinishOrderHelper;
+use app\helpers\DeliveryOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -37,7 +38,7 @@ use app\helpers\TimefinishOrderHelper;
 
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-6">
-            <?= $form->field($model, 'dost')->dropDownList( [1 => 'Курьер', 2 => 'Самовывоз', 3 => 'Почта России' ] ) ?>
+            <?= $form->field($model, 'dost')->dropDownList( DeliveryOrderHelper::getList() ) ?>
         </div>
     </div>
 
