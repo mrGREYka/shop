@@ -52,6 +52,7 @@ class OrderController extends Controller
     {
         $searchModel = new OrderSerch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 12];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -76,7 +77,7 @@ class OrderController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($partner_id = null )
     {
         $model = new order();
 
@@ -85,6 +86,10 @@ class OrderController extends Controller
             // $model->sentSms(); // не используем, т-к при записи заказа у него еще не будет позиций товароы
 
             return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        if ( $partner_id != null ) {
+            $model->partner_id = $partner_id;
         }
 
         return $this->render('create', [

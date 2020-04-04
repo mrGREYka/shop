@@ -24,10 +24,10 @@ class GroupproductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete', 'createtastegroupproduct'],
+                'only' => ['index','view','create','update','delete', 'createtaste', 'deletetaste' ],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete', 'createtaste', 'deletetaste'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

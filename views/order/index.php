@@ -19,10 +19,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-
-
-            'id',
-            ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
+            [
+                'attribute' => 'id',
+                'value' => function($data) {
+                    return Html::a('Заказ № '.$data->id, ['order/view', 'id' => $data->id] );
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'created',
+                'format' => ['date', 'php:d-m-Y']
+            ],
             [
                 'attribute' => 'partner_id',
                 'value' => function($data) {
@@ -52,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'sum',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

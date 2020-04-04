@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 use app\helpers\StatusOrderHelper;
 use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
+use app\helpers\PaidOrderHelper;
+use app\helpers\ConsignmentNoteOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -55,6 +57,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                     ],
+                    [
+                        'attribute' => 'paid',
+                        'value' => function (app\models\Order $model) {
+                            return PaidOrderHelper::getLabel($model->paid);
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'consignment_note',
+                        'value' => function (app\models\Order $model) {
+                            return ConsignmentNoteOrderHelper::getLabel($model->consignment_note);
+                        },
+                        'format' => 'raw',
+                    ],
+
+
+
+
                 ],
             ]) ?>
         </div>

@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 use app\helpers\StatusOrderHelper;
 use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
+use app\helpers\PaidOrderHelper;
+use app\helpers\ConsignmentNoteOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -53,6 +55,17 @@ use app\helpers\DeliveryOrderHelper;
             <?= $form->field($model, 'status')->dropDownList(StatusOrderHelper::statusList()) ?>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-3">
+            <?= $form->field($model, 'paid')->radioList( PaidOrderHelper::getList(), [ 'value' => 0 ] ) ?>
+        </div>
+        <div class="col-lg-2 col-xs-4 col-sm-3">
+            <?= $form->field($model, 'consignment_note')->radioList( ConsignmentNoteOrderHelper::getList(), [ 'value' => 0 ] ) ?>
+        </div>
+    </div>
+
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>

@@ -38,7 +38,11 @@ class Order extends \yii\db\ActiveRecord
     const DELIVERY_SDEK_COURIER     = 4;
     const DELIVERY_OFFICE           = 5;
 
+    const PAID_NO                   = 0;
+    const PAID_YES                  = 1;
 
+    const CONSIGNMENT_NOTE_NO       = 0;
+    const CONSIGNMENT_NOTE_YES      = 1;
 
     /**
      * {@inheritdoc}
@@ -64,7 +68,9 @@ class Order extends \yii\db\ActiveRecord
                 'taste_id',
                 'count',
                 'has_box',
-                'status', ], 'integer'],
+                'status',
+                'paid',
+                'consignment_note', ], 'integer'],
             [['sum'], 'number'],
             [['email',
                 'username',
@@ -107,7 +113,16 @@ class Order extends \yii\db\ActiveRecord
                 self::DELIVERY_SDEK_COURIER,
                 self::DELIVERY_OFFICE, ]
             ],
-
+            ['paid', 'default', 'value' => self::PAID_NO],
+            ['paid', 'in', 'range' => [
+                self::PAID_NO,
+                self::PAID_YES, ]
+            ],
+            ['consignment_note', 'default', 'value' => self::CONSIGNMENT_NOTE_NO],
+            ['consignment_note', 'in', 'range' => [
+                self::CONSIGNMENT_NOTE_NO,
+                self::CONSIGNMENT_NOTE_YES, ]
+            ],
         ];
     }
 
@@ -141,7 +156,9 @@ class Order extends \yii\db\ActiveRecord
             'count' => 'Количество',
             'sum' => 'Сумма',
             'has_box' => 'Является набором',
-            'status' => 'Статус'
+            'status' => 'Статус',
+            'paid' => 'Оплачен',
+            'consignment_note' => 'ТНакладная',
         ];
     }
 

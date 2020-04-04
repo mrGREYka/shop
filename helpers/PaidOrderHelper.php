@@ -10,16 +10,16 @@ namespace app\helpers;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use app\models\Product;
+use app\models\Order;
 
 
-class HasBoxProductHelper
+class PaidOrderHelper
 {
     public static function getList()
     {
         return [
-            Product::HAS_BOX_YES => 'Да',
-            Product::HAS_BOX_NO => 'Нет',
+            Order::PAID_YES => 'Да',
+            Order::PAID_NO => 'Нет',
         ];
     }
 
@@ -31,10 +31,10 @@ class HasBoxProductHelper
     public static function getLabel($status)
     {
         switch ($status) {
-            case Product::HAS_BOX_YES:
+            case Order::PAID_YES:
                 $class = 'label label-success';
                 break;
-            case Product::HAS_BOX_NO:
+            case Order::PAID_NO:
                 $class = 'label label-danger';
                 break;
             default:
