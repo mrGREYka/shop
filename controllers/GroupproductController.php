@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use app\models\GroupProduct;
 use app\models\GroupProductSerch;
+use app\models\TasteGroupProduct;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,7 +24,7 @@ class GroupproductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete'],
+                'only' => ['index','view','create','update','delete', 'createtastegroupproduct'],
                 'rules' => [
                     [
                         'actions' => ['index','view','create','update','delete'],
@@ -119,6 +120,31 @@ class GroupproductController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionCreatetaste($id)
+    {
+        $model_TasteGroupProduct                     = new TasteGroupProduct();
+        $model_TasteGroupProduct->group_product_id   = $id;
+
+        if ($model_TasteGroupProduct->load(Yii::$app->request->post()) && $model_TasteGroupProduct->save()) {
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
+        return $this->render('tastegroupproductcreate', [
+            'model' => $model_TasteGroupProduct,
+        ]);
+
+    }
+
+    public function actionDeletetaste($id)
+    {
+        $model_TasteGroupProduct = TasteGroupProduct::findOne($id);
+        $group_product_id   = $model_TasteGroupProduct->group_product_id;
+        $model_TasteGroupProduct->delete( );
+
+        return $this->redirect(['view', 'id' => $group_product_id]);
+
     }
 
     /**

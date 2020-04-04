@@ -12,7 +12,6 @@ use app\models\Taste;
 /* @var $form yii\widgets\ActiveForm */
 
 $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(), 'id', 'title');
-$taste = ArrayHelper::map( Taste::find()->orderBy("title")->all(), 'id', 'title');
 
 ?>
 
@@ -29,6 +28,10 @@ $taste = ArrayHelper::map( Taste::find()->orderBy("title")->all(), 'id', 'title'
                     'onchange'=>'$.get( "'.Url::toRoute('/product/productsofgroup').'", { id: $(this).val() } )
                                     .done(function( data ) {
                                         $( "#'.Html::getInputId($model, 'product_id').'" ).html( data );
+                                    });
+                                    $.get( "'.Url::toRoute('/taste/tastesofgroup').'", { id: $(this).val() } )
+                                    .done(function( data ) {
+                                        $( "#'.Html::getInputId($model, 'taste_id').'" ).html( data );
                                     });'
                 ]); ?>
         </div>
@@ -42,7 +45,7 @@ $taste = ArrayHelper::map( Taste::find()->orderBy("title")->all(), 'id', 'title'
 
     <div class="row">
         <div class="col-lg-4 col-xs-9 col-sm-6">
-            <?= $form->field($model, 'taste_id')->dropDownList($taste, ['prompt'=>'Выбор вкуса']) ?>
+            <?= $form->field($model, 'taste_id')->dropDownList(['prompt'=>'Выбор вкуса']) ?>
         </div>
     </div>
 

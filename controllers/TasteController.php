@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Taste;
+use app\models\TasteGroupProduct;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -23,10 +24,10 @@ class TasteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete'],
+                'only' => ['index','view','create','update','delete','tastesofgroup'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','tastesofgroup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -119,6 +120,25 @@ class TasteController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionTastesofgroup($id){
+
+        $rows = TasteGroupProduct::find()->where(['group_product_id' => $id])->all();
+
+        if(count($rows)>0){
+            $text =  '<option>Выбор вкуса...</option>';
+
+            foreach($rows as $row){
+                $text = $text.'<option value='.$row->taste->id.'>'.$row->taste->title.'</option>';
+            }
+
+            return $text;
+        }
+        else{
+            return '<option>Отсутствуют вкусы по группе</option>';
+        }
+
     }
 
     /**

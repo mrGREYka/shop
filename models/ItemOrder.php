@@ -35,12 +35,22 @@ class ItemOrder extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'group_product_id', 'product_id', 'taste_id', 'count'], 'integer'],
-            [['price', 'sum'], 'number'],
+
+            ['product_id', 'integer', 'message'=>'Не выбран товар!'],
+            ['taste_id', 'integer', 'message'=>'Не выбран вкус товара!'],
+
+            [['order_id', 'group_product_id', 'count'], 'integer'],
+            [['price', 'sum'], 'number', 'message'=>'Укажите число!' ],
             [['group_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProduct::className(), 'targetAttribute' => ['group_product_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['taste_id'], 'exist', 'skipOnError' => true, 'targetClass' => Taste::className(), 'targetAttribute' => ['taste_id' => 'id']],
+
+            ['group_product_id', 'required', 'message'=>'Не выбрана группа товаров!'],
+            ['product_id', 'required', 'message'=>'Не выбран товар!'],
+            ['taste_id', 'required', 'message'=>'Не выбран вкус товара!'],
+            ['count', 'required', 'message'=>'Не указано количество!'],
+            ['sum', 'required', 'message'=>'Не указана сумма!'],
         ];
     }
 

@@ -134,13 +134,14 @@ class ProductController extends Controller
         $rows = Product::find()->where(['group_product_id' => $id])->all();
 
         if(count($rows)>0){
-            echo "<option>Выбор товара...</option>";
+            $text = '<option>Выбор товара...</option>';
             foreach($rows as $row){
-                echo "<option value='$row->id'>$row->title</option>";
+                $text = $text.'<option value='.$row->id.'>'.$row->title.'</option>';
             }
+            return $text;
         }
         else{
-            echo "<option>Отсутствуют товары по группе</option>";
+            return '<option>Отсутствуют товары по группе</option>';
         }
 
     }

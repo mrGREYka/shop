@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\TasteGroupProduct;
 
 /**
  * This is the model class for table "group_product".
@@ -52,5 +53,10 @@ class GroupProduct extends \yii\db\ActiveRecord
     public function getProducts()
     {
         return $this->hasMany(Product::className(), ['group_product_id' => 'id']);
+    }
+
+    public function getTastegroupproduct( )
+    {
+        return $this->hasMany( TasteGroupProduct::className( ), [ 'group_product_id' => 'id' ] );
     }
 }
