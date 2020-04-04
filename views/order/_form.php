@@ -11,6 +11,7 @@ use app\helpers\ConsignmentNoteOrderHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="order-form">
@@ -56,12 +57,15 @@ use app\helpers\ConsignmentNoteOrderHelper;
         </div>
     </div>
 
+
+
+
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-3">
-            <?= $form->field($model, 'paid')->radioList( PaidOrderHelper::getList(), [ 'value' => 0 ] ) ?>
+            <?= $form->field($model, 'paid')->radioList( PaidOrderHelper::getList(), [ 'value' => $model->paid === null ? 0 : $model->paid ] ) ?>
         </div>
         <div class="col-lg-2 col-xs-4 col-sm-3">
-            <?= $form->field($model, 'consignment_note')->radioList( ConsignmentNoteOrderHelper::getList(), [ 'value' => 0 ] ) ?>
+            <?= $form->field($model, 'consignment_note')->radioList( ConsignmentNoteOrderHelper::getList(), [ 'value' => $model->consignment_note === null ? 0 : $model->consignment_note ] ) ?>
         </div>
     </div>
 
