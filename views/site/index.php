@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'CRM InChoco';
 ?>
 <div class="site-index">
     <div class="body-content welcome-page">
