@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\helpers\StatusOrderHelper;
+use kartik\date\DatePicker;
+use app\models\Order;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showFooter' => true,
         'columns' => [
             [
                 'attribute' => 'id',
@@ -28,8 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created',
-                'format' => ['date', 'php:d-m-Y']
+                'format' => ['date', 'php:d-m-Y'],
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'from_date',
+                    'type' => DatePicker::TYPE_RANGE,
+                    'language' => 'ru',
+                    'size' => 'sm',
+                    'attribute2' => 'to_date',
+                    'pluginOptions' => [
+                        'autoclose'=>true,
+                        'format' => 'yyyy-mm-dd'
+                    ]
+                ]),
+
             ],
+
+
             [
                 'attribute' => 'partner_id',
                 'value' => function($data) {
@@ -57,7 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
 
-            'sum',
+            [
+                'attribute' => 'sum',
+                'footer' => Order::getTotal($dataProvider->models, 'sum'),
+            ],
+
+
 
             //['class' => 'yii\grid\ActionColumn'],
         ],

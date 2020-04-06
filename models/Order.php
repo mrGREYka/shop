@@ -185,6 +185,17 @@ class Order extends \yii\db\ActiveRecord
         return floatval( yii::$app->db->createCommand( "SELECT SUM([[sum]]) FROM {{item_order}} WHERE [[order_id]]=:order_id" )->bindValue( ':order_id', $this->id )->queryScalar());
     }
 
+    public static function getTotal($provider, $fieldName)
+    {
+        $total = 0;
+
+        foreach ($provider as $item) {
+            $total += $item[$fieldName];
+        }
+
+        return $total;
+    }
+
     public function sentSms()
     {
         $sms_api_key    = '0D285306-FD12-F190-3ED1-3966142C80EB';

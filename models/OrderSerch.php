@@ -12,7 +12,13 @@ use app\models\Order;
  */
 class orderSerch extends order
 {
+
+    public $from_date;
+    public $to_date;
+
     /**
+     *
+     *
      * {@inheritdoc}
      */
     public function rules()
@@ -20,6 +26,7 @@ class orderSerch extends order
         return [
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
+            [['from_date','to_date'], 'safe'],
             [['id','user_id','status'], 'integer'],
            // [['partner_id'], 'safe'],
 
@@ -72,7 +79,15 @@ class orderSerch extends order
 
 
         $query->andFilterWhere(['like', 'id', $this->id]);
-        //$query->andFilterWhere(['like', 'partner_id', $this->partner->name]);
+
+        /*var_dump( $this->from_date );
+        var_dump(strtotime($this->from_date));
+        var_dump(date("Y-m-d",strtotime($this->from_date)));*/
+
+
+        if ($this->from_date && $this->to_date) {
+            $query->andFilterWhere(['between', 'created', date("Y-m-d", strtotime($this->from_date)), date("Y-m-d", strtotime($this->to_date)+86400)]);
+        };
 
         return $dataProvider;
     }

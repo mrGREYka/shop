@@ -51,8 +51,12 @@ class OrderController extends Controller
     public function actionIndex()
     {
         $searchModel = new OrderSerch();
+
+        /*var_dump(Yii::$app->request->queryParams);
+        die;*/
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination = ['pageSize' => 12];
+        $dataProvider->pagination = ['pageSize' => 20];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
