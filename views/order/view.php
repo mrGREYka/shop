@@ -7,6 +7,7 @@ use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
+use app\helpers\FoilItemOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -93,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Группа</th>
                     <th>Товар</th>
                     <th>Вкус</th>
+                    <th>Фольга</th>
                     <th>Кол-во</th>
                     <th>Цена</th>
                     <th>Сумма</th>
@@ -111,6 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><?= $itemorder->groupProduct->title ?></td>
                             <td><?= $itemorder->product->title ?></td>
                             <td><?= $itemorder->taste->title ?></td>
+                            <td><?= FoilItemOrderHelper::getLabel($itemorder->foil); ?></td>
                             <td><?= $itemorder->count ?></td>
                             <td><?= $itemorder->price ?></td>
                             <td><?= $itemorder->sum ?></td>

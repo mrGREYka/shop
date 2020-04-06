@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\GroupProduct;
 use app\models\Taste;
+use app\helpers\FoilItemOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ItemOrder */
@@ -48,6 +49,15 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
             <?= $form->field($model, 'taste_id')->dropDownList(['prompt'=>'Выбор вкуса']) ?>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-xs-9 col-sm-6">
+            <?= $form->field($model, 'foil')->radioList( FoilItemOrderHelper::getList(), [ 'value' => $model->foil === null ? 1 : $model->foil ] ) ?>
+        </div>
+    </div>
+
+
+
 
     <div class="row">
         <div class="col-lg-1 col-xs-3 col-sm-2">

@@ -12,6 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-create">
 
+    <h4><?= Html::encode($this->title) ?></h4>
+
     <?= $this->render('_itemform', [
         'model' => $model,
     ]) ?>

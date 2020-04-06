@@ -21,6 +21,10 @@ use Yii;
  */
 class ItemOrder extends \yii\db\ActiveRecord
 {
+    const FOIL_SILVER   = 1;
+    const FOIL_GOLD     = 2;
+    const FOIL_MIX      = 3;
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +43,7 @@ class ItemOrder extends \yii\db\ActiveRecord
             ['product_id', 'integer', 'message'=>'Не выбран товар!'],
             ['taste_id', 'integer', 'message'=>'Не выбран вкус товара!'],
 
-            [['order_id', 'group_product_id', 'count'], 'integer'],
+            [['order_id', 'group_product_id', 'count', 'foil'], 'integer'],
             [['price', 'sum'], 'number', 'message'=>'Укажите число!' ],
             [['group_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProduct::className(), 'targetAttribute' => ['group_product_id' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
@@ -51,6 +55,13 @@ class ItemOrder extends \yii\db\ActiveRecord
             ['taste_id', 'required', 'message'=>'Не выбран вкус товара!'],
             ['count', 'required', 'message'=>'Не указано количество!'],
             ['sum', 'required', 'message'=>'Не указана сумма!'],
+
+            ['foil', 'default', 'value' => self::FOIL_SILVER],
+            ['foil', 'in', 'range' => [
+                self::FOIL_SILVER,
+                self::FOIL_GOLD,
+                self::FOIL_MIX, ]
+            ],
         ];
     }
 
@@ -65,6 +76,7 @@ class ItemOrder extends \yii\db\ActiveRecord
             'group_product_id' => 'Группа товаров',
             'product_id' => 'Товар',
             'taste_id' => 'Вкус',
+            'foil' => 'Фольга',
             'count' => 'Количество',
             'price' => 'Цена',
             'sum' => 'Сумма',
