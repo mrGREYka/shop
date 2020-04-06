@@ -27,10 +27,10 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_DELIVERED          = 7;
     const STATUS_CANCEL             = 0;
 
-    const TIME_FINISH_10_18         = 1;
-    const TIME_FINISH_10_14         = 2;
-    const TIME_FINISH_14_18         = 3;
-    const TIME_FINISH_18_22         = 4;
+    const TIME_FINISH_10_18         = 0;
+    const TIME_FINISH_10_14         = 1;
+    const TIME_FINISH_14_18         = 2;
+    const TIME_FINISH_18_22         = 3;
 
     const DELIVERY_COURIER          = 1;
     const DELIVERY_SDEK_PVZ         = 2;
