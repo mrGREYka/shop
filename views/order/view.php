@@ -148,7 +148,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['class' => 'table table-bordered table-striped'],
             'attributes' =>
                 [   'address',
-                    'datefinish',
+                    //'datefinish',
+                    ['attribute' => 'dateend', 'format' => ['date', 'php:d-m-Y']],
                     [
                         'attribute' => 'timefinish',
                         'value' => function (app\models\Order $model) {

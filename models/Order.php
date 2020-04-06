@@ -58,6 +58,8 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['dateend'], 'required'],
+            [['dateend'], 'date', 'format' => 'yyyy-mm-dd'],
             [['partner_id'], 'required'],
             [['number',
                 'dost',
@@ -143,6 +145,7 @@ class Order extends \yii\db\ActiveRecord
             'address' => 'Адрес',
             'dost' => 'Тип доставки',
             'datefinish' => 'Дата завершения',
+            'dateend' => 'Дата завершения',
             'timefinish' => 'Время завершения',
             'comment' => 'Комментарий',
             'message' => 'Сообщение',

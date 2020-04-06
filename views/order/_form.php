@@ -8,6 +8,8 @@ use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
 
+use kartik\date\DatePicker;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,8 +24,6 @@ use app\helpers\ConsignmentNoteOrderHelper;
         <div class="col-lg-3 col-xs-8 col-sm-6">
             <?= $form->field($model, 'partner_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\Partner::find( )->orderBy("name")->all( ), 'id', 'name' ),[ 'prompt'=>'Не указан...', ] ) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-3 col-xs-8 col-sm-6">
             <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
         </div>
@@ -46,11 +46,27 @@ use app\helpers\ConsignmentNoteOrderHelper;
     </div>
 
     <div class="row">
-        <div class="col-lg-2 col-xs-4 col-sm-6">
+        <div class="col-lg-3 col-xs-6 col-sm-6">
+            <?= $form->field($model, 'dateend')->widget(
+                DatePicker::className(),
+                [
+                    'name' => 'datefinish',
+                    'language' => 'ru',
+                    //'value' => date('d-m-Y', strtotime('+2 days')),
+                    'options' => ['placeholder' => 'Выбор даты...'],
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd',
+                        'todayHighlight' => true
+                    ]
+                ]
+
+            ); ?>
+
+        </div>
+        <div class="col-lg-2 col-xs-5 col-sm-6">
             <?= $form->field($model, 'timefinish')->dropDownList(TimefinishOrderHelper::getList()) ?>
         </div>
     </div>
-
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-6">
             <?= $form->field($model, 'status')->dropDownList(StatusOrderHelper::statusList()) ?>
