@@ -72,8 +72,11 @@ class Order extends \yii\db\ActiveRecord
                 'has_box',
                 'status',
                 'paid',
-                'consignment_note', ], 'integer'],
-            [['sum'], 'number'],
+                'consignment_note',
+                'num_pack', ], 'integer'],
+
+            [['sum',
+                'weight',], 'number'],
             [['email',
                 'username',
                 'phone',
@@ -162,6 +165,9 @@ class Order extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'paid' => 'Оплачен',
             'consignment_note' => 'ТНакладная',
+            'num_pack' => 'Кол-во мест',
+            'weight' => 'Вес',
+
         ];
     }
 

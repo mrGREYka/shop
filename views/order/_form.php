@@ -83,6 +83,14 @@ DaDataAppAsset::register($this);
     </div>
 
 
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-3">
+            <?= $form->field($model, 'weight')->textInput(['type' => 'number','step' => 'any']) ?>
+        </div>
+        <div class="col-lg-2 col-xs-4 col-sm-3">
+            <?= $form->field($model, 'num_pack')->textInput(['type' => 'number']) ?>
+        </div>
+    </div>
 
 
     <div class="row">

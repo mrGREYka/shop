@@ -61,13 +61,13 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
 
     <div class="row">
         <div class="col-lg-1 col-xs-3 col-sm-2">
-            <?= $form->field($model, 'count')->textInput() ?>
+            <?= $form->field($model, 'count')->textInput(['type' => 'number'] ) ?>
         </div>
         <div class="col-lg-1 col-xs-3 col-sm-2">
-            <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'price')->textInput(['maxlength' => true,'type' => 'number']) ?>
         </div>
         <div class="col-lg-1 col-xs-3 col-sm-3">
-            <?= $form->field($model, 'sum')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'sum')->textInput(['maxlength' => true,'type' => 'number']) ?>
         </div>
     </div>
 

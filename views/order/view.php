@@ -157,7 +157,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                     ],
-
+                    'num_pack',
+                    'weight',
                     'promocode', ],
             ]) ?>
     </div>
