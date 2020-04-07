@@ -7,8 +7,11 @@ use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
-
 use kartik\date\DatePicker;
+use app\assets\DaDataAppAsset;
+
+
+DaDataAppAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -36,6 +39,12 @@ use kartik\date\DatePicker;
     <div class="row">
         <div class="col-lg-6 col-xs-8 col-sm-6">
             <?= $form->field($model, 'message')->textarea(['rows' => 3]) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'class' => 'dadata form-control']) ?>
         </div>
     </div>
 
