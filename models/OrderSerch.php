@@ -33,6 +33,16 @@ class orderSerch extends order
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'from_date' => 'Дата начала',
+            'to_date' => 'Дата окончания',
+
+
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -85,9 +95,17 @@ class orderSerch extends order
         var_dump(date("Y-m-d",strtotime($this->from_date)));*/
 
 
-        if ($this->from_date && $this->to_date) {
+        /*if ($this->from_date && $this->to_date) {
             $query->andFilterWhere(['between', 'created', date("Y-m-d", strtotime($this->from_date)), date("Y-m-d", strtotime($this->to_date)+86400)]);
-        };
+        };*/
+
+        if ($this->from_date){
+        $query->andFilterWhere(['>=', 'created', date("Y-m-d", strtotime($this->from_date))]);
+            }
+
+        if ($this->to_date){
+            $query->andFilterWhere(['<=', 'created', date("Y-m-d", strtotime($this->to_date)+86400)]);
+        }
 
         return $dataProvider;
     }

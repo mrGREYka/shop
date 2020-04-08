@@ -121,5 +121,8 @@
      background-color: #343a40;
  }
 
+ html.admin .d-none {
+     display: none;
+ }
 
 

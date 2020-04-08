@@ -15,7 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
-    <p><?= Html::a('Создать заказ', ['create'], ['class' => 'btn-sm btn-success']) ?></p>
+    <p><?= Html::a('Создать заказ', ['create'], ['class' => 'btn-sm btn-success']) ?><?= $this->render('_search', ['model' => $searchModel]) ?></p>
+
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -32,18 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created',
                 'format' => ['date', 'php:d-m-Y'],
-                'filter' => DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'from_date',
-                    'type' => DatePicker::TYPE_RANGE,
-                    'language' => 'ru',
-                    'size' => 'sm',
-                    'attribute2' => 'to_date',
-                    'pluginOptions' => [
-                        'autoclose'=>true,
-                        'format' => 'yyyy-mm-dd'
-                    ]
-                ]),
+
 
             ],
 

@@ -92,6 +92,9 @@ class Order extends \yii\db\ActiveRecord
             [['comment',
                 'message'], 'string'],
 
+            ['weight', 'default', 'value' => 0],
+            ['num_pack', 'default', 'value' => 0],
+
             ['timefinish', 'default', 'value' => self::TIME_FINISH_10_18],
             ['timefinish', 'in', 'range' => [
                 self::TIME_FINISH_10_18,
@@ -164,7 +167,7 @@ class Order extends \yii\db\ActiveRecord
             'has_box' => 'Является набором',
             'status' => 'Статус',
             'paid' => 'Оплачен',
-            'consignment_note' => 'ТНакладная',
+            'consignment_note' => 'Накладная',
             'num_pack' => 'Кол-во мест',
             'weight' => 'Вес',
 
@@ -204,7 +207,7 @@ class Order extends \yii\db\ActiveRecord
 
     public function sentSms()
     {
-        $sms_api_key    = '0D285306-FD12-F190-3ED1-3966142C80EB';
+        $sms_api_key    = Yii::$app->params['sms_api'];
 
 // используем данную логику, т-к старая архитектура пока используется
         if ( empty( $this->partner ) ) {
