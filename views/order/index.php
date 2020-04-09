@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
+    <h4><?= Html::encode($this->title) ?></h4>
+
     <p><?= Html::a('Создать заказ', ['create'], ['class' => 'btn-sm btn-success']) ?><?= $this->render('_search', ['model' => $searchModel]) ?></p>
 
 

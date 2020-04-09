@@ -9,6 +9,7 @@ $this->title = 'CRM InChoco';
         <h1>Добро пожаловать, <span><?= Yii::$app->user->identity->username ?></span>.</h1>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/user">Менеджеры</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/partner">Партнеры</a></h2>
+        <h2><a title="Перейти к спискам" class="btn btn-default" href="/contact">Контакты партнеров</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/order">Заказы</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/groupproduct">Группы товаров</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/product">Товары</a></h2>

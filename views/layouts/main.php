@@ -47,6 +47,7 @@ AppAsset::register($this);
             'items' => [
                 ['label' => 'Менеджеры', 'url' => ['/user']],
                 ['label' => 'Партнеры', 'url' => ['/partner']],
+                ['label' => 'Контакты партнеров', 'url' => ['/contact']],
                 ['label' => 'Продажи', 'url' => ['/#'], 'items' => [
                     ['label' => 'Заказы', 'url' => ['/order']],
                     ['label' => 'Группы товаров', 'url' => ['/groupproduct']],

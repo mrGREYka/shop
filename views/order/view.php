@@ -17,7 +17,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']]
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
-    <h3>Заказ № <?= Html::encode($this->title) ?> по клиенту - <?= Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ) ?></h3>
+    <?php if ( !$model->contact ) {
+        echo '<h3>Заказ № '. Html::encode($this->title).' по клиенту - '.Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ).'</h3>';
+    } else {
+        echo '<h3>Заказ № '. Html::encode($this->title).' по клиенту - '.Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ). ' и контакту - '.Html::a($model->contact->name, ['contact/view', 'id' => $model->contact_id] ).'</h3>';
+    } ?>
+
+
     <div class="row">
         <div class="col-lg-3 col-xs-12 col-sm-6">
 

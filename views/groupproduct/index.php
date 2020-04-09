@@ -12,6 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="group-product-index">
 
+    <h4><?= Html::encode($this->title) ?></h4>
+
     <p>
         <?= Html::a('Создать группу товаров', ['create'], ['class' => 'btn-sm btn-success']) ?>
     </p>

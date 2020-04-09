@@ -12,9 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="partner-index">
 
-    <p>
-        <?= Html::a('Создать партнера', ['create'], ['class' => 'btn-sm btn-success']) ?>
-    </p>
+    <h4><?= Html::encode($this->title) ?></h4>
+
+    <p><?= Html::a('Создать партнера', ['create'], ['class' => 'btn-sm btn-success']) ?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
