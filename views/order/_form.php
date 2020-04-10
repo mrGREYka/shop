@@ -51,7 +51,7 @@ DaDataAppAsset::register($this);
                                 ] ) ?>
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
-                        <?= $form->field($model, 'contact_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\Contact::find( )->orderBy("name")->all( ), 'id', 'name' ),[ 'prompt'=>'Не указан...', ] ) ?>
+                        <?= $form->field($model, 'contact_id')->dropDownList( [ ],[ 'prompt'=>'Не указан...', ] ) ?>
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>

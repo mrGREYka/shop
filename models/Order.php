@@ -170,7 +170,7 @@ class Order extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'paid' => 'Оплачен',
             'consignment_note' => 'Накладная',
-            'num_pack' => 'Кол-во мест',
+            'num_pack' => 'Мест',
             'weight' => 'Вес',
 
         ];

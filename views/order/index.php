@@ -4,7 +4,9 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\helpers\StatusOrderHelper;
-use kartik\date\DatePicker;
+use app\helpers\PaidOrderHelper;
+use app\helpers\DeliveryOrderHelper;
+use app\helpers\ConsignmentNoteOrderHelper;
 use app\models\Order;
 
 /* @var $this yii\web\View */
@@ -29,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id',
                 'value' => function($data) {
-                    return Html::a('Заказ № '.$data->id, ['order/view', 'id' => $data->id] );
+                    return Html::a($data->id, ['order/view', 'id' => $data->id] );
                 },
                 'format' => 'html',
             ],
@@ -39,25 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             ],
-
-
-            [
-                'attribute' => 'partner_id',
-                'value' => function($data) {
-                    return $data->partner->name;
-
-                },
-            ],
-
-            [
-                'attribute' => 'user_id',
-                'value' => function($data) {
-                    return $data->user->username;
-
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'По всем...']),
-            ],
-
             [
                 'attribute' => 'status',
                 'value' => function (app\models\Order $model) {
@@ -66,16 +49,61 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList($searchModel, 'status', StatusOrderHelper::statusList(),['class'=>'form-control','prompt' => 'По всем...']),
                 'format' => 'html',
             ],
-
-
             [
                 'attribute' => 'sum',
                 'footer' => Order::getTotal($dataProvider->models, 'sum'),
             ],
+            [
+                'attribute' => 'user_id',
+                'value' => function($data) {
+                    return $data->user->username;
+
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'По всем...']),
+            ],
+            [
+                'attribute' => 'partner_id',
+                'value' => function($data) {
+                    return $data->partner->name;
+
+                },
+            ],
+            [
+                'attribute' => 'dost',
+                'value' => function (app\models\Order $model) {
+                    return DeliveryOrderHelper::getLabel($model->dost);
+                },
+                'format' => 'html',
 
 
+            ],
 
-            //['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'dateend',
+                'format' => ['date', 'php:d-m-Y'],
+
+
+            ],
+            [
+                'attribute' => 'paid',
+                'value' => function (app\models\Order $model) {
+                    return PaidOrderHelper::getLabel($model->paid);
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'consignment_note',
+                'value' => function (app\models\Order $model) {
+                    return ConsignmentNoteOrderHelper::getLabel($model->consignment_note);
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'num_pack',
+            ],
+            [
+                'attribute' => 'weight',
+            ],
         ],
     ]); ?>
 </div>

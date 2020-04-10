@@ -127,7 +127,7 @@ class TasteController extends Controller
         $rows = TasteGroupProduct::find()->where(['group_product_id' => $id])->all();
 
         if(count($rows)>0){
-            $text =  '<option>Выбор вкуса...</option>';
+            $text =  '<option value>Выбор вкуса...</option>';
 
             foreach($rows as $row){
                 $text = $text.'<option value='.$row->taste->id.'>'.$row->taste->title.'</option>';
@@ -136,7 +136,7 @@ class TasteController extends Controller
             return $text;
         }
         else{
-            return '<option>Отсутствуют вкусы по группе</option>';
+            return '<option value>Отсутствуют вкусы по группе</option>';
         }
 
     }

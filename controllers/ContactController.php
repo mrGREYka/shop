@@ -130,14 +130,15 @@ class ContactController extends Controller
         $rows = Contact::find()->where(['partner_id' => $id])->all();
 
         if(count($rows)>0){
-            $text = '<option>Выбор контакта...</option>';
+            $text = '<option value>Не указан...</option>';
             foreach($rows as $row){
-                $text = $text.'<option value='.$row->id.'>'.$row->title.'</option>';
+                $text = $text.'<option value='.$row->id.'>'.$row->name.'</option>';
             }
             return $text;
         }
         else{
-            return '<option>Отсутствуют контакты партнера</option>';
+            return '<option value>Отсутствуют контакты партнера...</option>';
+
         }
 
     }
