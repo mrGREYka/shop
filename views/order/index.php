@@ -104,6 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'weight',
             ],
+            ['class' => 'yii\grid\CheckboxColumn'],
         ],
     ]); ?>
 </div>
