@@ -12,19 +12,12 @@ use app\models\Order;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Заказы';
+$this->title = 'Мои заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
     <h4><?= Html::encode($this->title) ?></h4>
-
-    <p>
-        <?= Html::a('Создать заказ', ['create'], ['class' => 'btn-sm btn-success']) ?>
-        <?= $this->render('_search', ['model' => $searchModel]) ?>
-    </p>
-
-
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -33,10 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'id',
-                'value' => function($data) {
-                    return Html::a($data->id, ['order/view', 'id' => $data->id] );
-                },
-                'format' => 'html',
             ],
             [
                 'attribute' => 'created',
@@ -49,12 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function (app\models\Order $model) {
                     return StatusOrderHelper::statusLabel($model->status);
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'status', StatusOrderHelper::statusList(),['class'=>'form-control','prompt' => 'По всем...']),
                 'format' => 'html',
             ],
             [
                 'attribute' => 'sum',
-                'footer' => Order::getTotal($dataProvider->models, 'sum'),
             ],
             [
                 'attribute' => 'user_id',
@@ -62,7 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->user->username;
 
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'user_id', ArrayHelper::map(\app\models\User::find()->all(), 'ID', 'username'),['class'=>'form-control','prompt' => 'По всем...']),
             ],
             [
                 'attribute' => 'partner_id',

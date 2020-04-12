@@ -10,7 +10,7 @@ use app\models\Order;
 /**
  * orderSerch represents the model behind the search form of `app\models\order`.
  */
-class orderSerch extends order
+class orderPrintSerch extends order
 {
 
     public $from_date;
@@ -26,18 +26,10 @@ class orderSerch extends order
         return [
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
-            [['from_date','to_date'], 'safe'],
-            [['id','user_id','status'], 'integer'],
-           // [['partner_id'], 'safe'],
+            //[['from_date','to_date'], 'safe'],
+            //[['id','user_id'], 'integer'],
+            //[['partner_id'], 'safe'],
 
-        ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'from_date' => 'Дата начала',
-            'to_date' => 'Дата окончания',
         ];
     }
 
@@ -75,25 +67,10 @@ class orderSerch extends order
             return $dataProvider;
         }
 
-        // grid filtering conditions
 
         $query->andFilterWhere([
-            'user_id' => $this->user_id,
+            'status' => Order::STATUS_AGREED,
         ]);
-
-        $query->andFilterWhere([
-            'status' => $this->status,
-        ]);
-
-        $query->andFilterWhere(['like', 'id', $this->id]);
-
-        if ($this->from_date){
-        $query->andFilterWhere(['>=', 'created', date("Y-m-d", strtotime($this->from_date))]);
-            }
-
-        if ($this->to_date){
-            $query->andFilterWhere(['<=', 'created', date("Y-m-d", strtotime($this->to_date)+86400)]);
-        }
 
         return $dataProvider;
     }

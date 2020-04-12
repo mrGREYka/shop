@@ -6,6 +6,9 @@ use Yii;
 use yii\filters\AccessControl;
 use app\models\Order;
 use app\models\OrderSerch;
+use app\models\OrderPrintSerch;
+use app\models\OrderMySerch;
+use app\models\OrderWarehouseSerch;
 use app\models\ItemOrder;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -26,10 +29,10 @@ class OrderController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete', 'createitem', 'deleteitem'],
+                'only' => ['index','view','create','update','delete', 'createitem', 'deleteitem', 'print', 'my', 'warehouse'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete', 'createitem', 'deleteitem'],
+                        'actions' => ['index','view','create','update','delete', 'createitem', 'deleteitem', 'print', 'my', 'warehouse'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -52,9 +55,6 @@ class OrderController extends Controller
     {
         $searchModel = new OrderSerch();
 
-        /*var_dump(Yii::$app->request->queryParams);
-        die;*/
-
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 20];
 
@@ -63,6 +63,47 @@ class OrderController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionPrint()
+    {
+        $searchModel = new OrderPrintSerch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 20];
+
+        return $this->render('print', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionMy()
+    {
+        $searchModel = new OrderMySerch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 20];
+
+        return $this->render('my', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionWarehouse()
+    {
+        $searchModel = new OrderWarehouseSerch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 20];
+
+        return $this->render('warehouse', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
 
     /**
      * Displays a single order model.

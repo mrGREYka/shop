@@ -50,6 +50,9 @@ AppAsset::register($this);
                 ['label' => 'Контакты партнеров', 'url' => ['/contact']],
                 ['label' => 'Продажи', 'url' => ['/#'], 'items' => [
                     ['label' => 'Заказы', 'url' => ['/order']],
+                    ['label' => 'Мои заказы', 'url' => ['/order/my']],
+                    ['label' => 'Заказы на печать', 'url' => ['/order/print']],
+                    ['label' => 'Склад', 'url' => ['/order/warehouse']],
                     ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
                     ['label' => 'Товары', 'url' => ['/product']],
                     ['label' => 'Вкусы шоколада', 'url' => ['/taste']],

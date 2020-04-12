@@ -10,7 +10,7 @@ use app\models\Order;
 /**
  * orderSerch represents the model behind the search form of `app\models\order`.
  */
-class orderSerch extends order
+class OrderMySerch extends order
 {
 
     public $from_date;
@@ -26,9 +26,9 @@ class orderSerch extends order
         return [
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
-            [['from_date','to_date'], 'safe'],
-            [['id','user_id','status'], 'integer'],
-           // [['partner_id'], 'safe'],
+            //[['from_date','to_date'], 'safe'],
+            //[['id'], 'integer'],
+            //[['partner_id'], 'safe'],
 
         ];
     }
@@ -36,8 +36,8 @@ class orderSerch extends order
     public function attributeLabels()
     {
         return [
-            'from_date' => 'Дата начала',
-            'to_date' => 'Дата окончания',
+            //'from_date' => 'Дата начала',
+            //'to_date' => 'Дата окончания',
         ];
     }
 
@@ -59,7 +59,7 @@ class orderSerch extends order
      */
     public function search($params)
     {
-        $query = Order::find()->orderBy([ 'created' => SORT_DESC ]);
+        $query = Order::find()->orderBy(['created' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -78,22 +78,17 @@ class orderSerch extends order
         // grid filtering conditions
 
         $query->andFilterWhere([
-            'user_id' => $this->user_id,
+            'user_id' => Yii::$app->user->identity->id,
         ]);
 
-        $query->andFilterWhere([
-            'status' => $this->status,
+        $query->andFilterWhere(['or',
+            'status='.Order::STATUS_NEW,
+            'status='.Order::STATUS_ON_COORDINATION,
+            'status='.Order::STATUS_AGREED,
+            'status='.Order::STATUS_PRINTED,
+            'status='.Order::STATUS_COLLECTED,
+
         ]);
-
-        $query->andFilterWhere(['like', 'id', $this->id]);
-
-        if ($this->from_date){
-        $query->andFilterWhere(['>=', 'created', date("Y-m-d", strtotime($this->from_date))]);
-            }
-
-        if ($this->to_date){
-            $query->andFilterWhere(['<=', 'created', date("Y-m-d", strtotime($this->to_date)+86400)]);
-        }
 
         return $dataProvider;
     }
