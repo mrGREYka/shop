@@ -8,6 +8,7 @@ use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
+use app\helpers\InteractionOrderHelper;
 use kartik\date\DatePicker;
 use app\assets\DaDataAppAsset;
 
@@ -28,7 +29,7 @@ DaDataAppAsset::register($this);
         <div class="col-lg-6">
             <div class="alert alert-warning">
                 <div class="row">
-                    <div class="col-lg-6 col-xs-4 col-sm-6">
+                    <div class="col-lg-6 col-xs-8 col-sm-8">
                         <?= $form->field($model, 'status',['options' => ['class' => 'form-group-lg']])->dropDownList(StatusOrderHelper::statusList(),[ 'class=>'=>'form-control','onchange'=>'function()']) ?>
                     </div>
 
@@ -56,14 +57,17 @@ DaDataAppAsset::register($this);
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
                     </div>
+                    <div class="col-lg-4 col-xs-5 col-sm-6">
+                        <?= $form->field($model, 'interaction')->dropDownList(InteractionOrderHelper::getList(),[ 'prompt'=>'Не указан...', ]) ?>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-xs-8 col-sm-6">
+                    <div class="col-lg-12 col-xs-12 col-sm-12">
                         <?= $form->field($model, 'comment')->textarea(['rows' => 3]) ?>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-xs-8 col-sm-6">
+                    <div class="col-lg-12 col-xs-12 col-sm-12">
                         <?= $form->field($model, 'message')->textarea(['rows' => 3]) ?>
                     </div>
                 </div>
@@ -78,17 +82,17 @@ DaDataAppAsset::register($this);
 
 
                 <div class="row">
-                    <div class="col-lg-4 col-xs-4 col-sm-6">
+                    <div class="col-lg-5 col-xs-5 col-sm-5">
                         <?= $form->field($model, 'dost')->dropDownList( DeliveryOrderHelper::getList() ) ?>
                     </div>
-                    <div class="col-lg-8 col-xs-8 col-sm-6">
+                    <div class="col-lg-12 col-xs-12 col-sm-12">
                         <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'class' => 'dadata form-control']) ?>
                     </div>
 
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6 col-xs-6 col-sm-6">
+                    <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'dateend')->widget(
                             DatePicker::className(),
                             [
@@ -105,7 +109,7 @@ DaDataAppAsset::register($this);
                         ); ?>
 
                     </div>
-                    <div class="col-lg-4 col-xs-5 col-sm-6">
+                    <div class="col-lg-4 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'timefinish')->dropDownList(TimefinishOrderHelper::getList()) ?>
                     </div>
                 </div>

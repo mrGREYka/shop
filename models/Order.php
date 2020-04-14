@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\models\ItemOrder;
 use app\controllers\AppController;
+use app\helpers\PhoneHelper;
 
 
 use Yii;
@@ -44,6 +45,9 @@ class Order extends \yii\db\ActiveRecord
     const CONSIGNMENT_NOTE_NO       = 0;
     const CONSIGNMENT_NOTE_YES      = 1;
 
+    const INTERACTION_EMAIL         = 1;
+    const INTERACTION_WHATS_APP     = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -60,7 +64,7 @@ class Order extends \yii\db\ActiveRecord
         return [
             [['dateend'], 'required'],
             [['dateend'], 'date', 'format' => 'yyyy-mm-dd'],
-            [['partner_id'], 'required'],
+            [['partner_id', 'interaction'], 'required'],
             [['number',
                 'dost',
                 'product_id',
@@ -74,7 +78,8 @@ class Order extends \yii\db\ActiveRecord
                 'status',
                 'paid',
                 'consignment_note',
-                'num_pack', ], 'integer'],
+                'num_pack',
+                'interaction', ], 'integer'],
 
             [['sum',
                 'weight',], 'number'],
@@ -132,6 +137,12 @@ class Order extends \yii\db\ActiveRecord
                 self::CONSIGNMENT_NOTE_NO,
                 self::CONSIGNMENT_NOTE_YES, ]
             ],
+
+            ['interaction', 'in', 'range' => [
+                self::INTERACTION_EMAIL,
+                self::INTERACTION_WHATS_APP, ]
+            ],
+
         ];
     }
 
@@ -172,6 +183,7 @@ class Order extends \yii\db\ActiveRecord
             'consignment_note' => 'Накладная',
             'num_pack' => 'Мест',
             'weight' => 'Вес',
+            'interaction' => 'Взаимодействие',
 
         ];
     }
@@ -225,10 +237,7 @@ class Order extends \yii\db\ActiveRecord
             $sms_phone = $this->partner->phone;
         }
 
-        $sms_phone = str_replace("+", "", $sms_phone );
-        $sms_phone = str_replace("(", "", $sms_phone );
-        $sms_phone = str_replace(")", "", $sms_phone );
-        $sms_phone = str_replace("-", "", $sms_phone );
+        $sms_phone = PhoneHelper::CleanPhoneNumber($sms_phone);
 
         $sms_message    = urlencode('Ваш заказ №'.$this->id.' на сумму '.$this->sum.'₽ принят. Ожидайте ответ на E-mail.' );
         $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";

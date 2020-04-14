@@ -8,6 +8,7 @@ use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
 use app\helpers\FoilItemOrderHelper;
+use app\helpers\InteractionOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -75,6 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'consignment_note',
                         'value' => function (app\models\Order $model) {
                             return ConsignmentNoteOrderHelper::getLabel($model->consignment_note);
+                        },
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'interaction',
+                        'value' => function (app\models\Order $model) {
+                            return InteractionOrderHelper::getLabel($model->interaction);
                         },
                         'format' => 'raw',
                     ],

@@ -38,6 +38,7 @@ class ApiorderController extends Controller
         }
 
         $model->partner_id = $partner->id;
+        $model->interaction = Order::INTERACTION_EMAIL;
 
         if ( $model->save( ) ) {
 

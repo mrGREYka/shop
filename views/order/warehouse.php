@@ -7,6 +7,8 @@ use app\helpers\StatusOrderHelper;
 use app\helpers\PaidOrderHelper;
 use app\helpers\DeliveryOrderHelper;
 use app\helpers\ConsignmentNoteOrderHelper;
+use app\helpers\TimefinishOrderHelper;
+use app\helpers\PhoneHelper;
 use app\models\Order;
 
 use kartik\export\ExportMenu;
@@ -17,14 +19,62 @@ use kartik\export\ExportMenu;
 $this->title = 'Склад';
 $this->params['breadcrumbs'][] = $this->title;
 
+$gridColumnsXLS = [
+    ['attribute' => 'номер накладной, внутренний №','value' => function (app\models\Order $model) { return $model->id; }, 'format' => 'html', ],
+    ['attribute' => 'дата доставки',           'value' => function (app\models\Order $model) { return $model->created; }, 'format' => ['date', 'php:d.m.Y'], ],
+    ['attribute' => 'Интервал: с',             'value' => function (app\models\Order $model) { return TimefinishOrderHelper::intervalFrom($model->timefinish); }, 'format' => 'html', ],
+    ['attribute' => 'Интервал: до',            'value' => function (app\models\Order $model) { return TimefinishOrderHelper::intervalBy($model->timefinish); }, 'format' => 'html', ],
+    ['attribute' => 'КЛАДР города полученияь', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Адрес получения',         'value' => function (app\models\Order $model) { return $model->address; }, 'format' => 'html', ],
+    ['attribute' => 'Получатель',
+        'value' => function (app\models\Order $model) {
+            if ($model->contact === null) {
+                return $model->partner->name;
+
+            } else {
+                return $model->contact->name;
+            }
+        },
+        'format' => 'html',],
+    ['attribute' => 'Телефон получателя',
+        'value' => function (app\models\Order $model) {
+            if ($model->contact === null) {
+                return PhoneHelper::CleanPhoneNumber($model->partner->phone);
+            } else {
+                return PhoneHelper::CleanPhoneNumber($model->contact->phone);
+            }
+        },
+        'format' => 'html',],
+    ['attribute' => 'Вес отправления',     'value' => function (app\models\Order $model) { return $model->weight; }, 'format' => 'html', ],
+    ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Наложеный платеж',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Комментарий к заказу','value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 3, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'sms- информирование', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Артикул',             'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Описание вложений',   'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Количество',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Стоимость',           'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Ставка НДС',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Мест в заказе',       'value' => function (app\models\Order $model) { return $model->num_pack; }, 'format' => 'html', ],
+    ['attribute' => 'Вскрытие заказа',     'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Частичная выдача',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'примерка',            'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Доп звонок',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Возврат документов',  'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'подъем кгт',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Грузовой лифт',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'этаж',                'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    //['class' => 'yii\grid\CheckboxColumn'],
+];
 
 $gridColumns = [
     'id',
     [
         'attribute' => 'created',
         'format' => ['date', 'php:d-m-Y'],
-
-
     ],
     [
         'attribute' => 'status',
@@ -36,14 +86,14 @@ $gridColumns = [
     'sum',
     [
         'attribute' => 'user_id',
-        'value' => function($data) {
+        'value' => function ($data) {
             return $data->user->username;
 
         },
     ],
     [
         'attribute' => 'partner_id',
-        'value' => function($data) {
+        'value' => function ($data) {
             return $data->partner->name;
 
         },
@@ -68,7 +118,7 @@ $gridColumns = [
         'value' => function (app\models\Order $model) {
             return PaidOrderHelper::getLabel($model->paid);
         },
-        'filter' => Html::activeDropDownList($searchModel, 'paid', PaidOrderHelper::getList(),['class'=>'form-control','prompt' => 'По всем...']),
+        'filter' => Html::activeDropDownList($searchModel, 'paid', PaidOrderHelper::getList(), ['class' => 'form-control', 'prompt' => 'По всем...']),
         'format' => 'html',
     ],
     [
@@ -95,12 +145,13 @@ $gridColumns = [
 
     <?= ExportMenu::widget([
         'dataProvider' => $dataProvider,
-        'columns' => $gridColumns,
+        'columns' => $gridColumnsXLS,
         'exportConfig' => [
             ExportMenu::FORMAT_HTML => false,
             ExportMenu::FORMAT_CSV => false,
             ExportMenu::FORMAT_TEXT => false,
-            ExportMenu::FORMAT_PDF => false
+            ExportMenu::FORMAT_PDF => false,
+            ExportMenu::FORMAT_EXCEL => false,
         ]
     ]); ?>
 

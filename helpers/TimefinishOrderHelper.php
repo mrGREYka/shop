@@ -34,4 +34,48 @@ class TimefinishOrderHelper
     {
         return Html::tag('span', '', [ 'class' => 'glyphicon glyphicon-time', ] ).Html::tag('span', ArrayHelper::getValue(self::getList(), $status), [ 'class' => 'label label-default', ]);
     }
+
+    public static function intervalFrom($status)
+    {
+        switch ($status) {
+            case Order::TIME_FINISH_10_18:
+                $result = 10;
+                break;
+            case Order::TIME_FINISH_10_14:
+                $result = 10;
+                break;
+            case Order::TIME_FINISH_14_18:
+                $result = 14;
+                break;
+            case Order::TIME_FINISH_18_22:
+                $result = 18;
+                break;
+            default:
+                $result = 10;
+        }
+
+        return $result;
+    }
+
+    public static function intervalBy($status)
+    {
+        switch ($status) {
+            case Order::TIME_FINISH_10_18:
+                $result = 18;
+                break;
+            case Order::TIME_FINISH_10_14:
+                $result = 14;
+                break;
+            case Order::TIME_FINISH_14_18:
+                $result = 18;
+                break;
+            case Order::TIME_FINISH_18_22:
+                $result = 22;
+                break;
+            default:
+                $result = 18;
+        }
+
+        return $result;
+    }
 }
