@@ -14,7 +14,13 @@ use app\helpers\InteractionOrderHelper;
 /* @var $model app\models\order */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+
+if ($breadcrumbs_label != null && $breadcrumbs_url != null) {
+    $this->params['breadcrumbs'][] = ['label' => $breadcrumbs_label, 'url' => [$breadcrumbs_url]];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+}
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
@@ -29,7 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-3 col-xs-12 col-sm-6">
 
             <div class="form-group">
-                <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
+                <?=
+                Html::a('Изменить',
+                    ['update', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url, ],
+                    ['class' => 'btn-sm btn-primary'])
+                ?>
                 <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
                     'class' => 'btn-sm btn-danger',
                     'data' => [
@@ -98,7 +108,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="col-lg-9 col-xs-12 col-sm-6">
             <div class="form-group">
-                <?= Html::a('Добавить товар', ['createitem', 'id' => $model->id], ['class' => 'btn-sm btn-success']) ?>
+                <?= Html::a('Добавить товар',
+                    ['createitem', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                    ['class' => 'btn-sm btn-success']) ?>
             </div>
 
             <table class="table table-bordered table-striped">

@@ -7,7 +7,12 @@ use yii\helpers\Html;
 /* @var $model app\models\order */
 
 $this->title = 'Создать позицию заказа';
-$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+if ($breadcrumbs_label != null && $breadcrumbs_url != null) {
+    $this->params['breadcrumbs'][] = ['label' => $breadcrumbs_label, 'url' => [$breadcrumbs_url]];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+}
+$this->params['breadcrumbs'][] = ['label' => $order_id, 'url' => ['view', 'id' => $order_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-create">

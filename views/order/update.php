@@ -6,7 +6,11 @@ use yii\helpers\Html;
 /* @var $model app\models\order */
 
 $this->title = 'Изменение заказа: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+if ($breadcrumbs_label != null && $breadcrumbs_url != null) {
+    $this->params['breadcrumbs'][] = ['label' => $breadcrumbs_label, 'url' => [$breadcrumbs_url]];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Изменить';
 ?>

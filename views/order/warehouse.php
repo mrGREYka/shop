@@ -71,7 +71,14 @@ $gridColumnsXLS = [
 ];
 
 $gridColumns = [
-    'id',
+    [
+        'attribute' => 'id',
+        'value' => function ($data) {
+            return Html::a($data->id, ['order/view', 'id' => $data->id, 'breadcrumbs_label' => 'Склад', 'breadcrumbs_url' => 'warehouse',]);
+        },
+        'format' => 'html',
+    ],
+
     [
         'attribute' => 'created',
         'format' => ['date', 'php:d-m-Y'],

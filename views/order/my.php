@@ -26,6 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'id',
+                'value' => function($data) {
+                    return Html::a($data->id, ['order/view', 'id' => $data->id, 'breadcrumbs_label' => 'Мои заказы', 'breadcrumbs_url' => 'my', ] );
+                },
+                'format' => 'html',
             ],
             [
                 'attribute' => 'created',

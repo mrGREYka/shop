@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id',
                 'value' => function($data) {
-                    return Html::a($data->id, ['order/view', 'id' => $data->id] );
+                    return Html::a($data->id, ['order/view', 'id' => $data->id, 'breadcrumbs_label' => 'Заказы', 'breadcrumbs_url' => 'index', ] );
                 },
                 'format' => 'html',
             ],

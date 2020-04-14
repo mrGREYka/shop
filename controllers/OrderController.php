@@ -111,9 +111,13 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
-        return $this->render('view', [ 'model' => $this->findModel($id), ]);
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+            ]);
 
     }
 
@@ -150,17 +154,23 @@ class OrderController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
 
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view',
+                'id' => $model->id,
+                'breadcrumbs_label' => $breadcrumbs_label,
+                'breadcrumbs_url' => $breadcrumbs_url,
+            ]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
         ]);
 
     }
@@ -181,7 +191,7 @@ class OrderController extends Controller
 
     }
 
-    public function actionCreateitem($id)
+    public function actionCreateitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
         $model_item             = new ItemOrder();
         $model_item->order_id   = $id;
@@ -192,11 +202,18 @@ class OrderController extends Controller
             $order->sum = $order->countSum();
             $order->save();
 
-             return $this->redirect(['view', 'id' => $id]);
+            return $this->redirect(['view',
+                'id' => $id,
+                'breadcrumbs_label' => $breadcrumbs_label,
+                'breadcrumbs_url' => $breadcrumbs_url,
+            ]);
         }
 
         return $this->render('itemcreate', [
             'model' => $model_item,
+            'order_id' => $id,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
         ]);
 
     }
