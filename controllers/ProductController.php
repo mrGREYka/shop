@@ -168,7 +168,7 @@ class ProductController extends Controller
                     $patch_file = 'images/product/' . md5($file->baseName . $model_file->id) . '.' . $file->extension;
 
                     $file_thumb = UploadedFile::getInstance($model_file, 'image_thumb');
-                    $patch_file_thumb = 'images/product/' . md5($file_thumb->baseName . $model_file->id) . '.' . $file_thumb->extension;
+                    $patch_file_thumb = 'images/product/' . md5($file_thumb->baseName . $model_file->id.'thumb') . '.' . $file_thumb->extension;
 
                     if (($file->saveAs($patch_file)) && ($file_thumb->saveAs($patch_file_thumb))) {
                         $model_file->filename = $file->baseName . '.' . $file->extension;
