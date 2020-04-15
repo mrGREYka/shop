@@ -26,14 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'username',
-            'name_f',
-            'name_i',
-            'name_o',
+            [
+                'label' => 'Логин',
+                'attribute' => 'username',
+            ],
+            [
+                'label' => 'Фамилия',
+                'attribute' => 'name_f',
+            ],
+            [
+                'label' => 'Имя',
+                'attribute' => 'name_i',
+            ],
+            [
+                'label' => 'Отчество',
+                'attribute' => 'name_o',
+            ],
             'email:email',
-            'phone',
-
+            [
+                'label' => 'Телефон',
+                'attribute' => 'phone',
+            ],
             [
                 'attribute' => 'status',
                 'value' => function($model){ return $model->status == 0 ? '<span class="text-danger">Отключен</span>' : '<span class="text-success">Включен</span>'; },

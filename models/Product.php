@@ -68,4 +68,9 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(GroupProduct::className(), ['id' => 'group_product_id']);
     }
+
+    public function getFiles( )
+    {
+        return $this->hasMany( FileProduct::className( ), [ 'product_id' => 'id' ] );
+    }
 }

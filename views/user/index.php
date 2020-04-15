@@ -18,13 +18,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'username',
+            [
+                'label' => 'Логин менеджера',
+                'attribute' => 'username',
+            ],
 
             [
-                'attribute'=>'status',
-                'format'=>'raw',
-                'value'=> function($dataProvider){
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($dataProvider) {
                     return $dataProvider->status == 0 ? '<span class="text-danger">Отключен</span>' : '<span class="text-success">Включен</span>';
                 }
             ],

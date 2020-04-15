@@ -6,7 +6,9 @@ use Yii;
 use yii\filters\AccessControl;
 use app\models\Product;
 use app\models\ProductSerch;
+use app\models\FileProduct;
 use yii\web\Controller;
+use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -144,6 +146,56 @@ class ProductController extends Controller
             return '<option value>Отсутствуют товары по группе</option>';
         }
 
+    }
+
+    public function actionCreatefile( $id, $breadcrumbs_label = null, $breadcrumbs_url = null ){
+
+        $model_file = new FileProduct();
+        $model_file->product_id = $id;
+
+        if ($model_file->load(Yii::$app->request->post())) {
+
+
+            // иначе мне смог сделать проверку на обязательное указание файлов
+            $model_file->image          = 1;
+            $model_file->image_thumb    = 1;
+
+            if ($model_file->validate()) {
+
+                if ($model_file->save()) { // сохраним модель для уникальново имени файла картинки $file_thumb->baseName . $model_file->id
+
+                    $file = UploadedFile::getInstance($model_file, 'image');
+                    $patch_file = 'images/product/' . md5($file->baseName . $model_file->id) . '.' . $file->extension;
+
+                    $file_thumb = UploadedFile::getInstance($model_file, 'image_thumb');
+                    $patch_file_thumb = 'images/product/' . md5($file_thumb->baseName . $model_file->id) . '.' . $file_thumb->extension;
+
+                    if (($file->saveAs($patch_file)) && ($file_thumb->saveAs($patch_file_thumb))) {
+                        $model_file->filename = $file->baseName . '.' . $file->extension;
+                        $model_file->filepath = $patch_file;
+                        $model_file->image = 1;
+
+                        $model_file->filename_thumb = $file_thumb->baseName . '.' . $file_thumb->extension;
+                        $model_file->filepath_thumb = $patch_file_thumb;
+                        $model_file->image_thumb = 1;
+
+                        if ($model_file->save()) {
+                            return $this->redirect(['view',
+                                'id' => $id,
+                                'breadcrumbs_label' => $breadcrumbs_label,
+                                'breadcrumbs_url' => $breadcrumbs_url,
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this->render('filescreate', [
+            'model' => $model_file,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+        ]);
     }
 
     protected function findModel($id)

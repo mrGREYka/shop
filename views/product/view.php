@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-view">
 
+    <h4>Карточка товара - <?= Html::encode($this->title) ?></h4>
+
     <p>
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
@@ -46,5 +48,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <div class="form-group">
+        <?= Html::a('Добавить картинку',
+            ['product/createfile', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+            ['class' => 'btn-sm btn-success']) ?>
+    </div>
+
+
+    <?php $files = $model->files; ?>
+
+    <div class="row">
+        <?php
+        $number_row = 0;
+        foreach ($files as $file):
+            $number_row++; ?>
+            <div class="col-xs-6 col-md-3">
+                <a href="<?= Yii::$app->homeUrl.$file->filepath ?>" class="thumbnail">
+                    <img src="<?= Yii::$app->homeUrl.$file->filepath_thumb ?>" alt="<?= $file->title ?>">
+                </a>
+            </div>
+
+        <?php endforeach ?>
+    </div>
+
 
 </div>

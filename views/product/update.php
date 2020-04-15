@@ -12,6 +12,8 @@ $this->params['breadcrumbs'][] = 'Изменить';
 ?>
 <div class="product-update">
 
+    <h4><?= Html::encode($this->title) ?></h4>
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
