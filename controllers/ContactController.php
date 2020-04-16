@@ -23,10 +23,10 @@ class ContactController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete','contactsofpartner' ],
+                'only' => ['index','view','create','update','contactsofpartner' ],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','contactsofpartner' ],
+                        'actions' => ['index','view','create','update','contactsofpartner' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,20 +109,6 @@ class ContactController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Contact model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     public function actionContactsofpartner($id){

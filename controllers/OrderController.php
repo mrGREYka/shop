@@ -29,10 +29,10 @@ class OrderController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete', 'createitem', 'deleteitem', 'print', 'my', 'warehouse'],
+                'only' => ['index','view','create','update','createitem', 'deleteitem', 'print', 'my', 'warehouse'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete', 'createitem', 'deleteitem', 'print', 'my', 'warehouse'],
+                        'actions' => ['index','view','create','update','createitem', 'deleteitem', 'print', 'my', 'warehouse'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -172,22 +172,6 @@ class OrderController extends Controller
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
-
-    }
-
-    /**
-     * Deletes an existing order model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
 
     }
 

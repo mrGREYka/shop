@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $dataProvider->type == 0 ? '<span class="text-success">Физ. лицо</span>' : '<span class="text-danger">Юл.лицо</span>';
                 }
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view} {update}'],
         ],
     ]); ?>
 </div>

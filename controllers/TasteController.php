@@ -24,10 +24,10 @@ class TasteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','delete','tastesofgroup'],
+                'only' => ['index','view','create','update','tastesofgroup'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','tastesofgroup'],
+                        'actions' => ['index','view','create','update','tastesofgroup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -106,20 +106,6 @@ class TasteController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    /**
-     * Deletes an existing Taste model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     public function actionTastesofgroup($id){
