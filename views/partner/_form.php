@@ -30,6 +30,12 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-8 col-xs-12 col-sm-12">
+            <?= $form->field($model, 'comment')->textarea(['rows' => 3]) ?>
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-6">

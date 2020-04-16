@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4>Карточка партнера - <?= Html::encode($this->title) ?></h4>
 
     <div class="row">
-        <div class="col-lg-3 col-xs-12 col-sm-6">
+        <div class="col-lg-5 col-xs-12 col-sm-6">
 
             <div class="row">
                 <div class="col-lg-12 col-xs-12 col-sm-12">
@@ -38,13 +38,22 @@ $this->params['breadcrumbs'][] = $this->title;
                             'name',
                             'email:email',
                             'phone',
-                            [
+                             [
                                 'attribute' => 'type',
                                 'value' => function($model){ return $model->type == 0 ? '<span class="text-success">Физ. лицо</span>' : '<span class=".text-warning">Юл.лицо</span>'; },
                                 'format' => 'html',
                             ],
                         ],
                     ]) ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-xs-12 col-sm-12">
+                    <label class="control-label" >Комментарий</label>
+                    <div class="well">
+                        <p><?= $model->comment; ?></p>
+                    </div>
                 </div>
             </div>
 
@@ -82,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
 
-        <div class="col-lg-9 col-xs-12 col-sm-6">
+        <div class="col-lg-7 col-xs-12 col-sm-6">
 
             <?php $orders = $model->order; ?>
 

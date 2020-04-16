@@ -34,6 +34,7 @@ class Partner extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 150],
             [['email'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 50],
+            [['comment'], 'string'],
             [['phone'], 'unique'],
         ];
     }
@@ -49,6 +50,7 @@ class Partner extends \yii\db\ActiveRecord
             'email' => 'Почта',
             'phone' => 'Телефон',
             'type' => 'Тип',
+            'comment' => 'Комментарий',
         ];
     }
 

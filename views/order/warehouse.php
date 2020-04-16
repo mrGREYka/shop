@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $gridColumnsXLS = [
     ['attribute' => 'номер накладной, внутренний №','value' => function (app\models\Order $model) { return $model->id; }, 'format' => 'html', ],
-    ['attribute' => 'дата доставки',           'value' => function (app\models\Order $model) { return $model->created; }, 'format' => ['date', 'php:d.m.Y'], ],
+    ['attribute' => 'дата доставки',           'value' => function (app\models\Order $model) { return $model->dateend; }, 'format' => ['date', 'php:d.m.Y'], ],
     ['attribute' => 'Интервал: с',             'value' => function (app\models\Order $model) { return TimefinishOrderHelper::intervalFrom($model->timefinish); }, 'format' => 'html', ],
     ['attribute' => 'Интервал: до',            'value' => function (app\models\Order $model) { return TimefinishOrderHelper::intervalBy($model->timefinish); }, 'format' => 'html', ],
     ['attribute' => 'КЛАДР города полученияь', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
@@ -52,15 +52,53 @@ $gridColumnsXLS = [
     ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 3, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'sms- информирование', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'sms- информирование', 'value' => function (app\models\Order $model) { return 1; }, 'format' => 'html', ],
     ['attribute' => 'Артикул',             'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Описание вложений',   'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Количество',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Стоимость',           'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Ставка НДС',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Описание вложений',
+        'value' => function (app\models\Order $model) {
+            $itemsorder = $model->itemsorder;
+            if ( count($itemsorder) === 1 ) {
+                return $itemsorder[0]->product->title;
+            } elseif ( count($itemsorder) > 1 ) {
+                return 'Шоколадная продукция';
+            }
+            return '';
+        },
+        'format' => 'html',],
+    ['attribute' => 'Количество',
+        'value' => function (app\models\Order $model) {
+            $itemsorder = $model->itemsorder;
+            if (count($itemsorder) === 1) {
+                return $itemsorder[0]->count;
+            } elseif (count($itemsorder) > 1) {
+                $count_order = 0;
+                foreach ($itemsorder as $itemorder):
+                    $count_order = $count_order + $itemorder->count;
+                endforeach;
+                return $count_order;
+            }
+            return '';
+        },
+        'format' => 'html',],
+    ['attribute' => 'Стоимость',
+        'value' => function (app\models\Order $model) {
+            $itemsorder = $model->itemsorder;
+            if (count($itemsorder) === 1) {
+                return $itemsorder[0]->sum;
+            } elseif (count($itemsorder) > 1) {
+                $sum_order = 0;
+                foreach ($itemsorder as $itemorder):
+                    $sum_order = $sum_order + $itemorder->sum;
+                endforeach;
+                return $sum_order;
+            }
+            return '';
+        },
+        'format' => 'html',],
+    ['attribute' => 'Ставка НДС',          'value' => function (app\models\Order $model) { return 2; }, 'format' => 'html', ],
     ['attribute' => 'Мест в заказе',       'value' => function (app\models\Order $model) { return $model->num_pack; }, 'format' => 'html', ],
-    ['attribute' => 'Вскрытие заказа',     'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Частичная выдача',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Вскрытие заказа',     'value' => function (app\models\Order $model) { return 1; }, 'format' => 'html', ],
+    ['attribute' => 'Частичная выдача',    'value' => function (app\models\Order $model) { return 0; }, 'format' => 'html', ],
     ['attribute' => 'примерка',            'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Доп звонок',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Возврат документов',  'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
