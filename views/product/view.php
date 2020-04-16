@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <div class="form-group">
-        <?= Html::a('Добавить картинку',
+        <?= Html::a('Добавить новую картинку',
             ['product/createfile', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
             ['class' => 'btn-sm btn-success']) ?>
     </div>
@@ -57,13 +57,25 @@ $this->params['breadcrumbs'][] = $this->title;
         foreach ($files as $file):
             $number_row++; ?>
             <div class="col-xs-6 col-md-3">
-                <a href="<?= Yii::$app->homeUrl.$file->filepath ?>" class="thumbnail">
-                    <img src="<?= Yii::$app->homeUrl.$file->filepath_thumb ?>" alt="<?= $file->title ?>">
-                </a>
+                <div class="thumbnail">
+                    <a href="<?= Yii::$app->homeUrl . $file->filepath ?>">
+                        <img src="<?= Yii::$app->homeUrl . $file->filepath_thumb ?>" alt="<?= $file->title ?>">
+                    </a>
+                    <div class="caption">
+                        <?= Html::a('Удалить картинку',
+                            ['product/deletefile', 'file_id' => $file->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                            ['class' => 'btn-sm btn-success',
+                                'data' => [
+                                    'confirm' => 'Вы уверены что хотите удалить картинку?',
+                                    'method' => 'post', ],
+                            ]) ?>
+                    </div>
+                </div>
             </div>
 
         <?php endforeach ?>
     </div>
+
 
 
 </div>

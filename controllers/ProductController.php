@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\FileHelper;
 
 /**
  * ProductController implements the CRUD actions for Product model.
@@ -25,10 +26,10 @@ class ProductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','productsofgroup'],
+                'only' => ['index','view','create','update','productsofgroup','createfile', 'deletefile' ],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','productsofgroup'],
+                        'actions' => ['index','view','create','update','productsofgroup','createfile', 'deletefile' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -179,6 +180,23 @@ class ProductController extends Controller
 
         return $this->render('filescreate', [
             'model' => $model_file,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+        ]);
+    }
+
+    public function actionDeletefile($file_id, $breadcrumbs_label = null, $breadcrumbs_url = null)
+    {
+        $model_fileproduct = FileProduct::findOne($file_id);
+        $id = $model_fileproduct->product_id;
+
+        FileHelper::unlink($model_fileproduct->filepath);
+        FileHelper::unlink($model_fileproduct->filepath_thumb);
+
+        $model_fileproduct->delete();
+
+        return $this->redirect(['view',
+            'id' => $id,
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
