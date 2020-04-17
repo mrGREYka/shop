@@ -65,10 +65,12 @@ class ProductController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
         ]);
     }
 

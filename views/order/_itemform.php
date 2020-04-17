@@ -68,13 +68,15 @@ if ($model->groupProduct) {
 
 
     <div class="row">
-        <div class="col-lg-1 col-xs-3 col-sm-2">
+        <div class="col-lg-2 col-xs-4 col-sm-3">
             <?= $form->field($model, 'count')->textInput(['type' => 'number'] ) ?>
         </div>
-        <div class="col-lg-1 col-xs-3 col-sm-2">
+    </div>
+    <div class="row">
+        <div class="col-lg-2 col-xs-4 col-sm-3">
             <?= $form->field($model, 'price')->textInput(['maxlength' => true,'type' => 'number']) ?>
         </div>
-        <div class="col-lg-1 col-xs-3 col-sm-3">
+        <div class="col-lg-2 col-xs-4 col-sm-3">
             <?= $form->field($model, 'sum')->textInput(['maxlength' => true,'type' => 'number']) ?>
         </div>
     </div>
