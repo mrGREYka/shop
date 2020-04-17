@@ -202,6 +202,28 @@ class OrderController extends Controller
 
     }
 
+    public function actionUpdateitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
+    {
+
+        $model_item = ItemOrder::findOne($id);
+
+        if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
+            return $this->redirect(['view',
+                'id' => $model_item->order_id,
+                'breadcrumbs_label' => $breadcrumbs_label,
+                'breadcrumbs_url' => $breadcrumbs_url,
+            ]);
+        }
+
+        return $this->render('itemupdate', [
+            'model' => $model_item,
+            'order_id' => $model_item->order_id,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+        ]);
+
+    }
+
     public function actionDeleteitem($id)
     {
         $model_item = ItemOrder::findOne($id);

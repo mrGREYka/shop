@@ -55,8 +55,15 @@ class GroupProduct extends \yii\db\ActiveRecord
         return $this->hasMany(Product::className(), ['group_product_id' => 'id']);
     }
 
-    public function getTastegroupproduct( )
+
+
+    public function getTastegroupproduct()
     {
-        return $this->hasMany( TasteGroupProduct::className( ), [ 'group_product_id' => 'id' ] );
+        return $this->hasMany(TasteGroupProduct::className(), ['group_product_id' => 'id']);
+    }
+
+    public function getTastes()
+    {
+        return $this->hasMany(Taste::className(), ['id' => 'taste_id'])->via('tastegroupproduct');
     }
 }

@@ -5,7 +5,8 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\GroupProduct;
-use app\models\Taste;
+use app\models\Product;
+use app\models\TasteGroupProduct;
 use app\helpers\FoilItemOrderHelper;
 
 /* @var $this yii\web\View */
@@ -13,6 +14,13 @@ use app\helpers\FoilItemOrderHelper;
 /* @var $form yii\widgets\ActiveForm */
 
 $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(), 'id', 'title');
+if ($model->groupProduct) {
+    $poduct = ArrayHelper::map($model->groupProduct->products, 'id', 'title');
+    $taste = ArrayHelper::map($model->groupProduct->tastes, 'id', 'title');
+} else {
+    $poduct = [];
+    $taste = [];
+}
 
 ?>
 
@@ -40,13 +48,13 @@ $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(),
 
     <div class="row">
         <div class="col-lg-4 col-xs-9 col-sm-6">
-            <?= $form->field($model, 'product_id')->dropDownList(['prompt'=>'Выбор товара...']) ?>
+            <?= $form->field($model, 'product_id')->dropDownList($poduct,['prompt'=>'Выбор товара...']) ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-4 col-xs-9 col-sm-6">
-            <?= $form->field($model, 'taste_id')->dropDownList(['prompt'=>'Выбор вкуса']) ?>
+            <?= $form->field($model, 'taste_id')->dropDownList($taste,['prompt'=>'Выбор вкуса']) ?>
         </div>
     </div>
 

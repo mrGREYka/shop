@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 use app\helpers\StatusOrderHelper;
 use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
@@ -18,6 +19,13 @@ DaDataAppAsset::register($this);
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
 /* @var $form yii\widgets\ActiveForm */
+
+
+if ($model->partner) {
+    $contact = ArrayHelper::map($model->partner->contacts, 'id', 'name');
+} else {
+    $contact = [];
+}
 
 ?>
 
@@ -52,7 +60,7 @@ DaDataAppAsset::register($this);
                                 ] ) ?>
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
-                        <?= $form->field($model, 'contact_id')->dropDownList( [ ],[ 'prompt'=>'Не указан...', ] ) ?>
+                        <?= $form->field($model, 'contact_id')->dropDownList( $contact,[ 'prompt'=>'Не указан...', ] ) ?>
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>

@@ -120,28 +120,35 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody>
-
                 <?php
-                    $number_row = 0;
-                    foreach($itemsorder as $itemorder):
-                        $number_row++; ?>
-                        <tr>
-                            <td><?= $number_row ?></td>
-                            <td><?= $itemorder->groupProduct->title ?></td>
-                            <td><?= $itemorder->product->title ?></td>
-                            <td><?= $itemorder->taste->title ?></td>
-                            <td><?= FoilItemOrderHelper::getLabel($itemorder->foil); ?></td>
-                            <td><?= $itemorder->count ?></td>
-                            <td><?= $itemorder->price ?></td>
-                            <td><?= $itemorder->sum ?></td>
-                            <td><?= Html::a('Удалить', ['deleteitem', 'id' => $itemorder->id], ['class' => 'btn-sm btn-danger',
+                $number_row = 0;
+                foreach ($itemsorder as $itemorder):
+                    $number_row++; ?>
+                    <tr>
+                        <td><?= $number_row ?></td>
+                        <td><?= $itemorder->groupProduct->title ?></td>
+                        <td><?= $itemorder->product->title ?></td>
+                        <td><?= $itemorder->taste->title ?></td>
+                        <td><?= FoilItemOrderHelper::getLabel($itemorder->foil); ?></td>
+                        <td><?= $itemorder->count ?></td>
+                        <td><?= $itemorder->price ?></td>
+                        <td><?= $itemorder->sum ?></td>
+                        <td><?= Html::a('Изменить',
+                                ['updateitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                ['class' => 'label label-success']
+                            ).Html::tag('br').
+                            Html::a('Удалить',
+                                ['deleteitem', 'id' => $itemorder->id],
+                                [
+                                    'class' => 'label label-danger',
                                     'data' => [
-                                        'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
-                                        'method' => 'post',
-                                    ],]) ?></td>
-                        </tr>
-                <?php endforeach?>
-
+                                    'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
+                                    'method' => 'post',
+                                ],
+                                ]) ?>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
                 </tbody>
             </table>
         </div>
