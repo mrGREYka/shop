@@ -182,7 +182,7 @@ class OrderController extends Controller
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
-            $order = Order::findOne($id);
+            $order   = $model_item->order;
             $order->sum = $order->countSum();
             $order->save();
 
@@ -206,8 +206,14 @@ class OrderController extends Controller
     {
 
         $model_item = ItemOrder::findOne($id);
+        $order   = $model_item->order;
+
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
+
+            $order->sum = $order->countSum();
+            $order->save();
+
             return $this->redirect(['view',
                 'id' => $model_item->order_id,
                 'breadcrumbs_label' => $breadcrumbs_label,
@@ -227,14 +233,13 @@ class OrderController extends Controller
     public function actionDeleteitem($id)
     {
         $model_item = ItemOrder::findOne($id);
-        $order_id   = $model_item->order_id;
         $model_item->delete( );
 
-        $order = Order::findOne($order_id);
+        $order   = $model_item->order;
         $order->sum = $order->countSum();
         $order->save();
 
-        return $this->redirect(['view', 'id' => $order_id]);
+        return $this->redirect(['view', 'id' => $order->id]);
 
     }
 
