@@ -22,6 +22,9 @@ class Product extends \yii\db\ActiveRecord
     const WITHOUT_PHOTO_NO  = 0;
     const WITHOUT_PHOTO_YES = 1;
 
+    const KIT_NO    = false;
+    const KIT_YES   = true;
+
     /**
      * {@inheritdoc}
      */
@@ -51,6 +54,8 @@ class Product extends \yii\db\ActiveRecord
                 self::WITHOUT_PHOTO_NO,
                 self::WITHOUT_PHOTO_YES,
             ]],
+            [['kit'], 'boolean'],
+            ['kit', 'default', 'value' => false ],
         ];
     }
 
@@ -66,6 +71,7 @@ class Product extends \yii\db\ActiveRecord
             'group_product_id' => 'Группа товаров',
             'has_box' => 'Это набор',
             'without_photo' => 'Без фотографий',
+            'kit' => 'Штучный',
         ];
     }
 

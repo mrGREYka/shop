@@ -44,6 +44,12 @@ use app\helpers\WithoutPhotoProductHelper;
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-3 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'kit')->checkBox( HasBoxProductHelper::getList(), ['value' => $model->kit, ] )  ?>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>

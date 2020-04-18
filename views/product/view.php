@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\helpers\HasBoxProductHelper;
 use app\helpers\WithoutPhotoProductHelper;
+use app\helpers\KitProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -50,6 +51,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'without_photo',
                         'value' => function (app\models\Product $data) {
                             return WithoutPhotoProductHelper::getLabel($data->without_photo);
+                        },
+                        'format' => 'html',
+                    ],
+                    [
+                        'attribute' => 'kit',
+                        'value' => function (app\models\Product $data) {
+                            return KitProductHelper::getLabel($data->kit);
                         },
                         'format' => 'html',
                     ],
