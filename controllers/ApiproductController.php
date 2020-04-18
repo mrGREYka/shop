@@ -19,6 +19,7 @@ class ApiproductController extends \yii\rest\Controller
             $result_product['typeProduct']  = $group_product->title;
             $result_product['id']           = $product->id;
             $result_product['hasBox']       = $product->has_box != 0;
+            $result_product['kit']          = $product->kit != 0;;
             $result_product['withoutPhoto'] = $product->without_photo != 0;
             $result_product['description']  = $product->content;
 
