@@ -182,12 +182,12 @@ class OrderController extends Controller
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
-            $order   = $model_item->order;
-            $order->sum = $order->countSum();
-            $order->save();
+            $model      = $model_item->order;
+            $model->sum = $model->countSum();
+            $model->save();
 
             return $this->redirect(['view',
-                'id' => $id,
+                'id' => $model->id,
                 'breadcrumbs_label' => $breadcrumbs_label,
                 'breadcrumbs_url' => $breadcrumbs_url,
             ]);
@@ -206,16 +206,16 @@ class OrderController extends Controller
     {
 
         $model_item = ItemOrder::findOne($id);
-        $order   = $model_item->order;
+        $model      = $model_item->order;
 
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
-            $order->sum = $order->countSum();
-            $order->save();
+            $model->sum = $model->countSum();
+            $model->save();
 
             return $this->redirect(['view',
-                'id' => $model_item->order_id,
+                'id' => $model->id,
                 'breadcrumbs_label' => $breadcrumbs_label,
                 'breadcrumbs_url' => $breadcrumbs_url,
             ]);
@@ -223,7 +223,7 @@ class OrderController extends Controller
 
         return $this->render('itemupdate', [
             'model' => $model_item,
-            'order_id' => $model_item->order_id,
+            'order_id' => $model->id,
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
@@ -233,9 +233,9 @@ class OrderController extends Controller
     public function actionDeleteitem($id)
     {
         $model_item = ItemOrder::findOne($id);
+        $order      = $model_item->order;
         $model_item->delete( );
 
-        $order   = $model_item->order;
         $order->sum = $order->countSum();
         $order->save();
 

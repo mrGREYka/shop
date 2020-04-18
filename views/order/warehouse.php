@@ -49,11 +49,11 @@ $gridColumnsXLS = [
     ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Наложеный платеж',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Комментарий к заказу','value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Габарит 3, см',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
+    ['attribute' => 'Габарит 3, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
     ['attribute' => 'sms- информирование', 'value' => function (app\models\Order $model) { return 1; }, 'format' => 'html', ],
-    ['attribute' => 'Артикул',             'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Артикул',             'value' => function (app\models\Order $model) { return $model->id; }, 'format' => 'html', ],
     ['attribute' => 'Описание вложений',
         'value' => function (app\models\Order $model) {
             $itemsorder = $model->itemsorder;
@@ -148,6 +148,7 @@ $gridColumns = [
         'value' => function (app\models\Order $model) {
             return DeliveryOrderHelper::getLabel($model->dost);
         },
+        'filter' => Html::activeDropDownList($searchModel, 'dost', DeliveryOrderHelper::getList(), ['class' => 'form-control', 'prompt' => 'По всем...']),
         'format' => 'html',
 
 

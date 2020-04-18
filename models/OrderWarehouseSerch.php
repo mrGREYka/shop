@@ -27,7 +27,7 @@ class OrderWarehouseSerch extends order
             //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
             //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
             //[['from_date','to_date'], 'safe'],
-            [['paid'], 'integer'],
+            [['paid','dost'], 'integer'],
             //[['partner_id'], 'safe'],
 
         ];
@@ -77,6 +77,10 @@ class OrderWarehouseSerch extends order
 
         $query->andFilterWhere([
             'paid' => $this->paid,
+        ]);
+
+        $query->andFilterWhere([
+            'dost' => $this->dost,
         ]);
 
         // grid filtering conditions
