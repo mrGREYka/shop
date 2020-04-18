@@ -4,11 +4,15 @@ namespace app\controllers;
 use app\models\Product;
 use app\models\GroupProduct;
 use yii\helpers\Url;
+use yii;
 
 class ApiproductController extends \yii\rest\Controller
 {
     public function actionIndex($groupproduct_id = null)
     {
+        $headers = Yii::$app->response->headers;
+        $headers->add('Access-Control-Allow-Origin', '*');
+
         $result         = [];
         $group_product  = GroupProduct::findOne($groupproduct_id);
         $products       = Product::find()->where( ['group_product_id' => $groupproduct_id ] ) ->all();
