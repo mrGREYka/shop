@@ -19,9 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h4>Карточка товара - <?= Html::encode($this->title) ?></h4>
 
 
-
     <div class="row">
-        <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="col-lg-5 col-xs-12 col-sm-12">
 
             <p>
                 <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn-sm btn-primary']) ?>
@@ -58,12 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </div>
 
-
-        <div class="col-lg-6 col-xs-12 col-sm-12">
+        <div class="col-lg-4 col-xs-12 col-sm-12">
 
             <?php $attibutes = $model->attributes_; ?>
 
-            <p><?= Html::a('Создать атрибут',
+            <p><?= Html::a('Создать',
                     [
                         '/attributeproduct/create',
                         'product_id' => $model->id,
@@ -125,41 +123,106 @@ $this->params['breadcrumbs'][] = $this->title;
             </table>
 
         </div>
+
+        <div class="col-lg-3 col-xs-12 col-sm-12">
+            <p>
+                <?= Html::a('Добавить',
+                    ['priceproduct/create', 'product_id' => $model->id],
+                    ['class' => 'btn-sm btn-success']) ?>
+            </p>
+
+            <?php
+            $prices = $model->price;
+            $number_row = 0; ?>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Кол.</th>
+                    <th>Цена</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php
+                $pp = 0;
+                foreach ($prices as $price):
+                    $pp = $pp + 1 ?>
+                    <tr>
+                        <td><?= $pp ?></td>
+                        <td><?= $price->min_count ?></td>
+                        <td><?= $price->price ?></td>
+
+
+                        <td><?= Html::a('Изменить',
+                                [
+                                    'priceproduct/update',
+                                    'id' => $price->id,
+                                ],
+                                ['class' => 'label label-success']
+                            ) . Html::tag('br') .
+                            Html::a('Удалить',
+                                [
+                                    'priceproduct/delete',
+                                    'id' => $price->id,
+                                ],
+                                [
+                                    'class' => 'label label-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены, что хотите удалить цену?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                        </td>
+
+                    </tr>
+                <?php endforeach ?>
+
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
-
-    <div class="form-group">
-        <?= Html::a('Добавить новую картинку',
-            ['product/createfile', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-            ['class' => 'btn-sm btn-success']) ?>
-    </div>
-
-
-    <?php $files = $model->files; ?>
 
     <div class="row">
-        <?php
-        $number_row = 0;
-        foreach ($files as $file):
-            $number_row++; ?>
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <a href="<?= Yii::$app->homeUrl . $file->filepath ?>">
-                        <img src="<?= Yii::$app->homeUrl . $file->filepath_thumb ?>" alt="<?= $file->title ?>">
-                    </a>
-                    <div class="caption">
-                        <?= Html::a('Удалить',
-                            ['product/deletefile', 'file_id' => $file->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-                            ['class' => 'btn-sm btn-success',
-                                'data' => [
-                                    'confirm' => 'Вы уверены что хотите удалить картинку?',
-                                    'method' => 'post',],
-                            ]) ?>
+        <div class="col-lg-12 col-xs-12 col-sm-12">
+
+            <p>
+                <?= Html::a('Добавить новую картинку',
+                    ['product/createfile', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                    ['class' => 'btn-sm btn-success']) ?>
+            </p>
+
+
+            <?php
+            $files = $model->files;
+            $number_row = 0;
+            foreach ($files as $file):
+                $number_row++; ?>
+
+                <div class="col-lg-2 col-xs-3 col-sm-3">
+                    <div class="thumbnail">
+                        <a href="<?= Yii::$app->homeUrl . $file->filepath ?>">
+                            <img src="<?= Yii::$app->homeUrl . $file->filepath_thumb ?>" alt="<?= $file->title ?>">
+                        </a>
+                        <div class="caption">
+                            <?= Html::a('Удалить',
+                                ['product/deletefile', 'file_id' => $file->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                ['class' => 'btn-sm btn-success',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены что хотите удалить картинку?',
+                                        'method' => 'post',],
+                                ]) ?>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        <?php endforeach ?>
+            <?php endforeach; ?>
+
+        </div>
     </div>
 
 

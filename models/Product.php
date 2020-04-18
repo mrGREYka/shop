@@ -86,4 +86,9 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasMany( AttributeProduct::className( ), [ 'product_id' => 'id' ] );
     }
+
+    public function getPrice( )
+    {
+        return $this->hasMany( PriceProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['min_count' => SORT_ASC ]);
+    }
 }

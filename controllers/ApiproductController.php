@@ -23,6 +23,7 @@ class ApiproductController extends \yii\rest\Controller
             $result_product['description']  = $product->content;
 
             $result_product['attributes']   = $this->attribues_( $product );
+            $result_product['price']        = $this->prices($product);
             $result_product['tasteSelect']  = $this->tastes( $group_product );
             $result_product['photos']       = $this->images( $product );
 
@@ -89,6 +90,21 @@ class ApiproductController extends \yii\rest\Controller
             $file_arr = [];
             $file_arr['nameAt'] = $attribute_->title;
             $file_arr['valAtt'] = $attribute_->content;
+            $result[] = $file_arr;
+        endforeach;
+
+        return $result;
+    }
+
+    protected function prices($product)
+    {
+        $prices = $product->price;
+        $result = [];
+
+        foreach ($prices as $price):
+            $file_arr = [];
+            $file_arr['minCount'] = $price->min_count;
+            $file_arr['price'] = $price->price;
             $result[] = $file_arr;
         endforeach;
 
