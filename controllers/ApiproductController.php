@@ -18,10 +18,14 @@ class ApiproductController extends \yii\rest\Controller
             $result_product['nameProduct']  = $product->title;
             $result_product['typeProduct']  = $group_product->title;
             $result_product['id']           = $product->id;
-            $result_product['hasBox']       = $product->has_box;
+            $result_product['hasBox']       = $product->has_box != 0;
+            $result_product['withoutPhoto'] = $product->without_photo != 0;
             $result_product['description']  = $product->content;
 
-            $result_product['photos']       = $this->images($product);
+            $result_product['attributes']   = $this->attribues_( $product );
+            $result_product['tasteSelect']  = $this->tastes( $group_product );
+            $result_product['photos']       = $this->images( $product );
+
 
             $result[] = $result_product;
 
@@ -60,5 +64,35 @@ class ApiproductController extends \yii\rest\Controller
         return $result;
     }
 
+    protected function tastes($group_product)
+    {
+        $tastes = $group_product->tastes;
+        $result = [];
+
+        foreach ($tastes as $taste):
+            $file_arr = [];
+            $file_arr['id'] = $taste->id;
+            $file_arr['name'] = $taste->title;
+            $file_arr['included'] = true;
+            $result[] = $file_arr;
+        endforeach;
+
+        return $result;
+    }
+
+    protected function attribues_($product)
+    {
+        $attributes_ = $product->attributes_;
+        $result = [];
+
+        foreach ($attributes_ as $attribute_):
+            $file_arr = [];
+            $file_arr['nameAt'] = $attribute_->title;
+            $file_arr['valAtt'] = $attribute_->content;
+            $result[] = $file_arr;
+        endforeach;
+
+        return $result;
+    }
 
 }

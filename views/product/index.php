@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use app\helpers\HasBoxProductHelper;
+use app\helpers\WithoutPhotoProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSerch */
@@ -38,6 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'has_box',
                 'value' => function (app\models\Product $data) {
                     return HasBoxProductHelper::getLabel($data->has_box);
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'without_photo',
+                'value' => function (app\models\Product $data) {
+                    return WithoutPhotoProductHelper::getLabel($data->without_photo);
                 },
                 'format' => 'html',
             ],

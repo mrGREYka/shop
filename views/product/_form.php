@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\helpers\HasBoxProductHelper;
+use app\helpers\WithoutPhotoProductHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -33,8 +34,13 @@ use app\helpers\HasBoxProductHelper;
 
     <div class="row">
         <div class="col-lg-3 col-xs-8 col-sm-6">
-            <!-- <?= $form->field($model, 'has_box')->radioList( HasBoxProductHelper::getList() ) ?> -->
-            <?= $form->field($model, 'has_box')->checkBox( HasBoxProductHelper::getList(), [ 'value' => $model->has_box === null ? 0 : $model->has_box ] ) ?>
+            <?= $form->field($model, 'has_box')->checkBox(HasBoxProductHelper::getList(), ['value' => $model->has_box === null ? 0 : $model->has_box]) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-8 col-sm-6">
+            <?= $form->field($model, 'without_photo')->checkBox(WithoutPhotoProductHelper::getList(), ['value' => $model->without_photo === null ? 0 : $model->without_photo]) ?>
         </div>
     </div>
 

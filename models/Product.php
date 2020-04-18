@@ -19,6 +19,8 @@ class Product extends \yii\db\ActiveRecord
     const HAS_BOX_NO    = 0;
     const HAS_BOX_YES   = 1;
 
+    const WITHOUT_PHOTO_NO  = 0;
+    const WITHOUT_PHOTO_YES = 1;
 
     /**
      * {@inheritdoc}
@@ -44,6 +46,11 @@ class Product extends \yii\db\ActiveRecord
                 self::HAS_BOX_NO,
                 self::HAS_BOX_YES,
             ]],
+            ['without_photo', 'default', 'value' => self::WITHOUT_PHOTO_NO ],
+            ['without_photo', 'in', 'range' => [
+                self::WITHOUT_PHOTO_NO,
+                self::WITHOUT_PHOTO_YES,
+            ]],
         ];
     }
 
@@ -58,6 +65,7 @@ class Product extends \yii\db\ActiveRecord
             'content' => 'Описание',
             'group_product_id' => 'Группа товаров',
             'has_box' => 'Это набор',
+            'without_photo' => 'Без фотографий',
         ];
     }
 
@@ -72,5 +80,10 @@ class Product extends \yii\db\ActiveRecord
     public function getFiles( )
     {
         return $this->hasMany( FileProduct::className( ), [ 'product_id' => 'id' ] );
+    }
+
+    public function getAttributes_( )
+    {
+        return $this->hasMany( AttributeProduct::className( ), [ 'product_id' => 'id' ] );
     }
 }
