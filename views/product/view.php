@@ -5,6 +5,10 @@ use yii\widgets\DetailView;
 use app\helpers\HasBoxProductHelper;
 use app\helpers\WithoutPhotoProductHelper;
 use app\helpers\KitProductHelper;
+use app\assets\MagnificPopapAppAsset;
+
+
+MagnificPopapAppAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -211,9 +215,9 @@ $this->params['breadcrumbs'][] = $this->title;
             foreach ($files as $file):
                 $number_row++; ?>
 
-                <div class="col-lg-2 col-xs-3 col-sm-3">
+                <div class="col-lg-2 col-xs-6 col-md-4 col-sm-6">
                     <div class="thumbnail">
-                        <a href="<?= Yii::$app->homeUrl . $file->filepath ?>">
+                        <a href="<?= Yii::$app->homeUrl . $file->filepath ?>" class="magnific-popap">
                             <img src="<?= Yii::$app->homeUrl . $file->filepath_thumb ?>" alt="<?= $file->title ?>">
                         </a>
                         <div class="caption">
