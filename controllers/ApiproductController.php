@@ -113,6 +113,13 @@ class ApiproductController extends \yii\rest\Controller
             $result[] = $file_arr;
         endforeach;
 
+        if ( count($result) === 0 ) {
+            $file_arr = [];
+            $file_arr['minCount'] = 1;
+            $file_arr['price'] = 0;
+            $result[] = $file_arr;
+        }
+
         return $result;
     }
 

@@ -41,7 +41,7 @@ class FileProduct extends \yii\db\ActiveRecord
             [['title', 'filename', 'filepath', 'filename_thumb', 'filepath_thumb'], 'string', 'max' => 255],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
             [['image'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 1, 'minSize' => 40000, 'maxSize' => 150000],
-            [['image_thumb'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 1, 'minSize' => 10000, 'maxSize' => 40000],
+            [['image_thumb'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 1, 'minSize' => 5000, 'maxSize' => 40000],
             [['product_id','title',], 'required'],
             [['image','image_thumb',], 'required'],
 
