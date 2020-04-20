@@ -165,7 +165,7 @@ class Order extends \yii\db\ActiveRecord
             'dost' => 'Тип доставки',
             'datefinish' => 'Дата заверш.',
             'dateend' => 'Дата заверш.',
-            'timefinish' => 'Время завершения',
+            'timefinish' => 'Время',
             'comment' => 'Комментарий',
             'message' => 'Сообщение',
             'promocode' => 'Промокод',

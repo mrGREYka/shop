@@ -71,11 +71,6 @@ if ($model->partner) {
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-xs-12 col-sm-12">
-                        <?= $form->field($model, 'comment')->textarea(['rows' => 3]) ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 col-xs-12 col-sm-12">
                         <?= $form->field($model, 'message')->textarea(['rows' => 3]) ?>
                     </div>
                 </div>
@@ -129,7 +124,11 @@ if ($model->partner) {
                         <?= $form->field($model, 'num_pack')->textInput(['type' => 'number']) ?>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-lg-12 col-xs-12 col-sm-12">
+                        <?= $form->field($model, 'comment')->textarea(['rows' => 3, 'label' => 'Сообщение к заказу']) ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

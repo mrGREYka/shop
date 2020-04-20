@@ -74,10 +74,10 @@ if ($model->groupProduct) {
     </div>
     <div class="row">
         <div class="col-lg-2 col-xs-4 col-sm-3">
-            <?= $form->field($model, 'price')->textInput(['maxlength' => true,'type' => 'number']) ?>
+            <?= $form->field($model, 'price')->textInput(['maxlength' => true,]) ?>
         </div>
         <div class="col-lg-2 col-xs-4 col-sm-3">
-            <?= $form->field($model, 'sum')->textInput(['maxlength' => true,'type' => 'number']) ?>
+            <?= $form->field($model, 'sum')->textInput(['maxlength' => true,]) ?>
         </div>
     </div>
 

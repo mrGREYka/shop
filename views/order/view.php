@@ -24,80 +24,142 @@ if ($breadcrumbs_label != null && $breadcrumbs_url != null) {
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-view">
-    <?php if ( !$model->contact ) {
-        echo '<h3>Заказ № '. Html::encode($this->title).' по клиенту - '.Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ).'</h3>';
+
+
+    <?php if (!$model->contact) {
+        echo '<h3>Заказ № ' . Html::encode($this->title) . ' по клиенту - ' . Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id]) . '</h3>';
     } else {
-        echo '<h3>Заказ № '. Html::encode($this->title).' по клиенту - '.Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id] ). ' и контакту - '.Html::a($model->contact->name, ['contact/view', 'id' => $model->contact_id] ).'</h3>';
+        echo '<h3>Заказ № ' . Html::encode($this->title) . ' по клиенту - ' . Html::a($model->partner->name, ['partner/view', 'id' => $model->partner_id]) . ' и контакту - ' . Html::a($model->contact->name, ['contact/view', 'id' => $model->contact_id]) . '</h3>';
     } ?>
+    <div class="form-group">
+        <?=
+        Html::a('Изменить',
+            ['update', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+            ['class' => 'btn-sm btn-primary'])
+        ?>
+    </div>
 
 
     <div class="row">
-        <div class="col-lg-3 col-xs-12 col-sm-6">
+        <div class="col-lg-6 col-xs-12 col-sm-6">
 
-            <div class="form-group">
-                <?=
-                Html::a('Изменить',
-                    ['update', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url, ],
-                    ['class' => 'btn-sm btn-primary'])
-                ?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Основная информация</h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <?= DetailView::widget([
+                                'model' => $model,
+                                'attributes' => [
+                                    'id',
+                                    ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
+                                    [
+                                        'attribute' => 'user_id',
+                                        'value' => $model->user->username,
+                                    ],
+                                    'sum',
+                                    [
+                                        'attribute' => 'status',
+                                        'value' => function (app\models\Order $model) {
+                                            return StatusOrderHelper::statusLabel($model->status);
+                                        },
+                                        'format' => 'raw',
+                                    ],
+                                    [
+                                        'attribute' => 'paid',
+                                        'value' => function (app\models\Order $model) {
+                                            return PaidOrderHelper::getLabel($model->paid);
+                                        },
+                                        'format' => 'raw',
+                                    ],
+                                    [
+                                        'attribute' => 'consignment_note',
+                                        'value' => function (app\models\Order $model) {
+                                            return ConsignmentNoteOrderHelper::getLabel($model->consignment_note);
+                                        },
+                                        'format' => 'raw',
+                                    ],
+                                    [
+                                        'attribute' => 'interaction',
+                                        'value' => function (app\models\Order $model) {
+                                            return InteractionOrderHelper::getLabel($model->interaction);
+                                        },
+                                        'format' => 'raw',
+                                    ],
+
+
+                                ],
+                            ]) ?>
+                        </div>
+                        <div class="col-lg-6 col-xs-12 col-sm-12">
+                            <div class="well">
+                                <p><?= $model->message; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'id',
-                    ['attribute' => 'created', 'format' => ['date', 'php:d-m-Y']],
-                    [
-                        'attribute' => 'user_id',
-                        'value' => $model->user->username,
-                    ],
-                    'sum',
-                    [
-                        'attribute' => 'dost',
-                        'value' => function (app\models\Order $model) {
-                            return DeliveryOrderHelper::getLabel($model->dost);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'status',
-                        'value' => function (app\models\Order $model) {
-                            return StatusOrderHelper::statusLabel($model->status);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'paid',
-                        'value' => function (app\models\Order $model) {
-                            return PaidOrderHelper::getLabel($model->paid);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'consignment_note',
-                        'value' => function (app\models\Order $model) {
-                            return ConsignmentNoteOrderHelper::getLabel($model->consignment_note);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'interaction',
-                        'value' => function (app\models\Order $model) {
-                            return InteractionOrderHelper::getLabel($model->interaction);
-                        },
-                        'format' => 'raw',
-                    ],
-
-
-
-
-                ],
-            ]) ?>
         </div>
 
+
+        <div class="col-lg-6 col-xs-12 col-sm-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Информация по доставке</h4>
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="col-lg-6 col-xs-12 col-sm-12">
+                        <div class="row">
+                            <?= DetailView::widget([
+                                'model' => $model,
+                                'options' => ['class' => 'table table-bordered table-striped'],
+                                'attributes' =>
+                                    [
+                                        [
+                                            'attribute' => 'dost',
+                                            'value' => function (app\models\Order $model) {
+                                                return DeliveryOrderHelper::getLabel($model->dost);
+                                            },
+                                            'format' => 'raw',
+                                        ],
+                                        'address',
+                                        ['attribute' => 'dateend', 'format' => ['date', 'php:d-m-Y']],
+                                        [
+                                            'attribute' => 'timefinish',
+                                            'value' => function (app\models\Order $model) {
+                                                return TimefinishOrderHelper::getLabel($model->timefinish);
+                                            },
+                                            'format' => 'raw',
+                                        ],
+                                        'num_pack',
+                                        'weight',
+                                        'promocode',],
+                            ]) ?>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xs-12 col-sm-12">
+                        <div class="well">
+                            <p><?= $model->comment; ?></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
         <?php $itemsorder = $model->itemsorder; ?>
 
-        <div class="col-lg-9 col-xs-12 col-sm-6">
+        <div class="col-lg-12 col-xs-12 col-sm-12">
             <div class="form-group">
                 <?= Html::a('Добавить товар',
                     ['createitem', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
@@ -136,15 +198,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= Html::a('Изменить',
                                 ['updateitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                                 ['class' => 'label label-success']
-                            ).Html::tag('br').
+                            ) . Html::tag('br') .
                             Html::a('Удалить',
                                 ['deleteitem', 'id' => $itemorder->id],
                                 [
                                     'class' => 'label label-danger',
                                     'data' => [
-                                    'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
-                                    'method' => 'post',
-                                ],
+                                        'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
+                                        'method' => 'post',
+                                    ],
                                 ]) ?>
                         </td>
                     </tr>
@@ -153,38 +215,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </table>
         </div>
     </div>
-    <h4>Сообщение к заказу</h4>
-    <div class="row">
-        <div class="well">
-            <p><?= $model->message; ?></p>
-        </div>
-    </div>
-    <h4>Комментарий к заказу</h4>
-    <div class="row">
-        <div class="well">
-            <p><?= $model->comment; ?></p>
-        </div>
-    </div>
-    <h4>Дополнительная информация</h4>
-    <div class="row">
-        <?= DetailView::widget([
-                'model' => $model,
-            'options' => ['class' => 'table table-bordered table-striped'],
-            'attributes' =>
-                [   'address',
-                    //'datefinish',
-                    ['attribute' => 'dateend', 'format' => ['date', 'php:d-m-Y']],
-                    [
-                        'attribute' => 'timefinish',
-                        'value' => function (app\models\Order $model) {
-                            return TimefinishOrderHelper::getLabel($model->timefinish);
-                        },
-                        'format' => 'raw',
-                    ],
-                    'num_pack',
-                    'weight',
-                    'promocode', ],
-            ]) ?>
-    </div>
 </div>
-
