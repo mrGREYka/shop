@@ -5,21 +5,24 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Product;
+use yii\db\ActiveRecord;
 
 /**
  * ProductSerch represents the model behind the search form of `app\models\Product`.
  */
-class ProductSerch extends Product
+class ProductapiSerch extends Product
 {
+    public $id;
+    public $title;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['title'], 'safe'],
-            [['group_product_id'], 'integer'],
+            [['id'], 'safe'],
+            [['group_product_id'], 'safe'],
         ];
     }
 
@@ -47,19 +50,21 @@ class ProductSerch extends Product
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1000,
+            ],
         ]);
 
-        $this->load($params);
+        $this->load($params, '');
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
         // grid filtering conditions
+        $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['group_product_id' => $this->group_product_id,]);
-        $query->andFilterWhere(['like', 'title', $this->title]);
+
 
         return $dataProvider;
     }

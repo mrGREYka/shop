@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $attibutes = $model->attributes_; ?>
 
-            <p><?= Html::a('Создать',
+            <p><?= Html::a('Добавить',
                     [
                         '/attributeproduct/create',
                         'product_id' => $model->id,
@@ -203,7 +203,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-12 col-xs-12 col-sm-12">
 
             <p>
-                <?= Html::a('Добавить новую картинку',
+                <?= Html::a('Добавить',
                     ['product/createfile', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                     ['class' => 'btn-sm btn-success']) ?>
             </p>
@@ -223,7 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="caption">
                             <?= Html::a('Удалить',
                                 ['product/deletefile', 'file_id' => $file->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-                                ['class' => 'btn-sm btn-success',
+                                ['class' => 'label label-danger',
                                     'data' => [
                                         'confirm' => 'Вы уверены что хотите удалить картинку?',
                                         'method' => 'post',],

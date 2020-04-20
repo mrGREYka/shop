@@ -3,24 +3,26 @@
 namespace app\controllers;
 use app\models\Product;
 use app\models\GroupProduct;
+use app\models\ProductapiSerch;
 use yii\helpers\Url;
 use yii;
 
 class ApiproductController extends \yii\rest\Controller
 {
-    public function actionIndex($groupproduct_id = null)
+    public function actionIndex()
     {
         $headers = Yii::$app->response->headers;
         $headers->add('Access-Control-Allow-Origin', '*');
 
         $result         = [];
-        $group_product  = GroupProduct::findOne($groupproduct_id);
-        $products       = Product::find()->where( ['group_product_id' => $groupproduct_id ] ) ->all();
+        $searchModel = new ProductapiSerch();
+        $products = $searchModel->search(Yii::$app->request->get())->getModels();
+
         foreach ($products as $product):
 
             $result_product = [];
             $result_product['nameProduct']  = $product->title;
-            $result_product['typeProduct']  = $group_product->title;
+            $result_product['typeProduct']  = $product->groupProduct->title;
             $result_product['id']           = $product->id;
             $result_product['hasBox']       = $product->has_box != 0;
             $result_product['kit']          = $product->kit != 0;;
@@ -29,7 +31,7 @@ class ApiproductController extends \yii\rest\Controller
 
             $result_product['attributes']   = $this->attribues_( $product );
             $result_product['price']        = $this->prices($product);
-            $result_product['tasteSelect']  = $this->tastes( $group_product );
+            $result_product['tasteSelect']  = $this->tastes( $product->groupProduct );
             $result_product['photos']       = $this->images( $product );
 
 
@@ -40,9 +42,6 @@ class ApiproductController extends \yii\rest\Controller
         return $result;
 
 
-        //return Json.encode( Product::find()->all() );
-
-        //return $this->images(5);
 
     }
 
@@ -70,9 +69,9 @@ class ApiproductController extends \yii\rest\Controller
         return $result;
     }
 
-    protected function tastes($group_product)
+    protected function tastes($groupproduct)
     {
-        $tastes = $group_product->tastes;
+        $tastes = $groupproduct->tastes;
         $result = [];
 
         foreach ($tastes as $taste):
