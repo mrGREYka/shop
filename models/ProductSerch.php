@@ -41,7 +41,7 @@ class ProductSerch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()->orderBy(['id' => SORT_ASC]);
 
         // add conditions that should always apply here
 
