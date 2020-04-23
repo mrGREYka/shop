@@ -56,6 +56,7 @@ AppAsset::register($this);
                     ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
                     ['label' => 'Товары', 'url' => ['/product']],
                     ['label' => 'Вкусы шоколада', 'url' => ['/taste']],
+                    ['label' => 'Параметры', 'url' => ['params/update']],
                 ],
                 ],
                 '<li>'

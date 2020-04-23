@@ -17,6 +17,7 @@ $this->title = 'CRM InChoco';
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/groupproduct">Группы товаров</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/product">Товары</a></h2>
         <h2><a title="Перейти к спискам" class="btn btn-default" href="/taste">Вкусы шоколада</a></h2>
+        <h2><a title="Перейти к параметрам" class="btn btn-default" href="/params/update">Параметры</a></h2>
     </div>
 </div>
 
