@@ -85,12 +85,12 @@ class Product extends \yii\db\ActiveRecord
 
     public function getFiles( )
     {
-        return $this->hasMany( FileProduct::className( ), [ 'product_id' => 'id' ] );
+        return $this->hasMany( FileProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['id' => SORT_ASC ]);
     }
 
     public function getAttributes_( )
     {
-        return $this->hasMany( AttributeProduct::className( ), [ 'product_id' => 'id' ] );
+        return $this->hasMany( AttributeProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['id' => SORT_ASC ]);
     }
 
     public function getPrice( )

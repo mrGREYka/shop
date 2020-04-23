@@ -98,7 +98,11 @@ if ($model->groupProduct) {
                 ]) ?>
         </div>
         <div class="col-lg-2 col-xs-4 col-sm-3">
-            <?= $form->field($model, 'sum')->textInput(['maxlength' => true,]) ?>
+            <?= $form->field($model, 'sum')->textInput(
+                [
+                    'maxlength' => true,
+                    'onchange' => '_wms_count_price_from_sum( $( "#' . Html::getInputId($model, 'count') . '" ), $( "#' . Html::getInputId($model, 'price') . '" ), $(this) )',
+                ]) ?>
         </div>
     </div>
 

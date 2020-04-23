@@ -44,6 +44,14 @@ function _wms_count_sum( att_count, att_price, att_sum ){
 
 }
 
+function _wms_count_price_from_sum( att_count, att_price, att_sum ){
+
+    let count = att_count.val();
+    let sum = att_sum.val();
+    att_price.val( (sum / count).toFixed(2) );
+
+}
+
 function _wms_return_price(count) {
 
     if ( current_price == undefined ) { return undefined; }

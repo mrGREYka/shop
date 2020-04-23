@@ -48,7 +48,7 @@ $gridColumnsXLS = [
     ['attribute' => 'Вес отправления',     'value' => function (app\models\Order $model) { return $model->weight; }, 'format' => 'html', ],
     ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Наложеный платеж',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Комментарий к заказу','value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Комментарий к заказу','value' => function (app\models\Order $model) { return $model->comment; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 3, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
