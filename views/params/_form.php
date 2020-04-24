@@ -19,13 +19,23 @@ use yii\widgets\ActiveForm;
 
                     <?php $form = ActiveForm::begin(); ?>
 
-                    <?= $form->field($model, 'three_shiping_sum')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'three_shiping_sum')->textInput(['maxlength' => true,'type' => 'number',]) ?>
 
                     <?= $form->field($model, 'cdek_url')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'up_1')->textInput() ?>
+                    <?= $form->field($model, 'up_1')->textInput(['type' => 'number',]) ?>
 
-                    <?= $form->field($model, 'up_2')->textInput() ?>
+                    <?= $form->field($model, 'up_2')->textInput(['type' => 'number',]) ?>
+
+                    <div class="well">
+
+                        <?= $form->field($model, 'pickup')->textInput(['type' => 'number',]) ?>
+
+                        <?= $form->field($model, 'price_сourier')->textInput(['type' => 'number',]) ?>
+
+                        <?= $form->field($model, 'russia_mail')->textInput(['type' => 'number',]) ?>
+
+                    </div>
 
                     <div class="form-group">
                         <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>
