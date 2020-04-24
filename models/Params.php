@@ -29,8 +29,7 @@ class Params extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['three_shiping_sum'], 'integer'],
-            [['up_1', 'up_2'], 'integer'],
+            [['three_shiping_sum', 'up_1', 'up_2', 'pickup', 'price_сourier', 'russia_mail' ], 'integer'],
             [['cdek_url'], 'string', 'max' => 255],
         ];
     }
@@ -46,6 +45,9 @@ class Params extends \yii\db\ActiveRecord
             'cdek_url' => 'Главная страница СДЭК',
             'up_1' => 'Наценка на срочную доставку (1-ый день)',
             'up_2' => 'Наценка на срочную доставку (2-ой день)',
+            'pickup' => 'Цена за самовывоз',
+            'price_сourier' => 'Цена за доставку курьером',
+            'russia_mail' => 'Цена за доставку почтой'
         ];
     }
 }
