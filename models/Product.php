@@ -97,4 +97,33 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasMany( PriceProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['min_count' => SORT_ASC ]);
     }
+
+    public function getPriceByCount( $count )
+    {
+        $prices = $this->price;
+        $count_price = count( $prices );
+
+        // если цены не указаны, тогда цена 0
+        if ( $count_price === 0 ) {
+            return 0;
+        }
+
+        // если кол-во ниже минимального, тогда цена 0
+        if ( $count < $prices[0]->min_count ) {
+            return 0;
+        }
+
+        // если кол-во ,больше или равно максимальному, тогда самая привлекательная цена
+        if ( $count >= $prices[$count_price - 1]->min_count ) {
+            return $prices[$count_price - 1]->price;
+        }
+
+        $i = 0;
+        while ( $i < ( $count_price ) ) {
+            if ( $count < $prices[$i]->min_count ) {
+                return $prices[$i-1]->price;
+            }
+            $i++;
+        }
+    }
 }

@@ -118,7 +118,6 @@ class OrderController extends Controller
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
             ]);
-
     }
 
     /**
@@ -128,7 +127,7 @@ class OrderController extends Controller
      */
     public function actionCreate($partner_id = null )
     {
-        $model = new order();
+        $model = new Order();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -182,12 +181,8 @@ class OrderController extends Controller
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
-            $model      = $model_item->order;
-            $model->sum = $model->countSum();
-            $model->save();
-
             return $this->redirect(['view',
-                'id' => $model->id,
+                'id' => $model_item->order_id,
                 'breadcrumbs_label' => $breadcrumbs_label,
                 'breadcrumbs_url' => $breadcrumbs_url,
             ]);
@@ -195,7 +190,7 @@ class OrderController extends Controller
 
         return $this->render('itemcreate', [
             'model' => $model_item,
-            'order_id' => $id,
+            'order_id' => $model_item->order_id,
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
@@ -206,16 +201,11 @@ class OrderController extends Controller
     {
 
         $model_item = ItemOrder::findOne($id);
-        $model      = $model_item->order;
-
 
         if ($model_item->load(Yii::$app->request->post()) && $model_item->save()) {
 
-            $model->sum = $model->countSum();
-            $model->save();
-
             return $this->redirect(['view',
-                'id' => $model->id,
+                'id' => $model_item->order_id,
                 'breadcrumbs_label' => $breadcrumbs_label,
                 'breadcrumbs_url' => $breadcrumbs_url,
             ]);
@@ -223,24 +213,23 @@ class OrderController extends Controller
 
         return $this->render('itemupdate', [
             'model' => $model_item,
-            'order_id' => $model->id,
+            'order_id' => $model_item->order_id,
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
 
     }
 
-    public function actionDeleteitem($id)
+    public function actionDeleteitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
         $model_item = ItemOrder::findOne($id);
-        $order      = $model_item->order;
         $model_item->delete( );
 
-        $order->sum = $order->countSum();
-        $order->save();
-
-        return $this->redirect(['view', 'id' => $order->id]);
-
+        return $this->redirect(['view',
+            'id' => $model_item->order_id,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+        ]);
     }
 
     /**
@@ -252,7 +241,7 @@ class OrderController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = order::findOne($id)) !== null) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         }
 

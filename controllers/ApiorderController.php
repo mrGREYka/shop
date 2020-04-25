@@ -50,12 +50,13 @@ class ApiorderController extends Controller
             $itemOrder->group_product_id    = $product->group_product_id;
             $itemOrder->taste_id            = $model->taste_id;
             $itemOrder->count               = $model->count;
-            $itemOrder->sum                 = $model->sum;
+            $itemOrder->price               = $product->getPriceByCount($model->count);
+            $itemOrder->sum                 = $itemOrder->count * $itemOrder->price;
             $itemOrder->save();
 
-
-
+            $model->refresh();
             $model->sentSms();
+
             return $model;
         }
 

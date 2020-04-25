@@ -12,9 +12,11 @@ use app\helpers\ConsignmentNoteOrderHelper;
 use app\helpers\InteractionOrderHelper;
 use kartik\date\DatePicker;
 use app\assets\DaDataAppAsset;
+use app\assets\SelectpickerAppAsset;
 
 
 DaDataAppAsset::register($this);
+SelectpickerAppAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -51,13 +53,15 @@ if ($model->partner) {
                 <div class="row">
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'partner_id')->dropDownList(
-                                \yii\helpers\ArrayHelper::map( \app\models\Partner::find( )->orderBy("name")->all( ), 'id', 'name' )
-                                ,[ 'prompt'=>'Не указан...',
-                                    'onchange'=>'$.get( "'.Url::toRoute('/contact/contactsofpartner').'", { id: $(this).val() } )
+                            \yii\helpers\ArrayHelper::map(\app\models\Partner::find()->orderBy("name")->all(), 'id', 'name')
+                            , ['prompt' => 'Не указан...',
+                            'class' => ['selectpicker', 'form-control'],
+                            'data-live-search' => 'true',
+                            'onchange' => '$.get( "' . Url::toRoute('/contact/contactsofpartner') . '", { id: $(this).val() } )
                                         .done(function( data ) {
-                                            $( "#'.Html::getInputId($model, 'contact_id').'" ).html( data );
+                                            $( "#' . Html::getInputId($model, 'contact_id') . '" ).html( data );
                                         });'
-                                ] ) ?>
+                        ]) ?>
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'contact_id')->dropDownList( $contact,[ 'prompt'=>'Не указан...', ] ) ?>

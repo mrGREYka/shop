@@ -200,7 +200,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ['class' => 'label label-success']
                             ) . Html::tag('br') .
                             Html::a('Удалить',
-                                ['deleteitem', 'id' => $itemorder->id],
+                                ['deleteitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                                 [
                                     'class' => 'label label-danger',
                                     'data' => [

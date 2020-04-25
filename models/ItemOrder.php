@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "item_order".
@@ -110,5 +111,27 @@ class ItemOrder extends \yii\db\ActiveRecord
     public function getTaste()
     {
         return $this->hasOne(Taste::className(), ['id' => 'taste_id']);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+
+        $order      = $this->order;
+        $order->sum = $order->countSum( );
+        if (!$order->save( )) {
+            throw new NotFoundHttpException('Ошибка записи заказа! По какой-то причине не удается перезаписать заказ!');
+        }
+
+
+
+        //var_dump( $this->order );
+    }
+
+    public function afterDelete( ) {
+        $order      = $this->order;
+        $order->sum = $order->countSum( );
+        if (!$order->save( )) {
+            throw new NotFoundHttpException('Ошибка записи заказа! По какой-то причине не удается перезаписать заказ!');
+        }
     }
 }

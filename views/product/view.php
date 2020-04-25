@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h4>Карточка товара - <?= Html::encode($this->title) ?></h4>
 
-
     <div class="row">
         <div class="col-lg-5 col-xs-12 col-sm-12">
 
