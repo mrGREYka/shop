@@ -98,8 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     $pp = $pp + 1 ?>
                     <tr>
                         <td><?= $pp ?></td>
-                        <td><?= $attibute->title ?></td>
-                        <td><?= $attibute->content ?></td>
+                        <td><?= Html::encode($attibute->title) ?></td>
+                        <td><?= Html::encode($attibute->content) ?></td>
 
 
                         <td><?= Html::a('Изменить',
@@ -163,8 +163,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     $pp = $pp + 1 ?>
                     <tr>
                         <td><?= $pp ?></td>
-                        <td><?= $price->min_count ?></td>
-                        <td><?= $price->price ?></td>
+                        <td><?= Html::encode($price->min_count) ?></td>
+                        <td><?= Html::encode($price->price) ?></td>
 
 
                         <td><?= Html::a('Изменить',
@@ -199,7 +199,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <div class="row">
-        <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="col-lg-8 col-xs-12 col-sm-12">
 
             <p>
                 <?= Html::a('Добавить',
@@ -234,6 +234,66 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endforeach; ?>
 
         </div>
+
+        <div class="col-lg-4 col-xs-12 col-sm-12">
+            <p>
+                <?= Html::a('Добавить',
+                    ['tasteproduct/create', 'product_id' => $model->id],
+                    ['class' => 'btn-sm btn-success']) ?>
+            </p>
+
+            <?php
+            $tastes = $model->taste;
+            $number_row = 0; ?>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Вкус</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php
+                $pp = 0;
+                foreach ($tastes as $taste):
+                    $pp = $pp + 1 ?>
+                    <tr>
+                        <td><?= $pp ?></td>
+                        <td><?= Html::encode($taste->title) ?></td>
+
+
+                        <td><?= Html::a('Изменить',
+                                [
+                                    'tasteproduct/update',
+                                    'id' => $taste->id,
+                                ],
+                                ['class' => 'label label-success']
+                            ) . Html::tag('br') .
+                            Html::a('Удалить',
+                                [
+                                    'tasteproduct/delete',
+                                    'id' => $taste->id,
+                                ],
+                                [
+                                    'class' => 'label label-danger',
+                                    'data' => [
+                                        'confirm' => 'Вы уверены, что хотите удалить вкус товара?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                        </td>
+
+                    </tr>
+                <?php endforeach ?>
+
+                </tbody>
+            </table>
+
+        </div>
+
     </div>
 
 

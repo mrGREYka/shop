@@ -98,6 +98,21 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasMany( PriceProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['min_count' => SORT_ASC ]);
     }
 
+    /*public function getTaste( )
+    {
+        return $this->hasMany( TasteProduct::className( ), [ 'product_id' => 'id' ] )->orderBy(['id' => SORT_ASC ]);
+    }*/
+
+    public function getTasteproduct()
+    {
+        return $this->hasMany(TasteProduct::className(), ['product_id' => 'id']);
+    }
+
+    public function getTaste()
+    {
+        return $this->hasMany(Taste::className(), ['id' => 'taste_id'])->via('tasteproduct')->orderBy(['id' => SORT_ASC ]);
+    }
+
     public function getPriceByCount( $count )
     {
         $prices = $this->price;
