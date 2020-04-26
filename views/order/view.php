@@ -60,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'attribute' => 'user_id',
                                         'value' => $model->user->username,
                                     ],
-                                    'sum',
                                     [
                                         'attribute' => 'status',
                                         'value' => function (app\models\Order $model) {
@@ -89,8 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         },
                                         'format' => 'raw',
                                     ],
-
-
+                                    'sum',
+                                    'sum_total',
                                 ],
                             ]) ?>
                         </div>
@@ -139,7 +138,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ],
                                         'num_pack',
                                         'weight',
-                                        'promocode',],
+                                        'promocode',
+                                        'sum_delivery',
+                                    ],
                             ]) ?>
                         </div>
                     </div>

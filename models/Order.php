@@ -3,8 +3,10 @@
 namespace app\models;
 
 use app\models\ItemOrder;
+use app\models\Params;
 use app\controllers\AppController;
 use app\helpers\PhoneHelper;
+use app\helpers\DeliveryOrderHelper;
 
 
 use Yii;
@@ -82,6 +84,8 @@ class Order extends \yii\db\ActiveRecord
                 'interaction', ], 'integer'],
 
             [['sum',
+                'sum_delivery',
+                'sum_total',
                 'weight',], 'number'],
             [['email',
                 'username',
@@ -177,6 +181,8 @@ class Order extends \yii\db\ActiveRecord
             'taste_name' => 'Вкус продукта',
             'count' => 'Количество',
             'sum' => 'Сумма',
+            'sum_delivery' => 'Сумма доставки',
+            'sum_total' => 'Итого',
             'has_box' => 'Является набором',
             'status' => 'Статус',
             'paid' => 'Оплачен',
@@ -243,5 +249,18 @@ class Order extends \yii\db\ActiveRecord
         $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
 
         $body           = file_get_contents( $sms_url );
+    }
+
+    public function beforeSave($insert)
+    {
+        if ( $this->sum < DeliveryOrderHelper::getMinSumFree() ) {
+            $this->sum_delivery = DeliveryOrderHelper::getPrice($this->dost);
+        } else {
+            $this->sum_delivery = 0;
+        }
+
+        $this->sum_total = $this->sum_delivery + $this->sum;
+
+        return true;
     }
 }

@@ -11,6 +11,7 @@ namespace app\helpers;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use app\models\Order;
+use app\models\Params;
 
 
 class DeliveryOrderHelper
@@ -29,6 +30,40 @@ class DeliveryOrderHelper
     public static function getName($status)
     {
         return ArrayHelper::getValue(self::getList(), $status);
+    }
+
+    public static function getPrice($status)
+    {
+        $params = Params::findOne(1);
+
+        switch ($status) {
+            case Order::DELIVERY_COURIER:
+                $price = $params->price_сourier;
+                break;
+            case Order::DELIVERY_SDEK_PVZ:
+                $price = $params->pickup;
+                break;
+            case Order::DELIVERY_MAIL:
+                $price = $params->russia_mail;
+                break;
+            case Order::DELIVERY_SDEK_COURIER:
+                $price = 0;
+                break;
+            case Order::DELIVERY_OFFICE:
+                $price = 0;
+                break;
+            default:
+                $price = 0;
+        }
+
+        return $price;
+
+    }
+
+    public static function getMinSumFree()
+    {
+        $params = Params::findOne(1);
+        return $params->three_shiping_sum;
     }
 
     public static function getLabel($status)

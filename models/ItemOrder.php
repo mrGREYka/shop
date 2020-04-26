@@ -115,16 +115,11 @@ class ItemOrder extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-
         $order      = $this->order;
         $order->sum = $order->countSum( );
         if (!$order->save( )) {
             throw new NotFoundHttpException('Ошибка записи заказа! По какой-то причине не удается перезаписать заказ!');
         }
-
-
-
-        //var_dump( $this->order );
     }
 
     public function afterDelete( ) {
