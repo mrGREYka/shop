@@ -243,7 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
 
             <?php
-            $tastes = $model->taste;
+            $tastes = $model->tasteproduct;
             $number_row = 0; ?>
 
             <table class="table table-bordered table-striped">
@@ -262,7 +262,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $pp = $pp + 1 ?>
                     <tr>
                         <td><?= $pp ?></td>
-                        <td><?= Html::encode($taste->title) ?></td>
+                        <td><?= Html::encode($taste->taste->title) ?></td>
 
 
                         <td><?= Html::a('Изменить',
