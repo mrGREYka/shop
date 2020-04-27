@@ -47,7 +47,15 @@ $gridColumnsXLS = [
         'format' => 'html',],
     ['attribute' => 'Вес отправления',     'value' => function (app\models\Order $model) { return $model->weight; }, 'format' => 'html', ],
     ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    ['attribute' => 'Наложеный платеж',    'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Наложеный платеж',
+        'value' => function (app\models\Order $model) {
+            if( $model->paid == Order::PAID_NO ) {
+                return $model->sum_total;
+            } else {
+                return 0;
+            }
+        },
+        'format' => 'html',],
     ['attribute' => 'Комментарий к заказу','value' => function (app\models\Order $model) { return $model->comment; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 1, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],
     ['attribute' => 'Габарит 2, см',       'value' => function (app\models\Order $model) { return 10; }, 'format' => 'html', ],

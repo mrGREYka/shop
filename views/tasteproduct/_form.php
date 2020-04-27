@@ -24,7 +24,7 @@ $taste = ArrayHelper::map( Taste::find()->orderBy("title")->all(), 'id', 'title'
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn-sm btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
