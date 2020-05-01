@@ -31,8 +31,7 @@ class ApiproductController extends \yii\rest\Controller
 
             $result_product['attributes']   = $this->attribues_( $product );
             $result_product['price']        = $this->prices($product);
-            $result_product['tasteSelect']  = $this->tastes( $product->groupProduct );
-            $result_product['tasteSelect2']  = $this->tastes2( $product );
+            $result_product['tasteSelect']  = $this->tastes( $product );
             $result_product['photos']       = $this->images( $product );
 
 
@@ -70,23 +69,7 @@ class ApiproductController extends \yii\rest\Controller
         return $result;
     }
 
-    protected function tastes($groupproduct)
-    {
-        $tastes = $groupproduct->tastes;
-        $result = [];
-
-        foreach ($tastes as $taste):
-            $file_arr = [];
-            $file_arr['id'] = $taste->id;
-            $file_arr['name'] = $taste->title;
-            $file_arr['included'] = true;
-            $result[] = $file_arr;
-        endforeach;
-
-        return $result;
-    }
-
-    protected function tastes2($product)
+    protected function tastes($product)
     {
         $tastes = $product->taste;
         $result = [];

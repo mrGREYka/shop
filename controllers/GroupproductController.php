@@ -24,10 +24,10 @@ class GroupproductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','createtaste', 'deletetaste' ],
+                'only' => ['index','view','create','update' ],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','createtaste', 'deletetaste'],
+                        'actions' => ['index','view','create','update'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -106,31 +106,6 @@ class GroupproductController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
-    }
-
-    public function actionCreatetaste($id)
-    {
-        $model_TasteGroupProduct                     = new TasteGroupProduct();
-        $model_TasteGroupProduct->group_product_id   = $id;
-
-        if ($model_TasteGroupProduct->load(Yii::$app->request->post()) && $model_TasteGroupProduct->save()) {
-            return $this->redirect(['view', 'id' => $id]);
-        }
-
-        return $this->render('tastegroupproductcreate', [
-            'model' => $model_TasteGroupProduct,
-        ]);
-
-    }
-
-    public function actionDeletetaste($id)
-    {
-        $model_TasteGroupProduct = TasteGroupProduct::findOne($id);
-        $group_product_id   = $model_TasteGroupProduct->group_product_id;
-        $model_TasteGroupProduct->delete( );
-
-        return $this->redirect(['view', 'id' => $group_product_id]);
-
     }
 
     /**
