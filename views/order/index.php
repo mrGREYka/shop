@@ -53,8 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
             ],
             [
-                'attribute' => 'sum',
-                'footer' => Order::getTotal($dataProvider->models, 'sum'),
+                'attribute' => 'sum_total',
+                'footer' => Order::getTotal($dataProvider->models, 'sum_total'),
             ],
             [
                 'attribute' => 'user_id',
