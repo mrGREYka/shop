@@ -92,13 +92,14 @@ $gridColumnsXLS = [
         'value' => function (app\models\Order $model) {
             $itemsorder = $model->itemsorder;
             if (count($itemsorder) === 1) {
-                return $itemsorder[0]->sum;
+                return $itemsorder[0]->price;
             } elseif (count($itemsorder) > 1) {
-                $sum_order = 0;
+                /*$sum_order = 0;
                 foreach ($itemsorder as $itemorder):
                     $sum_order = $sum_order + $itemorder->sum;
                 endforeach;
-                return $sum_order;
+                return $sum_order;*/
+                return '-';
             }
             return '';
         },
