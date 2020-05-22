@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
             ],
             [
-                'attribute' => 'sum',
+                'attribute' => 'sum_total',
             ],
             [
                 'attribute' => 'user_id',

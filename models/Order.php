@@ -245,7 +245,7 @@ class Order extends \yii\db\ActiveRecord
 
         $sms_phone = PhoneHelper::CleanPhoneNumber($sms_phone);
 
-        $sms_message    = urlencode('Ваш заказ №'.$this->id.' на сумму '.$this->sum.'₽ принят. Ожидайте ответ на E-mail.' );
+        $sms_message    = urlencode('Ваш заказ №'.$this->id.' на сумму '.$this->sum_total.'₽ принят. Ожидайте ответ на E-mail.' );
         $sms_url        = "https://sms.ru/sms/send?api_id=$sms_api_key&to=$sms_phone&msg=$sms_message&json=1";
 
         $body           = file_get_contents( $sms_url );

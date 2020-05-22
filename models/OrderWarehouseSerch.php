@@ -24,20 +24,13 @@ class OrderWarehouseSerch extends order
     public function rules()
     {
         return [
-            //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
-            //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
-            //[['from_date','to_date'], 'safe'],
-            [['paid','dost'], 'integer'],
-            //[['partner_id'], 'safe'],
-
+            [['status','paid','dost'], 'integer'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            //'from_date' => 'Дата начала',
-            //'to_date' => 'Дата окончания',
         ];
     }
 
@@ -59,7 +52,7 @@ class OrderWarehouseSerch extends order
      */
     public function search($params)
     {
-        $query = Order::find()->orderBy(['created' => SORT_DESC]);
+        $query = Order::find()->orderBy(['id' => SORT_ASC]);
 
         // add conditions that should always apply here
 
@@ -74,6 +67,10 @@ class OrderWarehouseSerch extends order
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        $query->andFilterWhere([
+            'status' => $this->status,
+        ]);
 
         $query->andFilterWhere([
             'paid' => $this->paid,

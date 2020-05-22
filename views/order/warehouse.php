@@ -64,44 +64,17 @@ $gridColumnsXLS = [
     ['attribute' => 'Артикул',             'value' => function (app\models\Order $model) { return $model->id; }, 'format' => 'html', ],
     ['attribute' => 'Описание вложений',
         'value' => function (app\models\Order $model) {
-            $itemsorder = $model->itemsorder;
-            if ( count($itemsorder) === 1 ) {
-                return $itemsorder[0]->product->title;
-            } elseif ( count($itemsorder) > 1 ) {
-                return 'Шоколадная продукция';
-            }
-            return '';
+            return 'Шоколадная продукция';
         },
         'format' => 'html',],
     ['attribute' => 'Количество',
         'value' => function (app\models\Order $model) {
-            $itemsorder = $model->itemsorder;
-            if (count($itemsorder) === 1) {
-                return $itemsorder[0]->count;
-            } elseif (count($itemsorder) > 1) {
-                $count_order = 0;
-                foreach ($itemsorder as $itemorder):
-                    $count_order = $count_order + $itemorder->count;
-                endforeach;
-                return $count_order;
-            }
-            return '';
+            return 1;
         },
         'format' => 'html',],
     ['attribute' => 'Стоимость',
         'value' => function (app\models\Order $model) {
-            $itemsorder = $model->itemsorder;
-            if (count($itemsorder) === 1) {
-                return $itemsorder[0]->price;
-            } elseif (count($itemsorder) > 1) {
-                /*$sum_order = 0;
-                foreach ($itemsorder as $itemorder):
-                    $sum_order = $sum_order + $itemorder->sum;
-                endforeach;
-                return $sum_order;*/
-                return '-';
-            }
-            return '';
+            return $model->sum_total;
         },
         'format' => 'html',],
     ['attribute' => 'Ставка НДС',          'value' => function (app\models\Order $model) { return 2; }, 'format' => 'html', ],
@@ -135,9 +108,10 @@ $gridColumns = [
         'value' => function (app\models\Order $model) {
             return StatusOrderHelper::statusLabel($model->status);
         },
+        'filter' => Html::activeDropDownList($searchModel, 'status', StatusOrderHelper::statusListWarehouse(),['class'=>'form-control','prompt' => 'По всем...']),
         'format' => 'html',
     ],
-    'sum',
+    'sum_total',
     [
         'attribute' => 'user_id',
         'value' => function ($data) {

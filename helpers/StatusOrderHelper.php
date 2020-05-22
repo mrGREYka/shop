@@ -29,6 +29,14 @@ class StatusOrderHelper
         ];
     }
 
+    public static function statusListWarehouse()
+    {
+        return [
+            Order::STATUS_PRINTED => 'Напечатан',
+            Order::STATUS_COLLECTED => 'Собран',
+        ];
+    }
+
     public static function statusName($status)
     {
         return ArrayHelper::getValue(self::statusList(), $status);
