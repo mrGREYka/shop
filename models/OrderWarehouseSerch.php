@@ -52,13 +52,14 @@ class OrderWarehouseSerch extends order
      */
     public function search($params)
     {
-        //$query = Order::find()->orderBy(['id' => SORT_ASC]);
         $query = Order::find();
-
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>[
+                'defaultOrder'=>[
+                    'dateend'=>SORT_ASC
+                ]
+            ],
         ]);
 
         $this->load($params);

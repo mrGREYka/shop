@@ -51,12 +51,17 @@ class orderPrintSerch extends order
      */
     public function search($params)
     {
-        $query = Order::find()->orderBy([ 'created' => SORT_DESC ]);
+        $query = Order::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=>[
+                'defaultOrder'=>[
+                    'created'=>SORT_DESC
+                ]
+            ],
         ]);
 
         $this->load($params);
