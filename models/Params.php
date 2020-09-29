@@ -29,7 +29,7 @@ class Params extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['three_shiping_sum', 'up_1', 'up_2', 'pickup', 'price_сourier', 'russia_mail' ], 'integer'],
+            [['three_shiping_sum', 'up_1', 'up_2', 'pickup', 'price_сourier', 'russia_mail', 'gallery_id' ], 'integer'],
             [['cdek_url'], 'string', 'max' => 255],
         ];
     }
@@ -47,7 +47,8 @@ class Params extends \yii\db\ActiveRecord
             'up_2' => 'Наценка на срочную доставку (2-ой день)',
             'pickup' => 'Цена за самовывоз',
             'price_сourier' => 'Цена за доставку курьером',
-            'russia_mail' => 'Цена за доставку почтой'
+            'russia_mail' => 'Цена за доставку почтой',
+            'gallery_id' => 'Галлерея на главную страницу',
         ];
     }
 }
