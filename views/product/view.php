@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'id',
+                    'sort',
                     'title',
                     'content:ntext',
                     [

@@ -44,7 +44,7 @@ class ProductapiSerch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->orderBy(['id' => SORT_ASC]);
+        $query = Product::find()->orderBy(['sort' => SORT_ASC]);
 
         // add conditions that should always apply here
 

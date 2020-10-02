@@ -43,7 +43,7 @@ class Product extends \yii\db\ActiveRecord
             [['group_product_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['group_product_id'], 'exist', 'skipOnError' => true, 'targetClass' => GroupProduct::className(), 'targetAttribute' => ['group_product_id' => 'id']],
-            [['has_box'],'integer'],
+            [['has_box', 'sort'],'integer'],
             ['has_box', 'default', 'value' => self::HAS_BOX_NO ],
             ['has_box', 'in', 'range' => [
                 self::HAS_BOX_NO,
@@ -72,6 +72,7 @@ class Product extends \yii\db\ActiveRecord
             'has_box' => 'Это набор',
             'without_photo' => 'Без фотографий',
             'kit' => 'Штучный',
+            'sort' => 'Порядок',
         ];
     }
 

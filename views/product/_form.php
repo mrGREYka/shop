@@ -21,6 +21,12 @@ use app\helpers\WithoutPhotoProductHelper;
     </div>
 
     <div class="row">
+        <div class="col-lg-2 col-xs-3 col-sm-2">
+            <?= $form->field($model, 'sort')->textInput(['type' => 'number']) ?>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-lg-6 col-xs-8 col-sm-6">
             <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
         </div>
