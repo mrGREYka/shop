@@ -28,6 +28,7 @@ class Order extends \yii\db\ActiveRecord
     const STATUS_COLLECTED          = 5;
     const STATUS_IN_DELIVERY        = 6;
     const STATUS_DELIVERED          = 7;
+    const STATUS_CONTROL            = 8;
     const STATUS_CANCEL             = 0;
 
     const TIME_FINISH_10_18         = 0;
@@ -65,6 +66,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['dateend'], 'required'],
+            [['created'], 'required'],
             [['dateend'], 'date', 'format' => 'yyyy-mm-dd'],
             [['partner_id', 'interaction'], 'required'],
             [['number',
@@ -100,6 +102,7 @@ class Order extends \yii\db\ActiveRecord
                 'uri',
                 'url'], 'string', 'max' => 150],
             [['comment',
+                'comment_user',
                 'message'], 'string'],
 
             ['weight', 'default', 'value' => 0],
@@ -121,7 +124,9 @@ class Order extends \yii\db\ActiveRecord
                 self::STATUS_COLLECTED,
                 self::STATUS_IN_DELIVERY,
                 self::STATUS_DELIVERED,
-                self::STATUS_CANCEL, ]
+                self::STATUS_CONTROL,
+                self::STATUS_CANCEL,
+                ]
             ],
             ['dost', 'default', 'value' => self::DELIVERY_COURIER],
             ['dost', 'in', 'range' => [
@@ -171,6 +176,7 @@ class Order extends \yii\db\ActiveRecord
             'dateend' => 'Дата заверш.',
             'timefinish' => 'Время',
             'comment' => 'Комментарий',
+            'comment_user' => 'Комментарий менеджера',
             'message' => 'Сообщение',
             'promocode' => 'Промокод',
             'product_id' => 'ID продукта',

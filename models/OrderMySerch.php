@@ -92,7 +92,7 @@ class OrderMySerch extends order
             'status='.Order::STATUS_AGREED,
             'status='.Order::STATUS_PRINTED,
             'status='.Order::STATUS_COLLECTED,
-
+            'status='.Order::STATUS_CONTROL,
         ]);
 
         return $dataProvider;

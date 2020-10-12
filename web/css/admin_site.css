@@ -121,6 +121,10 @@
      background-color: #343a40;
  }
 
+ html.admin .badge-control {
+     background-color: #ec5f6d;
+ }
+
  html.admin .d-none {
      display: none;
  }

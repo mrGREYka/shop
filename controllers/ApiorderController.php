@@ -26,6 +26,7 @@ class ApiorderController extends Controller
     {
         $model              = new Order();
         $model->attributes  = Yii::$app->request->post();
+        $model->created     = date('Y-m-d');
         $partner            = Partner::find()->where(['phone' => $model->phone])->one();
 
         if ( empty( $partner ) ) {

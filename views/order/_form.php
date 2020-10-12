@@ -40,12 +40,32 @@ if ($model->partner) {
             <div class="alert alert-warning">
                 <div class="row">
                     <div class="col-lg-6 col-xs-8 col-sm-8">
+                        <?= $form->field($model, 'created')->widget(
+                            DatePicker::className(),
+                            [
+                                'name' => 'created',
+                                'language' => 'ru',
+                                'options' => ['placeholder' => 'Выбор даты...'],
+                                'removeButton' => false,
+                                'pluginOptions' => [
+                                    'format' => 'yyyy-mm-dd',
+                                    'todayHighlight' => true,
+                                    'autoclose'=>true,
+                                ]
+                            ]
+
+                        ); ?>
                         <?= $form->field($model, 'status',['options' => ['class' => 'form-group-lg']])->dropDownList(StatusOrderHelper::statusList(),[ 'class=>'=>'form-control','onchange'=>'function()']) ?>
                     </div>
 
                     <div class="col-lg-6 col-xs-4 col-sm-3">
                         <?= $form->field($model, 'paid')->checkBox( PaidOrderHelper::getList(), [ 'value' => $model->paid === null ? 0 : $model->paid ] ) ?>
                         <?= $form->field($model, 'consignment_note')->checkBox( ConsignmentNoteOrderHelper::getList(), [ 'value' => $model->consignment_note === null ? 0 : $model->consignment_note ] ) ?>
+                        <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
+                    </div>
+                    <div class="col-lg-12 col-xs-12 col-sm-12">
+                        <?= $form->field($model, 'comment_user')->textarea(['rows' => 2]) ?>
+
                     </div>
                 </div>
             </div>
@@ -65,9 +85,6 @@ if ($model->partner) {
                     </div>
                     <div class="col-lg-6 col-xs-8 col-sm-6">
                         <?= $form->field($model, 'contact_id')->dropDownList( $contact,[ 'prompt'=>'Не указан...', ] ) ?>
-                    </div>
-                    <div class="col-lg-6 col-xs-8 col-sm-6">
-                        <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
                     </div>
                     <div class="col-lg-4 col-xs-5 col-sm-6">
                         <?= $form->field($model, 'interaction')->dropDownList(InteractionOrderHelper::getList(),[ 'prompt'=>'Не указан...', ]) ?>
@@ -107,9 +124,11 @@ if ($model->partner) {
                                 'language' => 'ru',
                                 //'value' => date('d-m-Y', strtotime('+2 days')),
                                 'options' => ['placeholder' => 'Выбор даты...'],
+                                'removeButton' => false,
                                 'pluginOptions' => [
                                     'format' => 'yyyy-mm-dd',
-                                    'todayHighlight' => true
+                                    'todayHighlight' => true,
+                                    'autoclose'=>true,
                                 ]
                             ]
 

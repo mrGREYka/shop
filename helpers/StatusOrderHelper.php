@@ -25,6 +25,7 @@ class StatusOrderHelper
             Order::STATUS_COLLECTED => 'Собран',
             Order::STATUS_IN_DELIVERY => 'В доставке',
             Order::STATUS_DELIVERED => 'Доставлен',
+            Order::STATUS_CONTROL => 'На контроле',
             Order::STATUS_CANCEL => 'Отменен',
         ];
     }
@@ -65,6 +66,9 @@ class StatusOrderHelper
                 break;
             case Order::STATUS_DELIVERED:
                 $class = 'badge badge-pill badge-success';
+                break;
+            case Order::STATUS_CONTROL:
+                $class = 'badge badge-pill badge-danger badge-control';
                 break;
             case Order::STATUS_CANCEL:
                 $class = 'badge badge-pill badge-danger';
