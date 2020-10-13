@@ -35,6 +35,7 @@ class StatusOrderHelper
         return [
             Order::STATUS_PRINTED => 'Напечатан',
             Order::STATUS_COLLECTED => 'Собран',
+            Order::STATUS_CONTROL => 'На контроле',
         ];
     }
 

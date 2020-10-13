@@ -140,6 +140,8 @@ class OrderController extends Controller
             $model->partner_id = $partner_id;
         }
 
+        $model->created     = date('Y-m-d'); // новому заказу устанавливаем текущую дату
+
         return $this->render('create', [
             'model' => $model,
         ]);

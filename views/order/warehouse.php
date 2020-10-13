@@ -143,6 +143,9 @@ $gridColumns = [
 
     ],
     [
+        'attribute' => 'comment_user',
+    ],
+    [
         'attribute' => 'paid',
         'value' => function (app\models\Order $model) {
             return PaidOrderHelper::getLabel($model->paid);
