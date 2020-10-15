@@ -67,7 +67,7 @@ class orderSerch extends order
             'query' => $query,
             'sort'=>[
                 'defaultOrder'=>[
-                    'created'=>SORT_DESC
+                    'id'=>SORT_DESC
                 ]
             ],
         ]);
