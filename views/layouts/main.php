@@ -45,16 +45,20 @@ AppAsset::register($this);
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
-                ['label' => 'Менеджеры', 'url' => ['/user']],
+                ['label' => 'Заказы', 'url' => ['/order']],
+                ['label' => 'Мои заказы', 'url' => ['/order/my']],
+                ['label' => 'Заказы на печать', 'url' => ['/order/print']],
+                ['label' => 'Склад', 'url' => ['/order/warehouse']],
                 ['label' => 'Партнеры', 'url' => ['/partner']],
-                ['label' => 'Контакты', 'url' => ['/contact']],
-                ['label' => 'Продажи', 'url' => ['/#'], 'items' => [
-                    ['label' => 'Заказы', 'url' => ['/order']],
-                    ['label' => 'Мои заказы', 'url' => ['/order/my']],
-                    ['label' => 'Заказы на печать', 'url' => ['/order/print']],
-                    ['label' => 'Склад', 'url' => ['/order/warehouse']],
-                    ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
+
+
+
+
+
+                ['label' => 'Прочие', 'url' => ['/#'], 'items' => [
+                    ['label' => 'Контакты', 'url' => ['/contact']],
                     ['label' => 'Товары', 'url' => ['/product']],
+                    ['label' => 'Группы товаров', 'url' => ['/groupproduct']],
                     ['label' => 'Вкусы шоколада', 'url' => ['/taste']],
                     ['label' => 'Параметры', 'url' => ['params/update']],
                 ],

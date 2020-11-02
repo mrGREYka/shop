@@ -56,7 +56,7 @@ class Partner extends \yii\db\ActiveRecord
 
     public function getOrder( )
     {
-        return $this->hasMany( Order::className( ), [ 'partner_id' => 'id' ] );
+        return $this->hasMany( Order::className( ), [ 'partner_id' => 'id' ] )->orderBy( 'id desc' );
     }
 
     public function getContacts( )

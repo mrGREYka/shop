@@ -32,7 +32,7 @@ class TimefinishOrderHelper
 
     public static function getLabel($status)
     {
-        return Html::tag('span', '', [ 'class' => 'glyphicon glyphicon-time', ] ).Html::tag('span', ArrayHelper::getValue(self::getList(), $status), [ 'class' => 'label label-default', ]);
+        return Html::tag('span', ArrayHelper::getValue(self::getList(), $status), [ 'class' => 'label label-default', ]);
     }
 
     public static function intervalFrom($status)

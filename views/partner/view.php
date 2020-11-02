@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\helpers\StatusOrderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\partner */
@@ -95,6 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <th>#</th>
                     <th>Заказ</th>
+                    <th>Статус</th>
                     <th>Сумма</th>
                 </tr>
                 </thead>
@@ -109,10 +111,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <tr>
                         <td><?= $pp ?></td>
                         <td><?= Html::a('Заказ № '.$order->id.' от '.date("Y-m-d", strtotime( $order->created)), ['order/view', 'id' => $order->id] ) ?></td>
+                        <td><?= StatusOrderHelper::statusLabel( $order->status ) ?></td>
                         <td><?= $order->sum ?></td>
                     </tr>
                 <?php endforeach?>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td><b>ИТОГО</b></td>
                     <td><?= $total ?></td>
