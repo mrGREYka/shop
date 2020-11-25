@@ -19,11 +19,16 @@ CountPriceSumAppAsset::register($this);
 $group_poduct = ArrayHelper::map( GroupProduct::find()->orderBy("title")->all(), 'id', 'title');
 if ($model->groupProduct) {
     $poduct = ArrayHelper::map($model->groupProduct->products, 'id', 'title');
-    $taste = ArrayHelper::map($model->groupProduct->tastes, 'id', 'title');
 } else {
     $poduct = [];
+}
+
+if ($model->product) {
+    $taste = ArrayHelper::map($model->product->taste, 'id', 'title');
+} else {
     $taste = [];
 }
+
 ?>
 
 <script>
@@ -52,10 +57,7 @@ if ($model->groupProduct) {
                                     .done(function( data ) {
                                         $( "#'.Html::getInputId($model, 'product_id').'" ).html( data );
                                     });
-                                    $.get( "'.Url::toRoute('/taste/tastesofgroup').'", { id: $(this).val() } )
-                                    .done(function( data ) {
-                                        $( "#'.Html::getInputId($model, 'taste_id').'" ).html( data );
-                                    });'
+                                    '
                 ]); ?>
         </div>
     </div>
@@ -65,7 +67,11 @@ if ($model->groupProduct) {
                 $poduct,
                 [
                     'prompt' => 'Выбор товара...',
-                    'onchange'=>'_get_product_price( $(this).val() );',
+                    'onchange'=>'   _get_product_price( $(this).val() );
+                                    $.get( "'.Url::toRoute('/taste/tastesofproduct').'", { id: $(this).val() } )
+                                    .done(function( data ) {
+                                        $( "#'.Html::getInputId($model, 'taste_id').'" ).html( data );
+                                    });',
                 ]); ?>
         </div>
     </div>
