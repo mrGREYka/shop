@@ -200,6 +200,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ['updateitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                                 ['class' => 'label label-success']
                             ) . Html::tag('br') .
+                            Html::a('Копировать',
+                                ['copyitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                ['class' => 'label label-warning']
+                            ) . Html::tag('br') .
                             Html::a('Удалить',
                                 ['deleteitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                                 [

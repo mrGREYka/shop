@@ -222,6 +222,47 @@ class OrderController extends Controller
 
     }
 
+    public function actionCopyitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
+    {
+
+        $model_item         = ItemOrder::findOne($id);
+        $model_item_copy    = new ItemOrder();
+
+
+
+
+
+
+        if ( $model_item_copy->load( Yii::$app->request->post( ) ) )  {
+            $model_item_copy->order_id          = $model_item->order_id;
+            if ( $model_item_copy->save() ) {
+                return $this->redirect(['view',
+                    'id' => $model_item->order_id,
+                    'breadcrumbs_label' => $breadcrumbs_label,
+                    'breadcrumbs_url' => $breadcrumbs_url,
+                ]);
+            }
+        }
+
+
+        $model_item_copy->order_id          = $model_item->order_id;
+        $model_item_copy->group_product_id  = $model_item->group_product_id;
+        $model_item_copy->product_id        = $model_item->product_id;
+        $model_item_copy->taste_id          = $model_item->taste_id;
+        $model_item_copy->foil              = $model_item->foil;
+        $model_item_copy->count             = $model_item->count;
+        $model_item_copy->price             = $model_item->price;
+        $model_item_copy->sum               = $model_item->sum;
+
+        return $this->render('itemcopy', [
+            'model' => $model_item_copy,
+            'order_id' => $model_item_copy->order_id,
+            'breadcrumbs_label' => $breadcrumbs_label,
+            'breadcrumbs_url' => $breadcrumbs_url,
+        ]);
+
+    }
+
     public function actionDeleteitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
         $model_item = ItemOrder::findOne($id);
