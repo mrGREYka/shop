@@ -6,6 +6,7 @@ use app\models\Partner;
 use app\models\ItemOrder;
 use app\models\Order;
 use app\models\Product;
+use app\models\User;
 use yii\rest\Controller;
 use yii\filters\auth\HttpBasicAuth;
 use Yii;
@@ -29,6 +30,8 @@ class ApiorderController extends Controller
         $model->created     = date('Y-m-d');
         $partner            = Partner::find()->where(['phone' => $model->phone])->one();
 
+        $user = User::findOne(20);
+
         if ( empty( $partner ) ) {
             $partner = new Partner();
             $partner->name = $model->username;
@@ -38,8 +41,9 @@ class ApiorderController extends Controller
             $partner->save();
         }
 
-        $model->partner_id = $partner->id;
+        $model->partner_id  = $partner->id;
         $model->interaction = Order::INTERACTION_EMAIL;
+        $model->user_id     = $user->id;
 
         if ( $model->save( ) ) {
 

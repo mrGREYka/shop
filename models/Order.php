@@ -68,7 +68,7 @@ class Order extends \yii\db\ActiveRecord
             [['dateend'], 'required'],
             [['created'], 'required'],
             [['dateend'], 'date', 'format' => 'yyyy-mm-dd'],
-            [['partner_id', 'interaction'], 'required'],
+            [['partner_id', 'interaction', 'user_id'], 'required'],
             [['number',
                 'dost',
                 'product_id',
@@ -213,6 +213,20 @@ class Order extends \yii\db\ActiveRecord
     public function getUser( )
     {
         return $this->hasOne( User::className( ), [ 'id' => 'user_id' ] );
+    }
+
+    public function isAnonymous( )
+    {
+        $user = $this->user;
+        if ( empty( $user ) ) {
+            return true;
+        } else {
+            if ( $user->id === 20 ) {
+                return true;
+            } else {
+                return false;
+            }
+        };
     }
 
     public function getItemsorder( )

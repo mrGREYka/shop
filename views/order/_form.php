@@ -29,6 +29,17 @@ if ($model->partner) {
     $contact = [];
 }
 
+/*
+C сайта все заказы приходят на пользователя inchoco.ru
+Далее что бы что-то сделать с заказом, необходимо выбрать другого пользователя, отличного от inchoco.ru
+Только тогда можно будет сохранить заказ.
+*/
+$users = \app\models\User::find( )->where( 'id<>20' )->orderBy("username")->all( );
+
+if ( $model->isAnonymous( ) ) {
+    $model->user_id = '';
+}
+
 ?>
 
 <div class="order-form">
@@ -61,7 +72,7 @@ if ($model->partner) {
                     <div class="col-lg-6 col-xs-4 col-sm-3">
                         <?= $form->field($model, 'paid')->checkBox( PaidOrderHelper::getList(), [ 'value' => $model->paid === null ? 0 : $model->paid ] ) ?>
                         <?= $form->field($model, 'consignment_note')->checkBox( ConsignmentNoteOrderHelper::getList(), [ 'value' => $model->consignment_note === null ? 0 : $model->consignment_note ] ) ?>
-                        <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( \app\models\User::find( )->orderBy("username")->all( ), 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
+                        <?= $form->field($model, 'user_id')->dropDownList( \yii\helpers\ArrayHelper::map( $users, 'id', 'username' ),[ 'prompt'=>'Не указан...', ] ) ?>
                     </div>
                     <div class="col-lg-12 col-xs-12 col-sm-12">
                         <?= $form->field($model, 'comment_user')->textarea(['rows' => 2]) ?>

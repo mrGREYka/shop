@@ -161,11 +161,17 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php $itemsorder = $model->itemsorder; ?>
 
         <div class="col-lg-12 col-xs-12 col-sm-12">
-            <div class="form-group">
+
+            <?php
+            if ( !$model->isAnonymous( ) ) { ?>
+                <div class="form-group">
                 <?= Html::a('Добавить товар',
                     ['createitem', 'id' => $model->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
                     ['class' => 'btn-sm btn-success']) ?>
-            </div>
+                </div>
+            <?php } ?>
+
+
 
             <table class="table table-bordered table-striped">
                 <thead>
@@ -196,23 +202,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td><?= $itemorder->count ?></td>
                         <td><?= $itemorder->price ?></td>
                         <td><?= $itemorder->sum ?></td>
-                        <td><?= Html::a('Изменить',
-                                ['updateitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-                                ['class' => 'label label-success']
-                            ) . Html::tag('br') .
-                            Html::a('Копировать',
-                                ['copyitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-                                ['class' => 'label label-warning']
-                            ) . Html::tag('br') .
-                            Html::a('Удалить',
-                                ['deleteitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
-                                [
-                                    'class' => 'label label-danger',
-                                    'data' => [
-                                        'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
-                                        'method' => 'post',
-                                    ],
-                                ]) ?>
+                        <td>
+                            <?php
+                            if ( !$model->isAnonymous( ) ) {
+
+                                echo Html::a('Изменить',
+                                    ['updateitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                    ['class' => 'label label-success']
+                                ) . Html::tag('br') .
+                                Html::a('Копировать',
+                                    ['copyitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                    ['class' => 'label label-warning']
+                                ) . Html::tag('br') .
+                                Html::a('Удалить',
+                                    ['deleteitem', 'id' => $itemorder->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                                    [
+                                        'class' => 'label label-danger',
+                                        'data' => [
+                                            'confirm' => 'Вы уверены, что хотите удалить позицию заказа?',
+                                            'method' => 'post',
+                                        ],
+                                    ]);
+                            }
+                            ?>
                         </td>
                     </tr>
                 <?php endforeach ?>
