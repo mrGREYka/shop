@@ -98,6 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>Заказ</th>
                     <th>Статус</th>
                     <th>Сумма</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -105,21 +106,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php
                 $pp = 0;
                 $total = 0;
-                foreach($orders as $order):
+                foreach ($orders as $order):
                     $pp = $pp + 1;
                     $total = $total + $order->sum; ?>
                     <tr>
                         <td><?= $pp ?></td>
-                        <td><?= Html::a('Заказ № '.$order->id.' от '.date("Y-m-d", strtotime( $order->created)), ['order/view', 'id' => $order->id] ) ?></td>
-                        <td><?= StatusOrderHelper::statusLabel( $order->status ) ?></td>
+                        <td><?= Html::a('Заказ № ' . $order->id . ' от ' . date("Y-m-d", strtotime($order->created)), ['order/view', 'id' => $order->id]) ?></td>
+                        <td><?= StatusOrderHelper::statusLabel($order->status) ?></td>
                         <td><?= $order->sum ?></td>
+                        <td><?= Html::a('Повторить',
+                                ['order/copy', 'id' => $order->id,],
+                                ['class' => 'label label-warning',
+                                    'data' => [
+                                        'confirm' => 'Повторить заказ № ' . $order->id . ' от ' . date("Y-m-d", strtotime($order->created)) . '? При согласии заказ будет сразу записан.',
+                                        'method' => 'post',
+                                    ],
+                                ])
+                            ?></td>
                     </tr>
-                <?php endforeach?>
+                <?php endforeach ?>
                 <tr>
                     <td></td>
                     <td></td>
                     <td><b>ИТОГО</b></td>
                     <td><?= $total ?></td>
+                    <td></td>
                 </tr>
 
                 </tbody>

@@ -29,10 +29,10 @@ class OrderController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','createitem', 'deleteitem', 'print', 'my', 'warehouse'],
+                'only' => ['index','view','create','update', 'copy', 'createitem', 'deleteitem', 'copyitem', 'print', 'my', 'warehouse'],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','createitem', 'deleteitem', 'print', 'my', 'warehouse'],
+                        'actions' => ['index','view','create','update', 'copy', 'createitem', 'deleteitem', 'copyitem', 'print', 'my', 'warehouse'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -176,6 +176,67 @@ class OrderController extends Controller
 
     }
 
+    public function actionCopy($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
+    {
+
+        $model = $this->findModel($id);
+
+        $model_copy = new Order();
+        $model_copy->created = $model->created;
+        $model_copy->partner_id = $model->partner_id;
+        $model_copy->contact_id = $model->contact_id;
+        $model_copy->user_id = $model->user_id;
+        $model_copy->email = $model->email;
+
+        if ( empty( $model->username ) ) {
+            $model_copy->username = Yii::$app->user->identity;
+        } else {
+            $model_copy->username = $model->username;
+        }
+
+        $model_copy->phone = $model->phone;
+        $model_copy->address = $model->address;
+        $model_copy->dost = $model->dost;
+        $model_copy->datefinish = $model->datefinish;
+        $model_copy->dateend = $model->dateend;
+        $model_copy->timefinish = $model->timefinish;
+        $model_copy->comment = $model->comment;
+        $model_copy->comment_user = $model->comment_user;
+        $model_copy->message = $model->message;
+        $model_copy->promocode = $model->promocode;
+        $model_copy->sum = $model->sum;
+        $model_copy->sum_delivery = $model->sum_delivery;
+        $model_copy->sum_total = $model->sum_total;
+        $model_copy->status = Order::STATUS_NEW;
+        $model_copy->paid = $model->paid;
+        $model_copy->consignment_note = $model->consignment_note;
+        $model_copy->num_pack = $model->num_pack;
+        $model_copy->weight = $model->weight;
+        $model_copy->interaction = $model->interaction;
+
+        if ($model_copy->save()) {
+            $itemsorder = $model->itemsorder;
+            foreach ($itemsorder as $itemorder):
+                $model_copy_item = new ItemOrder();
+                $model_copy_item->order_id = $model_copy->id;
+                $model_copy_item->group_product_id = $itemorder->group_product_id;
+                $model_copy_item->product_id = $itemorder->product_id;
+                $model_copy_item->taste_id = $itemorder->taste_id;
+                $model_copy_item->foil = $itemorder->foil;
+                $model_copy_item->count = $itemorder->count;
+                $model_copy_item->price = $itemorder->price;
+                $model_copy_item->sum = $itemorder->sum;
+                $model_copy_item->save();
+            endforeach;
+
+            return $this->redirect(['view',
+                'id' => $model_copy->id,
+                'breadcrumbs_label' => $breadcrumbs_label,
+                'breadcrumbs_url' => $breadcrumbs_url,
+            ]);
+        }
+    }
+
     public function actionCreateitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
         $model_item             = new ItemOrder();
@@ -224,14 +285,8 @@ class OrderController extends Controller
 
     public function actionCopyitem($id, $breadcrumbs_label = null, $breadcrumbs_url = null)
     {
-
         $model_item         = ItemOrder::findOne($id);
         $model_item_copy    = new ItemOrder();
-
-
-
-
-
 
         if ( $model_item_copy->load( Yii::$app->request->post( ) ) )  {
             $model_item_copy->order_id          = $model_item->order_id;
