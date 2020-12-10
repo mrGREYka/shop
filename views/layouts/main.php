@@ -100,7 +100,11 @@ AppAsset::register($this);
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; Inchoco <?= date('Y') ?></p>
-        <p class="pull-right">Баланс SMS.ru: <span class="sms_balance"></span></p>
+
+        <?php
+            if ( !Yii::$app->user->isGuest ) { ?>
+                <p class="pull-right">Баланс SMS.ru: <span class="sms_balance"></span></p>
+            <?php } ?>
     </div>
 </footer>
 
