@@ -114,3 +114,7 @@ a.desc:after {
     outline: none;
 }
 
+.sms_balance {
+    font-weight: bold;
+}
+

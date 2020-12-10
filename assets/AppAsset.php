@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'css/admin_site.css',
     ];
     public $js = [
+        'js/sms_balance.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
