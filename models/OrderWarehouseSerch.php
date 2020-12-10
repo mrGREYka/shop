@@ -86,6 +86,7 @@ class OrderWarehouseSerch extends order
 
         $query->andFilterWhere(['or',
             'status='.Order::STATUS_PRINTED,
+            'status='.Order::STATUS_IN_DELIVERY,
             'status='.Order::STATUS_COLLECTED,
             'status='.Order::STATUS_CONTROL,
         ]);

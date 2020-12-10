@@ -208,7 +208,7 @@ class OrderController extends Controller
         $model_copy->sum_delivery = $model->sum_delivery;
         $model_copy->sum_total = $model->sum_total;
         $model_copy->status = Order::STATUS_NEW;
-        $model_copy->paid = $model->paid;
+        $model_copy->paid = Order::PAID_NO;
         $model_copy->consignment_note = $model->consignment_note;
         $model_copy->num_pack = $model->num_pack;
         $model_copy->weight = $model->weight;

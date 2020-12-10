@@ -91,6 +91,7 @@ class OrderMySerch extends order
             'status='.Order::STATUS_ON_COORDINATION,
             'status='.Order::STATUS_AGREED,
             'status='.Order::STATUS_PRINTED,
+            'status='.Order::STATUS_IN_DELIVERY,
             'status='.Order::STATUS_COLLECTED,
             'status='.Order::STATUS_CONTROL,
         ]);
