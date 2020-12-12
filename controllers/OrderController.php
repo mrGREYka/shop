@@ -185,15 +185,15 @@ class OrderController extends Controller
         $model_copy->created = $model->created;
         $model_copy->partner_id = $model->partner_id;
         $model_copy->contact_id = $model->contact_id;
-        $model_copy->user_id = $model->user_id;
-        $model_copy->email = $model->email;
 
-        if ( empty( $model->username ) ) {
-            $model_copy->username = Yii::$app->user->identity;
+        if ( empty( $model->user_id ) ) {
+            $model_copy->user_id = Yii::$app->user->identity;
         } else {
-            $model_copy->username = $model->username;
+            $model_copy->user_id = $model->user_id;
         }
-
+        
+        $model_copy->email = $model->email;
+        $model_copy->username = $model->username;
         $model_copy->phone = $model->phone;
         $model_copy->address = $model->address;
         $model_copy->dost = $model->dost;
@@ -234,6 +234,9 @@ class OrderController extends Controller
                 'breadcrumbs_label' => $breadcrumbs_label,
                 'breadcrumbs_url' => $breadcrumbs_url,
             ]);
+        } else {
+            print_r( $model_copy->errors );
+            //throw new NotFoundHttpException();
         }
     }
 
