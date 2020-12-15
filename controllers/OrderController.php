@@ -182,7 +182,7 @@ class OrderController extends Controller
         $model = $this->findModel($id);
 
         $model_copy = new Order();
-        $model_copy->created = $model->created;
+        $model_copy->created    = date('Y-m-d');
         $model_copy->partner_id = $model->partner_id;
         $model_copy->contact_id = $model->contact_id;
 
@@ -191,7 +191,7 @@ class OrderController extends Controller
         } else {
             $model_copy->user_id = $model->user_id;
         }
-        
+
         $model_copy->email = $model->email;
         $model_copy->username = $model->username;
         $model_copy->phone = $model->phone;
