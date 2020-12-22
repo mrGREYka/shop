@@ -140,6 +140,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'weight',
                                         'promocode',
                                         'sum_delivery',
+                                        [
+                                            'attribute' => 'excpress_delivery_sum',
+                                            'label' => 'Срочность ' . $model->excpress_delivery_procent . '%',
+
+                                        ]
                                     ],
                             ]) ?>
                         </div>

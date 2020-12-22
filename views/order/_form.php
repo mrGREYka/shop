@@ -127,7 +127,7 @@ if ( $model->isAnonymous( ) ) {
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6 col-xs-8 col-sm-6">
+                    <div class="col-lg-4 col-xs-6 col-sm-4">
                         <?= $form->field($model, 'dateend')->widget(
                             DatePicker::className(),
                             [
@@ -146,8 +146,11 @@ if ( $model->isAnonymous( ) ) {
                         ); ?>
 
                     </div>
-                    <div class="col-lg-4 col-xs-8 col-sm-6">
+                    <div class="col-lg-4 col-xs-6 col-sm-4">
                         <?= $form->field($model, 'timefinish')->dropDownList(TimefinishOrderHelper::getList()) ?>
+                    </div>
+                    <div class="col-lg-4 col-xs-4 col-sm-4">
+                        <?= $form->field($model, 'excpress_delivery_procent')->textInput(['type' => 'number']) ?>
                     </div>
                 </div>
                 <div class="row">

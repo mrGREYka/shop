@@ -84,11 +84,12 @@ class Order extends \yii\db\ActiveRecord
                 'consignment_note',
                 'num_pack',
                 'interaction', ], 'integer'],
-
             [['sum',
                 'sum_delivery',
                 'sum_total',
-                'weight',], 'number'],
+                'weight',
+                'excpress_delivery_procent',
+                'excpress_delivery_sum',], 'number'],
             [['email',
                 'username',
                 'phone',
@@ -105,6 +106,8 @@ class Order extends \yii\db\ActiveRecord
                 'comment_user',
                 'message'], 'string'],
 
+            ['excpress_delivery_procent', 'default', 'value' => 0],
+            ['excpress_delivery_sum', 'default', 'value' => 0],
             ['weight', 'default', 'value' => 0],
             ['num_pack', 'default', 'value' => 0],
 
@@ -196,6 +199,8 @@ class Order extends \yii\db\ActiveRecord
             'num_pack' => 'Мест',
             'weight' => 'Вес',
             'interaction' => 'Взаимодействие',
+            'excpress_delivery_procent' => 'Срочность %',
+            'excpress_delivery_sum' => 'Срочность сумма',
 
         ];
     }
@@ -280,6 +285,14 @@ class Order extends \yii\db\ActiveRecord
         }
 
         $this->sum_total = $this->sum_delivery + $this->sum;
+
+        if ( !$this->excpress_delivery_procent == 0 ) {
+            $this->excpress_delivery_sum = $this->sum_total * ( $this->excpress_delivery_procent / 100 );
+        } else {
+            $this->excpress_delivery_sum = 0;
+        }
+
+        $this->sum_total = $this->sum_total + $this->excpress_delivery_sum;
 
         return true;
     }
