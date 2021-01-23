@@ -24,12 +24,9 @@ class orderSerch extends order
     public function rules()
     {
         return [
-            //[['id', 'number', 'dost', 'product_id', 'type_id', 'taste_id', 'count', 'sum', 'has_box'], 'integer'],
-            //[['created', 'email', 'phone', 'address', 'datefinish', 'timefinish', 'comment', 'message', 'promocode', 'username', 'uri', 'url'], 'safe'],
             [['from_date','to_date'], 'safe'],
             [['id','user_id','status'], 'integer'],
-           // [['partner_id'], 'safe'],
-
+            [['sum_total'], 'number'],
         ];
     }
 
@@ -88,6 +85,10 @@ class orderSerch extends order
 
         $query->andFilterWhere([
             'status' => $this->status,
+        ]);
+
+        $query->andFilterWhere([
+            'sum_total' => $this->sum_total,
         ]);
 
         $query->andFilterWhere(['like', 'id', $this->id]);

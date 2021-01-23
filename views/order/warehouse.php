@@ -46,7 +46,7 @@ $gridColumnsXLS = [
         },
         'format' => 'html',],
     ['attribute' => 'Вес отправления',     'value' => function (app\models\Order $model) { return $model->weight; }, 'format' => 'html', ],
-    ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
+    ['attribute' => 'Оценочная стоимость', 'value' => function (app\models\Order $model) { return 100; }, 'format' => 'html', ],
     ['attribute' => 'Наложеный платеж',
         'value' => function (app\models\Order $model) {
             if( $model->paid == Order::PAID_NO ) {
@@ -87,7 +87,6 @@ $gridColumnsXLS = [
     ['attribute' => 'подъем кгт',          'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'Грузовой лифт',       'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
     ['attribute' => 'этаж',                'value' => function (app\models\Order $model) { return ''; }, 'format' => 'html', ],
-    //['class' => 'yii\grid\CheckboxColumn'],
 ];
 
 $gridColumns = [
