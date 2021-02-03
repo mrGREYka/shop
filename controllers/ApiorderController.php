@@ -63,6 +63,8 @@ class ApiorderController extends Controller
             $model->sentSms();
 
             return $model;
+        } else {
+            return serialize( $model->errors );
         }
 
         return false;
