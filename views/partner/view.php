@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>#</th>
                     <th>Заказ</th>
                     <th>Статус</th>
-                    <th>Сумма</th>
+                    <th>Итого по заказу</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -108,12 +108,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 $total = 0;
                 foreach ($orders as $order):
                     $pp = $pp + 1;
-                    $total = $total + $order->sum; ?>
+                    $total = $total + $order->sum_total; ?>
                     <tr>
                         <td><?= $pp ?></td>
                         <td><?= Html::a('Заказ № ' . $order->id . ' от ' . date("Y-m-d", strtotime($order->created)), ['order/view', 'id' => $order->id]) ?></td>
                         <td><?= StatusOrderHelper::statusLabel($order->status) ?></td>
-                        <td><?= $order->sum ?></td>
+                        <td><?= $order->sum_total ?></td>
                         <td><?= Html::a('Повторить',
                                 ['order/copy', 'id' => $order->id,],
                                 ['class' => 'label label-warning',
