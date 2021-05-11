@@ -26,10 +26,10 @@ class ProductController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','create','update','productsofgroup','createfile', 'deletefile' ],
+                'only' => ['index','view','create','update','productsofgroup','createfile', 'deletefile', 'sortfile' ],
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','productsofgroup','createfile', 'deletefile' ],
+                        'actions' => ['index','view','create','update','productsofgroup','createfile', 'deletefile', 'sortfile' ],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -202,6 +202,28 @@ class ProductController extends Controller
             'breadcrumbs_label' => $breadcrumbs_label,
             'breadcrumbs_url' => $breadcrumbs_url,
         ]);
+    }
+
+    public function actionSortfile($id_product, $id_file, $id_file2)
+    {
+
+        $model = $this->findModel($id_product);
+        $files_arr = $model->files;
+        $i = 1;
+
+        $arr_drag = array_splice($files_arr, $id_file, 1);
+        array_splice($files_arr, $id_file2, 0, $arr_drag);
+
+        foreach( $files_arr as $file_arr ){
+
+            $file_arr_model = FileProduct::findOne($file_arr->id);
+            $file_arr_model->sort = $i++;
+            $file_arr_model->image = 1;
+            $file_arr_model->image_thumb = 1;
+            $file_arr_model->save();
+
+        }
+
     }
 
     protected function findModel($id)

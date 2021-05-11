@@ -118,3 +118,6 @@ a.desc:after {
     font-weight: bold;
 }
 
+.sortable .thumbnail {
+    width:150px
+}

@@ -6,9 +6,12 @@ use app\helpers\HasBoxProductHelper;
 use app\helpers\WithoutPhotoProductHelper;
 use app\helpers\KitProductHelper;
 use app\assets\MagnificPopapAppAsset;
+use app\assets\SortableAppAsset;
+use kartik\sortable\Sortable;
 
 
 MagnificPopapAppAsset::register($this);
+SortableAppAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -210,12 +213,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             <?php
+
+            $input_sort = [];
             $files = $model->files;
             $number_row = 0;
             foreach ($files as $file):
-                $number_row++; ?>
+                $number_row++;
 
-                <div class="col-lg-2 col-xs-6 col-md-4 col-sm-6">
+                $input_sort[] = ['content' =>
+                    '<div class="thumbnail">
+                        <a href="'.Yii::$app->homeUrl . $file->filepath.'" class="magnific-popap">
+                            <img src="'.Yii::$app->homeUrl . $file->filepath_thumb.'" alt="'.$file->title .'">
+                        </a>
+                        <div class="caption">'.
+                    Html::a('Удалить',
+                        ['product/deletefile', 'file_id' => $file->id, 'breadcrumbs_label' => $breadcrumbs_label, 'breadcrumbs_url' => $breadcrumbs_url,],
+                        ['class' => 'label label-danger',
+                            'data' => [
+                                'confirm' => 'Вы уверены что хотите удалить картинку?',
+                                'method' => 'post',],
+                        ]).
+                        '</div>
+                    </div>' ]; ?>
+
+                <!--<div class="col-lg-2 col-xs-6 col-md-4 col-sm-6">
                     <div class="thumbnail">
                         <a href="<?= Yii::$app->homeUrl . $file->filepath ?>" class="magnific-popap">
                             <img src="<?= Yii::$app->homeUrl . $file->filepath_thumb ?>" alt="<?= $file->title ?>">
@@ -230,9 +251,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]) ?>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
             <?php endforeach; ?>
+
+            <?= Sortable::widget([
+                'type' => 'grid',
+                'showHandle' => true,
+                'items' => $input_sort
+            ]); ?>
 
         </div>
 
@@ -295,7 +322,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
 
+
+
     </div>
+
+
+
+
+
 
 
 </div>
