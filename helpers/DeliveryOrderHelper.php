@@ -24,6 +24,8 @@ class DeliveryOrderHelper
             Order::DELIVERY_MAIL => 'Почта России',
             Order::DELIVERY_SDEK_COURIER => 'Курьер СДЭК',
             Order::DELIVERY_OFFICE => 'Офис',
+            Order::DELIVERY_PEC => 'ПЭК',
+            Order::DELIVERY_DOSTAVISTA => 'Dostavista',
         ];
     }
 
@@ -50,6 +52,12 @@ class DeliveryOrderHelper
                 $price = 0;
                 break;
             case Order::DELIVERY_OFFICE:
+                $price = 0;
+                break;
+            case Order::DELIVERY_PEC:
+                $price = 0;
+                break;
+            case Order::DELIVERY_DOSTAVISTA:
                 $price = 0;
                 break;
             default:
@@ -83,6 +91,12 @@ class DeliveryOrderHelper
                 break;
             case Order::DELIVERY_OFFICE:
                 $class = 'badge badge-pill badge-warning';
+                break;
+            case Order::DELIVERY_PEC:
+                $class = 'badge badge-pill badge-dark';
+                break;
+            case Order::DELIVERY_DOSTAVISTA:
+                $class = 'badge badge-pill badge-success';
                 break;
             default:
                 $class = 'badge badge-pill badge-light';

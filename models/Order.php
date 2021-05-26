@@ -41,6 +41,9 @@ class Order extends \yii\db\ActiveRecord
     const DELIVERY_MAIL             = 3;
     const DELIVERY_SDEK_COURIER     = 4;
     const DELIVERY_OFFICE           = 5;
+    const DELIVERY_PEC              = 6;
+    const DELIVERY_DOSTAVISTA       = 7;
+
 
     const PAID_NO                   = 0;
     const PAID_YES                  = 1;
@@ -137,7 +140,10 @@ class Order extends \yii\db\ActiveRecord
                 self::DELIVERY_SDEK_PVZ,
                 self::DELIVERY_MAIL,
                 self::DELIVERY_SDEK_COURIER,
-                self::DELIVERY_OFFICE, ]
+                self::DELIVERY_OFFICE,
+                self::DELIVERY_PEC,
+                self::DELIVERY_DOSTAVISTA,
+                ]
             ],
             ['paid', 'default', 'value' => self::PAID_NO],
             ['paid', 'in', 'range' => [
