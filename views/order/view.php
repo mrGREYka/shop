@@ -139,7 +139,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'num_pack',
                                         'weight',
                                         'promocode',
-                                        'sum_delivery',
+                                        [
+                                            'attribute' => 'sum_delivery',
+                                            'value' => function (app\models\Order $model) {
+                                                if ( $model->edit_sum_delivery == 0 ) {
+                                                    return $model->sum_delivery;
+                                                } else {
+                                                    return $model->sum_delivery . '<span></span> </span><a><span class="glyphicon glyphicon-pencil"></span></a>';
+                                                }
+
+                                            },
+                                            'format' => 'html',
+
+                                        ],
                                         [
                                             'attribute' => 'excpress_delivery_sum',
                                             'label' => 'Срочность ' . $model->excpress_delivery_procent . '%',

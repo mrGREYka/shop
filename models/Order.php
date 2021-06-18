@@ -54,6 +54,9 @@ class Order extends \yii\db\ActiveRecord
     const INTERACTION_EMAIL         = 1;
     const INTERACTION_WHATS_APP     = 2;
 
+    const EDIT_SUM_DELIVERY_NO      = 0;
+    const EDIT_SUM_DELIVERY_YES     = 1;
+
     /**
      * {@inheritdoc}
      */
@@ -86,7 +89,8 @@ class Order extends \yii\db\ActiveRecord
                 'paid',
                 'consignment_note',
                 'num_pack',
-                'interaction', ], 'integer'],
+                'interaction',
+                'edit_sum_delivery', ], 'integer'],
             [['sum',
                 'sum_delivery',
                 'sum_total',
@@ -161,6 +165,12 @@ class Order extends \yii\db\ActiveRecord
                 self::INTERACTION_WHATS_APP, ]
             ],
 
+            ['edit_sum_delivery', 'default', 'value' => self::EDIT_SUM_DELIVERY_NO],
+            ['edit_sum_delivery', 'in', 'range' => [
+                self::EDIT_SUM_DELIVERY_NO,
+                self::EDIT_SUM_DELIVERY_YES, ]
+            ],
+
         ];
     }
 
@@ -207,6 +217,7 @@ class Order extends \yii\db\ActiveRecord
             'interaction' => 'Взаимодействие',
             'excpress_delivery_procent' => 'Срочность %',
             'excpress_delivery_sum' => 'Срочность сумма',
+            'edit_sum_delivery' => 'Редактируемая сумма доставки'
 
         ];
     }
@@ -284,10 +295,13 @@ class Order extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        if ( $this->sum < DeliveryOrderHelper::getMinSumFree() ) {
-            $this->sum_delivery = DeliveryOrderHelper::getPrice($this->dost);
-        } else {
-            $this->sum_delivery = 0;
+
+        if ( $this->edit_sum_delivery == 0 ) {
+            if ($this->sum < DeliveryOrderHelper::getMinSumFree()) {
+                $this->sum_delivery = DeliveryOrderHelper::getPrice($this->dost);
+            } else {
+                $this->sum_delivery = 0;
+            }
         }
 
         $this->sum_total = $this->sum_delivery + $this->sum;

@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\helpers\StatusOrderHelper;
+use app\helpers\EditSumDeliveryHelper;
 use app\helpers\TimefinishOrderHelper;
 use app\helpers\DeliveryOrderHelper;
 use app\helpers\PaidOrderHelper;
@@ -13,10 +14,12 @@ use app\helpers\InteractionOrderHelper;
 use kartik\date\DatePicker;
 use app\assets\DaDataAppAsset;
 use app\assets\SelectpickerAppAsset;
+use app\assets\EditDeliveryAppAsset;
 
 
 DaDataAppAsset::register($this);
 SelectpickerAppAsset::register($this);
+EditDeliveryAppAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\order */
@@ -149,10 +152,21 @@ if ( $model->isAnonymous( ) ) {
                     <div class="col-lg-4 col-xs-6 col-sm-4">
                         <?= $form->field($model, 'timefinish')->dropDownList(TimefinishOrderHelper::getList()) ?>
                     </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-xs-4 col-sm-4">
+                        <?= $form->field($model, 'edit_sum_delivery')->checkBox( EditSumDeliveryHelper::getList(), [ 'value' => $model->edit_sum_delivery === null ? 0 : $model->edit_sum_delivery ] ) ?>
+                    </div>
+
+                    <div class="col-lg-4 col-xs-4 col-sm-4 div_excpress_delivery_procent">
+                        <?= $form->field($model, 'sum_delivery')->textInput(['type' => 'number']) ?>
+                    </div>
                     <div class="col-lg-4 col-xs-4 col-sm-4">
                         <?= $form->field($model, 'excpress_delivery_procent')->textInput(['type' => 'number']) ?>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-lg-4 col-xs-4 col-sm-3">
                         <?= $form->field($model, 'weight')->textInput(['type' => 'number','step' => 'any']) ?>
